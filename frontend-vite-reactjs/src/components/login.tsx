@@ -1,6 +1,7 @@
 import { ConnectButton, useActiveAccount } from "thirdweb/react"
 import { client,chain } from "../utils/constants"
 import Counter from "./counter";
+import Test from "./test";
 
 const Login: React.FC = () => {
     const account = useActiveAccount();
@@ -22,7 +23,8 @@ const Login: React.FC = () => {
                             // size: "wide",
                         }}
                     />
-                    <Counter />
+                    {/* <Counter /> */}
+                    <Test />
                 </div>
             ) : (
                 <div style={{ textAlign: "center"}}>

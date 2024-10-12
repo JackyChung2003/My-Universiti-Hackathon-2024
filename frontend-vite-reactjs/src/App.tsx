@@ -239,12 +239,18 @@ import thirdwebIcon from "./thirdweb.svg";
 // import { client } from "./client-not-in-use";
 import { client } from "./utils/constants";
 import Login from "./components/login";
+// import { useTotalCampaigns } from "./hooks/useTotalCampaigns";
+import CampaignInfoTemp from "./components/CampaignInfoTemp";
 
 export function App() {
+	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
+
 	return (
 		<div>
 			<h1> Counter</h1>
+			{/* <CampaignInfoTemp /> */}
 			<Login />
+			{/* <h1>Total Campaigns: {totalCampaigns?.toString()}</h1> */}
 		</div>
 	);
 }

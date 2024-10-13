@@ -56,7 +56,12 @@ contract CampaignManagement {
         locked = false;
     }
 
-    event CampaignCreated(uint256 campaignId, address indexed owner);
+    // event CampaignCreated(uint256 campaignId, address indexed owner);
+    event CampaignCreated(
+        uint256 indexed campaignId,
+        address indexed owner,
+        string title
+    );
     event DonationReceived(
         uint256 campaignId,
         address indexed donator,
@@ -99,8 +104,11 @@ contract CampaignManagement {
             _deadline > block.timestamp,
             "The deadline should be in the future."
         );
+        require(_target > 0, "Target must be greater than 0.");
 
-        Campaign storage newCampaign = campaigns[numberOfCampaigns];
+        uint256 campaignId = numberOfCampaigns; // Use current campaign count as ID
+
+        Campaign storage newCampaign = campaigns[campaignId];
         newCampaign.owner = msg.sender;
         newCampaign.title = _title;
         newCampaign.description = _description;
@@ -111,10 +119,10 @@ contract CampaignManagement {
         newCampaign.paused = false;
         newCampaign.canceled = false;
 
-        emit CampaignCreated(numberOfCampaigns, msg.sender);
+        emit CampaignCreated(campaignId, msg.sender, _title); // Emit event with campaign ID
 
-        numberOfCampaigns++;
-        return numberOfCampaigns - 1;
+        numberOfCampaigns++; // Increment the total number of campaigns
+        return campaignId; // Return the newly created campaign ID
     }
 
     // Function for users to donate to the campaign

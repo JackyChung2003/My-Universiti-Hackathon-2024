@@ -2,169 +2,156 @@ import { TransactionButton, useReadContract, useSendTransaction  } from "thirdwe
 import React, { useState } from "react";
 import { CONTRACT } from "../utils/constants";
 import { prepareContractCall } from "thirdweb";
-// import { useContractWrite, Web3Button} from "@thirdweb-dev/react";
-import { useContract, useContractRead, useContractWrite, Web3Button } from "@thirdweb-dev/react";
-// import { useCampaignFunctions } from "../hooks/useCampaignFunctions";
-// import { useCampaignFunctions } from "../hooks/useCreateCampaignTransaction";
+import { Link } from 'react-router-dom';
 
 const CampaignInfoTemp: React.FC = () => {
+  // const { contract } = useContract(CONTRACT.address);
 
-  //   const { mutate: sendTransaction } = useSendTransaction();
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    target: "",
+    deadline: "",
+  });
+  const [campaignId, setCampaignId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  //   const onClick = () => {
-  //       const transaction = prepareContractCall({
-  //         contract,
-  //         method: "function createCampaign(string _title, string _description, uint256 _target, uint256 _deadline) returns (uint256)",
-  //         params: [_title, _description, _target, _deadline]
-  //       });
-  //       sendTransaction(transaction);
-  //     };
+  // Handle form input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    
-  //   const { publishCampaign } = useCampaignFunctions(CONTRACT.address);
-  //   const [form, setForm] = useState({
-  //       title: "",
-  //       description: "",
-  //       target: "",
-  //       deadline: "",
-  //       image: "",
-  //     });
-  //     const [loading, setLoading] = useState(false);
-  //     const [error, setError] = useState<string | null>(null);
+  // READ data from the smart contract using Method: getTotalCampaigns
+  // const { data: numberOfCampaigns, isLoading: loadingTotalCampaign, refetch} = useReadContract({
+  //     contract: CONTRACT,
+  //     method: "getTotalCampaigns",
+  // });
+  
+  const { data: allCampaigns, isLoading: loadingEventDetail, refetch: refetchAllCampaigns } = useReadContract({
+    contract: CONTRACT,
+    method: "getAllCampaigns",
+  });
+  
+  const { data: CampaignBalance, isLoading: loadingCampaignBalance, refetch: refetchCampaignBalance} = useReadContract({
+      contract: CONTRACT,
+      method: "getContractBalance",
+      params: ["0x479d9Fb099b6C8260629BBfee826D00F8AC1ea31"],
+  });
+  
+  return (
+      <div style={{ marginTop: "20px" }}>
+          {/* Form to create a new campaign */}
+          <h2>Create New Campaign</h2>
+          <input
+            type="text"
+            name="title"
+            placeholder="Campaign Title"
+            value={form.title}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Campaign Description"
+            value={form.description}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="target"
+            placeholder="Target Amount (in ETH)"
+            value={form.target}
+            onChange={handleChange}
+          />
+          <input
+            type="date"
+            name="deadline"
+            placeholder="Deadline"
+            value={form.deadline}
+            onChange={handleChange}
+          />
+          {/* <input
+            type="text"
+            name="image"
+            placeholder="Image URL"
+            value={form.image}
+            onChange={handleChange}
+          /> */}
+          <TransactionButton
+            transaction={() =>
+              prepareContractCall({
+                contract: CONTRACT,
+                method: "createCampaign",
+                params: [
+                  form.title,
+                  form.description,
+                  BigInt(form.target), // Convert to BigInt for Solidity compatibility
+                  BigInt(new Date(form.deadline).getTime() / 1000), // Deadline as Unix timestamp
+                ],
+              })
+            }
+            onTransactionSent={() => console.log("Transaction sent...")}
+            // onTransactionConfirmed={() => refetch()}
+            onTransactionConfirmed={(receipt) => {
+              console.log("Transaction confirmed", receipt.transactionHash);
+              console.log("Transaction logs:", receipt.logs); // Print all logs for debugging
+              // refetch(); // Refetch campaigns on confirmation
+              refetchAllCampaigns();
+              refetchCampaignBalance();
+            }}
+          >
+            Create Campaign
+          </TransactionButton>
+          {/* READ the number of Campaigns */}
+          <h1>---------------------------------------</h1>
 
-  //     // Handle form input changes
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setForm({
-  //     ...form,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+          {/* <h1>Total Campaigns</h1>
+          {loadingTotalCampaign ? (
+            <p>Loading campaign number...</p>
+          ) : (
+            <p>Campaign Num: {numberOfCampaigns?.toString()}</p>
+          )} */}
 
-  // // Handle form submission
-  // const handleSubmit = async () => {
-  //   setLoading(true);
-  //   setError(null);
-  //   try {
-  //     await publishCampaign(form); // Call the publishCampaign function
-  //     console.log("Campaign created successfully");
-  //   } catch (error) {
-  //     setError("Failed to create campaign");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+          <h1>---------------------------------------</h1>
+          
+          <h1>ALL Campaigns Details</h1>
+          {allCampaigns ? (
+            <p>Loading campaign info...</p>
+          ) : (
+            <p>Campaign Info: {allCampaigns}</p>
+          )}
 
-    
+          <h1>---------------------------------------</h1>
 
+          <h1>Campaign Balance</h1>
+          {loadingCampaignBalance ? (
+            <p>Loading campaign balance...</p>
+          ) : (
+            <p>Campaign Balance: {CampaignBalance?.toString()}</p>
+          )}
 
-    // READ data from the smart contract using Method: getTotalCampaigns
-    const { data: numberOfCampaigns, isLoading: loadingTotalCampaign, refetch} = useReadContract({
-        contract: CONTRACT,
-        method: "getTotalCampaigns",
-    });
+          <h1>---------------------------------------</h1>
+          <p>Contract address: {CONTRACT.address}</p>
+          
+          <h1>---------------------------------------</h1>
 
+          <h1>ALL Campaigns Details</h1>
+          {allCampaigns?.map((campaign, index) => (
+            <div key={index}>
+              <p>Campaign Address: {campaign.campaignAddress}</p>
+              <p>Owner: {campaign.owner}</p>
+              <p>Name: {campaign.name}</p>
+              <p>Creation Time: {campaign.creationTime.toString()}</p>
+              <Link to={`/campaign/${campaign.campaignAddress}`}>
+                <button>View Details</button>
+              </Link>
+            </div>
+          ))}
 
-
-    return (
-        // <div style={{marginTop: "20px"}}>
-
-        //     {/* <Web3Button
-        //      contractAddress={contractAddress}
-        //      // Calls the "setName" function on your smart contract with "My Name" as the first argument
-        //      action={() => mutateAsync({ args: ["My Name"] })}
-        //    >
-        //      Send Transaction
-        //    </Web3Button> */}
-
-        //     {/* READ the number of Campaign */}
-        //     <h1> Total Campaign</h1>
-        //     {loadingTotalCampaign ? (
-        //         <p> Loading campaign number...</p>
-        //     ) : (
-        //         <p> Campaign Num: {numberOfCampaigns?.toString()}</p>
-        //     )}
-
-
-        //     <div style={{
-        //         display: "flex",
-        //         justifyContent: "center",
-        //         gap: "10px",
-        //         marginTop: "10px",
-        //     }}>
-        //         {/* <TransactionButton
-        //             transaction={() => prepareContractCall({
-        //                 contract: CONTRACT,
-        //                 method: "decrement"
-        //             })}
-        //             onTransactionSent={() => console.log("decrementing....")}
-        //             onTransactionConfirmed={() => refetch()}
-        //         >-</TransactionButton>
-                    
-        //         <TransactionButton
-        //             transaction={() => prepareContractCall({
-        //                 contract: CONTRACT,
-        //                 method: "increment"
-        //             })}
-        //             onTransactionSent={() => console.log("incrementing....")}
-        //             onTransactionConfirmed={() => refetch()}
-        //         >+</TransactionButton> */}
-
-        //     </div>
-        // </div>
-
-        <div style={{ marginTop: "20px" }}>
-            {/* Form to create a new campaign */}
-            <h2>Create New Campaign</h2>
-            <input
-              type="text"
-              name="title"
-              placeholder="Campaign Title"
-              // value={form.title}
-              // onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Campaign Description"
-              // value={form.description}
-              // onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="target"
-              placeholder="Target Amount (in ETH)"
-              // value={form.target}
-              // onChange={handleChange}
-            />
-            <input
-              type="date"
-              name="deadline"
-              placeholder="Deadline"
-              // value={form.deadline}
-              // onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="image"
-              placeholder="Image URL"
-              // value={form.image}
-              // onChange={handleChange}
-            />
-            {/* <button onClick={handleSubmit} disabled={loading}>
-              {loading ? "Creating Campaign..." : "Create Campaign"}
-            </button> */}
-        
-            {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
-        
-            {/* READ the number of Campaigns */}
-            <h1>Total Campaigns</h1>
-            {loadingTotalCampaign ? (
-              <p>Loading campaign number...</p>
-            ) : (
-              <p>Campaign Num: {numberOfCampaigns?.toString()}</p>
-            )}
-        </div>
-    )
+      
+      </div>
+  )
 }
 
 export default CampaignInfoTemp; 

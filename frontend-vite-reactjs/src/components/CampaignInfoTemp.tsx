@@ -1,7 +1,7 @@
-import { TransactionButton, useReadContract, useSendTransaction  } from "thirdweb/react";
-import React, { useState } from "react";
+import { TransactionButton, useReadContract, useSendTransaction, useActiveAccount, useContractEvents  } from "thirdweb/react";
+import React, { useEffect, useState } from "react";
 import { CONTRACT } from "../utils/constants";
-import { prepareContractCall } from "thirdweb";
+import { prepareContractCall, prepareEvent } from "thirdweb";
 import { Link } from 'react-router-dom';
 
 const CampaignInfoTemp: React.FC = () => {
@@ -38,7 +38,44 @@ const CampaignInfoTemp: React.FC = () => {
       method: "getContractBalance",
       params: ["0x479d9Fb099b6C8260629BBfee826D00F8AC1ea31"],
   });
+
+  const activeAccount = useActiveAccount();
+  console.log("address", activeAccount?.address);
+
+  const { data: adminAddress, isLoading: loadingAdminAddress } = useReadContract({
+    contract: CONTRACT,
+    method: "admin",
+  });
+
+  if (loadingAdminAddress) {
+    console.log("Loading admin address...");
+  } else {
+    console.log("Admin Address in Contract:", adminAddress);
+  }
+
+  const DonationReceivedEvent = prepareEvent({
+    signature: "event DonationReceived(address indexed campaign, address indexed donor, uint256 amount)",
+  });
+
+  // // Fetch the DonationReceived events
+  // const fetchDonationReceivedEvents = useContractEvents({
+  //   contract: CONTRACT,
+  //   // event: "DonationReceived",
+  //   events: [DonationReceivedEvent],
+  // });
   
+  // Fetch the DonationReceived events
+  const { data: events, isLoading: isDonationReceivedEventLoading, error: donationError } = useContractEvents({
+    contract: CONTRACT,
+    events: [DonationReceivedEvent],
+  });
+
+  // Print errors if they occur
+  useEffect(() => {
+    if (donationError) console.error("Failed to fetch events:", donationError);
+  }, [donationError]);
+
+    
   return (
       <div style={{ marginTop: "20px" }}>
           {/* Form to create a new campaign */}
@@ -86,7 +123,7 @@ const CampaignInfoTemp: React.FC = () => {
                 params: [
                   form.title,
                   form.description,
-                  BigInt(form.target), // Convert to BigInt for Solidity compatibility
+                  BigInt(Number(form.target) * 1000000000000000000), // Target amount in wei
                   BigInt(new Date(form.deadline).getTime() / 1000), // Deadline as Unix timestamp
                 ],
               })
@@ -146,10 +183,61 @@ const CampaignInfoTemp: React.FC = () => {
               <Link to={`/campaign/${campaign.campaignAddress}`}>
                 <button>View Details</button>
               </Link>
+
+              <TransactionButton
+                  transaction={() => prepareContractCall({
+                      contract: CONTRACT,
+                      method: "togglePause",
+                      params: [campaign.campaignAddress],
+                  })}
+                  onTransactionConfirmed={() => {
+                    refetchAllCampaigns();
+                    refetchCampaignBalance();
+                  }}
+              >Toggle Pause</TransactionButton>
             </div>
           ))}
 
-      
+          <h1>---------------------------------------</h1>
+          <p>activeAccount: {activeAccount ? activeAccount.address : "No active account"}</p>
+          <p>adminAddress: {adminAddress}</p>
+
+          <h1>---------------------------------------</h1>
+          <p>Donation Received Events</p>
+
+    {isDonationReceivedEventLoading ? (
+        <p>Loading events...</p>
+      ) : events && events.length > 0 ? (
+        <ul>
+          {events.map((event, index) => (
+            <li key={index}>
+              <p>
+                <strong>Campaign:</strong> {event.args.campaign}
+              </p>
+              <p>
+                <strong>Donor:</strong> {event.args.donor}
+              </p>
+              <p>
+                <strong>Amount:</strong> {event.args.amount.toString()} wei
+              </p>
+              <p>
+                <strong>Transaction Hash:</strong>{" "}
+                <a
+                  href={`https://etherscan.io/tx/${event.transactionHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {event.transactionHash}
+                </a>
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No donations received yet.</p>
+      )}
+
+          
       </div>
   )
 }

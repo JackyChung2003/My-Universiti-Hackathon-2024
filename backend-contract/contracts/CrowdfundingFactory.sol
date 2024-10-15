@@ -35,7 +35,7 @@ contract CrowdfundingFactory {
 
     constructor() {
         owner = msg.sender;
-        admin = msg.sender;
+        // admin = msg.sender;
     }
 
     // Create a new crowdfunding campaign
@@ -43,8 +43,8 @@ contract CrowdfundingFactory {
         string memory _name,
         string memory _description,
         uint256 _goal,
-        uint256 _durationInDays
-    ) public onlyAdmin {
+        uint256 _durationInDays // ) public onlyOwner {
+    ) public {
         Crowdfunding newCampaign = new Crowdfunding(
             msg.sender,
             _name,
@@ -61,7 +61,10 @@ contract CrowdfundingFactory {
             creationTime: block.timestamp
         });
 
+        // Push the campaign to the list of all campaigns
         campaigns.push(campaign);
+
+        // Associate the campaign with the user who created it
         // userCampaigns[msg.sender].push(campaign);
         userCampaigns[msg.sender].push(campaigns[campaigns.length - 1]);
     }
@@ -92,6 +95,28 @@ contract CrowdfundingFactory {
             campaign.paused(),
             campaign.state()
         );
+    }
+
+    // Function to get the donors and their contributions for a specific campaign
+    function getCampaignDonors(
+        address _campaignAddress
+    )
+        external
+        view
+        returns (address[] memory donors, uint256[] memory contributions)
+    {
+        // Crowdfunding campaign = Crowdfunding(_campaignAddress);
+        // return campaign.getDonators(); // Calling the getDonators() from Crowdfunding.sol
+
+        Crowdfunding campaign = Crowdfunding(_campaignAddress);
+        (donors, contributions) = campaign.getDonators();
+
+        // Check for consistency
+        require(
+            donors.length == contributions.length,
+            "Mismatch in donor data."
+        );
+        return (donors, contributions);
     }
 
     function getContractBalance(
@@ -136,7 +161,8 @@ contract CrowdfundingFactory {
     // Write functions to trigger campaign actions
     function fundCampaign(address _campaignAddress) external payable {
         Crowdfunding campaign = Crowdfunding(_campaignAddress);
-        campaign.fund{value: msg.value}();
+        // campaign.fund{value: msg.value}();
+        campaign.fund{value: msg.value}(msg.sender); // Pass user address explicitly
     }
 
     // function addTier(
@@ -176,18 +202,58 @@ contract CrowdfundingFactory {
         campaign.refund();
     }
 
-    // Factory functions
+    // Factory functions, get created campaigns
     function getUserCampaigns(
         address _user
     ) external view returns (Campaign[] memory) {
         return userCampaigns[_user];
     }
 
+    // Get all campaigns the user has contributed to
+    function getUserFundedCampaigns(
+        address _user
+    ) external view returns (Campaign[] memory) {
+        uint256 fundedCount = 0;
+
+        // First, count the campaigns the user funded
+        for (uint256 i = 0; i < campaigns.length; i++) {
+            Crowdfunding campaign = Crowdfunding(campaigns[i].campaignAddress);
+
+            // Destructure the backer struct returned by the mapping
+            (uint256 contribution, ) = campaign.backers(_user);
+
+            if (contribution > 0) {
+                fundedCount++;
+            }
+        }
+
+        // Create an array to store the campaigns the user funded
+        Campaign[] memory fundedCampaigns = new Campaign[](fundedCount);
+        uint256 index = 0;
+
+        // Populate the array with the campaigns the user funded
+        for (uint256 i = 0; i < campaigns.length; i++) {
+            Crowdfunding campaign = Crowdfunding(campaigns[i].campaignAddress);
+            (uint256 contribution, ) = campaign.backers(_user);
+
+            if (contribution > 0) {
+                fundedCampaigns[index] = campaigns[i];
+                index++;
+            }
+        }
+
+        return fundedCampaigns;
+    }
+
     function getAllCampaigns() external view returns (Campaign[] memory) {
         return campaigns;
     }
 
-    function toggleFactoryPause() external onlyOwner {
+    // function toggleFactoryPause() external onlyOwner {
+    //     paused = !paused;
+    // }
+
+    function toggleFactoryPause() external {
         paused = !paused;
     }
 

@@ -11,7 +11,7 @@ export const client = createThirdwebClient({
 export const chain = defineChain(17000) // chainId 17000 is the chain ID for the HoleSky testnet
 
 // const contractAddress = import.meta.env.VITE_TEMPLATE_CONTRACT_ADDRESS;
-const contractAddress = "0x2066F76a7b528d12492E11d1897DEF06e64c5A57";
+const contractAddress = "0x3f9F2C089b28C0da7574Bcb7ECC80697b79feb2E";
 
 const contractABI = [
   {
@@ -217,6 +217,30 @@ const contractABI = [
         "type": "address"
       }
     ],
+    "name": "getCampaignDonors",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "donors",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "contributions",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      }
+    ],
     "name": "getCampaignStatus",
     "outputs": [
       {
@@ -289,8 +313,14 @@ const contractABI = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "myRecords",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "getUserFundedCampaigns",
     "outputs": [
       {
         "components": [

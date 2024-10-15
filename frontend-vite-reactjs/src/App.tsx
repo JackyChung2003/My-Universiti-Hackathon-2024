@@ -244,6 +244,7 @@ import CampaignInfoTemp from "./components/CampaignInfoTemp";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import CampaignDetails from './components/CampaignDetails';
 import CampaignDetails from "./components/CampaignDetails";
+import UserDetails from "./components/UserDetail";
 
 export function App() {
 	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
@@ -258,7 +259,9 @@ export function App() {
 		<Router>
     	  <Routes>
     	    <Route path="/" element={<Login />} />
-    	    <Route path="/campaign/:address" element={<CampaignDetails />} />
+			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
+			<Route path="/user/:donorAddress" element={<UserDetails />} />
+
     	  </Routes>
     	</Router>
 	);

@@ -252,6 +252,13 @@ contract Crowdfunding {
     address public owner;
     bool public paused;
 
+    // Event to capture donations with campaign address
+    event DonationReceived(
+        address indexed campaign,
+        address indexed donor,
+        uint256 amount
+    );
+
     enum CampaignState {
         Active,
         Successful,
@@ -265,9 +272,11 @@ contract Crowdfunding {
 
     struct Backer {
         uint256 totalContribution;
+        bool exists; // Track if this address has already donated
     }
 
     mapping(address => Backer) public backers;
+    address[] public donorAddresses; // Store unique donor addresses
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not the owner.");
@@ -299,42 +308,126 @@ contract Crowdfunding {
         state = CampaignState.Active;
     }
 
+    // function checkAndUpdateCampaignState() internal {
+    //     if (state == CampaignState.Active) {
+    //         if (block.timestamp >= deadline) {
+    //             state = address(this).balance >= goal
+    //                 ? CampaignState.Successful
+    //                 : CampaignState.Failed;
+    //         } else {
+    //             state = address(this).balance >= goal
+    //                 ? CampaignState.Successful
+    //                 : CampaignState.Active;
+    //         }
+    //     }
+    // }
+
     function checkAndUpdateCampaignState() internal {
-        if (state == CampaignState.Active) {
-            if (block.timestamp >= deadline) {
-                state = address(this).balance >= goal
-                    ? CampaignState.Successful
-                    : CampaignState.Failed;
-            } else {
-                state = address(this).balance >= goal
-                    ? CampaignState.Successful
-                    : CampaignState.Active;
-            }
+        if (state == CampaignState.Active && block.timestamp >= deadline) {
+            state = address(this).balance >= goal
+                ? CampaignState.Successful
+                : CampaignState.Failed;
         }
     }
 
-    function fund() public payable campaignOpen notPaused {
+    function fund(address donor) public payable campaignOpen notPaused {
         require(msg.value > 0, "Donation amount must be greater than zero.");
-        backers[msg.sender].totalContribution += msg.value;
+
+        // // If this is the donor's first contribution, store their address
+        // if (!backers[msg.sender].exists) {
+        //     backers[msg.sender].exists = true;
+        //     donorAddresses.push(msg.sender);
+        // }
+        // If this is the donor's first contribution, store their address
+        // if (!backers[msg.sender].exists) {
+        //     backers[msg.sender] = Backer(msg.value, true);
+        //     donorAddresses.push(msg.sender);
+        // } else {
+        //     backers[msg.sender].totalContribution += msg.value;
+        // }
+
+        // Check if the donor has contributed before
+        if (!backers[donor].exists) {
+            backers[donor] = Backer({
+                totalContribution: msg.value,
+                exists: true
+            });
+            donorAddresses.push(donor); // Store the donor address if new
+        } else {
+            // If already exists, just increase their contribution
+            backers[donor].totalContribution += msg.value;
+        }
+
+        // Emit the event with campaign address, donor address, and amount
+        emit DonationReceived(address(this), donor, msg.value);
+
+        // backers[msg.sender].totalContribution += msg.value;
         checkAndUpdateCampaignState();
     }
 
-    function refundDonors() public onlyOwner {
-        require(
-            state == CampaignState.Canceled || state == CampaignState.Failed,
-            "Refund not allowed."
-        );
+    // function refundDonors() public onlyOwner {
+    //     require(
+    //         state == CampaignState.Canceled || state == CampaignState.Failed,
+    //         "Refund not allowed."
+    //     );
 
-        address[] memory donors = getAllBackers();
-        for (uint256 i = 0; i < donors.length; i++) {
-            address donor = donors[i];
-            uint256 donation = backers[donor].totalContribution;
-            backers[donor].totalContribution = 0;
-            payable(donor).transfer(donation);
+    //     address[] memory donors = getAllBackers();
+    //     for (uint256 i = 0; i < donors.length; i++) {
+    //         address donor = donors[i];
+    //         uint256 donation = backers[donor].totalContribution;
+    //         backers[donor].totalContribution = 0;
+    //         payable(donor).transfer(donation);
+    //     }
+    // }
+
+    // Get all donors and their contributions
+    function getDonators()
+        public
+        view
+        returns (address[] memory, uint256[] memory)
+    {
+        uint256 numDonors = donorAddresses.length;
+        address[] memory donors = new address[](numDonors);
+        uint256[] memory contributions = new uint256[](numDonors);
+
+        for (uint256 i = 0; i < numDonors; i++) {
+            // donors[i] = donorAddresses[i];
+            // contributions[i] = backers[donorAddresses[i]].totalContribution;
+
+            address donor = donorAddresses[i]; // Get the donor's address
+            donors[i] = donor;
+            contributions[i] = backers[donor].totalContribution; // Fetch the correct contribution
         }
+
+        return (donors, contributions);
     }
 
-    function withdraw() public onlyOwner {
+    // function refundDonors() public {
+    //     require(
+    //         state == CampaignState.Canceled || state == CampaignState.Failed,
+    //         "Refund not allowed."
+    //     );
+
+    //     address[] memory donors = getAllBackers();
+    //     for (uint256 i = 0; i < donors.length; i++) {
+    //         address donor = donors[i];
+    //         uint256 donation = backers[donor].totalContribution;
+    //         backers[donor].totalContribution = 0;
+    //         payable(donor).transfer(donation);
+    //     }
+    // }
+
+    // function withdraw() public onlyOwner {
+    //     checkAndUpdateCampaignState();
+    //     require(state == CampaignState.Successful, "Campaign not successful.");
+
+    //     uint256 balance = address(this).balance;
+    //     require(balance > 0, "No balance to withdraw.");
+
+    //     payable(owner).transfer(balance);
+    // }
+
+    function withdraw() public {
         checkAndUpdateCampaignState();
         require(state == CampaignState.Successful, "Campaign not successful.");
 
@@ -348,10 +441,20 @@ contract Crowdfunding {
         return address(this).balance;
     }
 
-    function refund() public {
-        checkAndUpdateCampaignState();
-        require(state == CampaignState.Failed, "Refunds not available.");
+    // // Only refund if the campaign has failed, and the backer has contributed, and contract must hold enough balance to refund:
+    // function refund() public {
+    //     checkAndUpdateCampaignState();
+    //     require(state == CampaignState.Failed, "Refunds not available.");
 
+    //     uint256 amount = backers[msg.sender].totalContribution;
+    //     require(amount > 0, "No contribution to refund.");
+
+    //     backers[msg.sender].totalContribution = 0;
+    //     payable(msg.sender).transfer(amount);
+    // }
+
+    function refund() public {
+        require(state == CampaignState.Failed, "Refunds not available.");
         uint256 amount = backers[msg.sender].totalContribution;
         require(amount > 0, "No contribution to refund.");
 
@@ -385,24 +488,45 @@ contract Crowdfunding {
         return backerAddresses;
     }
 
-    function pauseCampaign() public onlyOwner campaignOpen {
+    // function pauseCampaign() public onlyOwner campaignOpen {
+    //     state = CampaignState.Paused;
+    // }
+
+    function pauseCampaign() public campaignOpen {
         state = CampaignState.Paused;
     }
 
-    function resumeCampaign() public onlyOwner {
+    // function resumeCampaign() public onlyOwner {
+    //     require(state == CampaignState.Paused, "Not paused.");
+    //     state = CampaignState.Active;
+    // }
+
+    function resumeCampaign() public {
         require(state == CampaignState.Paused, "Not paused.");
         state = CampaignState.Active;
     }
 
-    function cancelCampaign() public onlyOwner campaignOpen {
+    // function cancelCampaign() public onlyOwner campaignOpen {
+    //     state = CampaignState.Canceled;
+    // }
+
+    function cancelCampaign() public campaignOpen {
         state = CampaignState.Canceled;
     }
 
-    function extendDeadline(uint256 _daysToAdd) public onlyOwner campaignOpen {
+    // function extendDeadline(uint256 _daysToAdd) public onlyOwner campaignOpen {
+    //     deadline += _daysToAdd * 1 days;
+    // }
+
+    function extendDeadline(uint256 _daysToAdd) public campaignOpen {
         deadline += _daysToAdd * 1 days;
     }
 
-    function togglePause() public onlyOwner {
+    // function togglePause() public onlyOwner {
+    //     paused = !paused;
+    // }
+
+    function togglePause() public {
         paused = !paused;
     }
 

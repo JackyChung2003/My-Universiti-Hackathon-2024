@@ -244,7 +244,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Crowdfunding {
+contract EVCrowdfunding {
     string public name;
     string public description;
     uint256 public goal;
@@ -269,6 +269,7 @@ contract Crowdfunding {
         Expired
     }
     CampaignState public state;
+    uint256 public finalAmountCollected; // global variable to store the final amount collected
 
     struct Backer {
         uint256 totalContribution;
@@ -277,6 +278,7 @@ contract Crowdfunding {
 
     mapping(address => Backer) public backers;
     address[] public donorAddresses; // Store unique donor addresses
+    mapping(address => uint256) public backupContributions; // Backup contributions for all donors
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not the owner.");
@@ -290,6 +292,14 @@ contract Crowdfunding {
 
     modifier notPaused() {
         require(!paused, "Contract is paused.");
+        _;
+    }
+
+    modifier notFinalized() {
+        require(
+            state != CampaignState.Finalized,
+            "Campaign already finalized."
+        );
         _;
     }
 
@@ -542,5 +552,54 @@ contract Crowdfunding {
 
     function myRecords() public view returns (uint256) {
         return backers[msg.sender].totalContribution;
+    }
+
+    // function finalizeCampaign() public onlyOwner {
+    //     require(state == CampaignState.Successful, "Campaign not successful.");
+
+    //     state = CampaignState.Finalized;
+    // }
+
+    // Function to finalize the campaign
+    function finalizeCampaign() external notFinalized {
+        // // Check if the campaign goal was met
+        // if (address(this).balance >= goal) {
+        //     state = CampaignState.Successful;
+        //     // Send funds to the campaign owner
+        //     payable(owner).transfer(address(this).balance);
+        // } else {
+        //     state = CampaignState.Failed;
+        // }
+
+        // // Update campaign state to finalized
+        // state = CampaignState.Finalized;
+
+        // Check if the campaign goal was met and update the state
+        if (address(this).balance >= goal) {
+            state = CampaignState.Successful;
+        } else {
+            state = CampaignState.Failed;
+        }
+
+        // Record the final amount collected in the campaign
+        finalAmountCollected = address(this).balance;
+
+        // Get all donors and their contributions
+        (
+            address[] memory donors,
+            uint256[] memory contributions
+        ) = getDonators();
+
+        // Backup contributions for all donors
+        for (uint256 i = 0; i < donors.length; i++) {
+            backupContributions[donors[i]] = contributions[i]; // Store contributions for future use
+        }
+        // Update the campaign state to finalized
+        state = CampaignState.Finalized;
+    }
+
+    // Function to return final amount collected in the campaign
+    function getFinalAmountCollected() public view returns (uint256) {
+        return finalAmountCollected;
     }
 }

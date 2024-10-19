@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { ConnectButton, lightTheme, useActiveAccount, useDisconnect } from "thirdweb/react"; // Import useDisconnect for logout functionality
 import { client, chain } from "../utils/constants";
 import CampaignInfoTemp from "./CampaignInfoTemp";
@@ -9,6 +9,14 @@ import logoImage from "../image/logo-name.png"; // Import logo
 const Login: React.FC = () => {
     const account = useActiveAccount(); // Check if the user is signed in
     const { disconnect } = useDisconnect(); // Destructure disconnect function
+    const navigate = useNavigate(); // Hook for navigation
+
+    // Effect to navigate to the dashboard once the user connects
+    useEffect(() => {
+        if (account) {
+            navigate("/dashboard"); // Navigate to the dashboard after connection
+        }
+    }, [account, navigate]);
 
     return (
         <div
@@ -96,9 +104,9 @@ const Login: React.FC = () => {
                             chain={chain}
                             theme={lightTheme({
                                 colors: {
-                                  modalBg: "#051F20",
+                                    modalBg: "#051F20",
                                 },
-                              })}
+                            })}
                         />
                     </div>
                 )}

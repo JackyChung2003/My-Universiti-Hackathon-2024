@@ -246,6 +246,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CampaignDetails from "./components/CampaignDetails";
 import UserDetails from "./components/UserDetail";
 import HomePage from "./components/home";
+import Dashboard from "./components/dashboard";
 
 export function App() {
 	return (
@@ -256,6 +257,7 @@ export function App() {
 			
 			{/* Login Route */}
 			<Route path="/login" element={<Login />} />
+			<Route path="/dashboard" element={<Dashboard />} />
 			
 			{/* Existing Routes */}
 			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />

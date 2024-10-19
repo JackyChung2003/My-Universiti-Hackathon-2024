@@ -248,25 +248,18 @@ import UserDetails from "./components/UserDetail";
 import HomePage from "./components/home";
 
 export function App() {
-	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
-
 	return (
-		// <div>
-		// 	<h1> Counter</h1>
-		// 	{/* <CampaignInfoTemp /> */}
-		// 	<Login />
-		// 	{/* <h1>Total Campaigns: {totalCampaigns?.toString()}</h1> */}
-		// </div>
 		<Router>
     	  <Routes>
     	    {/* HomePage Route */}
     	    <Route path="/" element={<HomePage />} /> 
 			
-			{/* Existing Routes */}
+			{/* Login Route */}
 			<Route path="/login" element={<Login />} />
+			
+			{/* Existing Routes */}
 			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
 			<Route path="/user/:donorAddress" element={<UserDetails />} />
-
     	  </Routes>
     	</Router>
 	);

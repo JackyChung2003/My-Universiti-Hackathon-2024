@@ -245,6 +245,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import CampaignDetails from './components/CampaignDetails';
 import CampaignDetails from "./components/CampaignDetails";
 import UserDetails from "./components/UserDetail";
+import HomePage from "./components/home";
 
 export function App() {
 	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
@@ -258,7 +259,11 @@ export function App() {
 		// </div>
 		<Router>
     	  <Routes>
-    	    <Route path="/" element={<Login />} />
+    	    {/* HomePage Route */}
+    	    <Route path="/" element={<HomePage />} /> 
+			
+			{/* Existing Routes */}
+			<Route path="/login" element={<Login />} />
 			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
 			<Route path="/user/:donorAddress" element={<UserDetails />} />
 

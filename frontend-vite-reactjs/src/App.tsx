@@ -241,28 +241,54 @@ import { client } from "./utils/constants";
 import Login from "./components/login";
 // import { useTotalCampaigns } from "./hooks/useTotalCampaigns";
 import CampaignInfoTemp from "./components/CampaignInfoTemp";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 // import CampaignDetails from './components/CampaignDetails';
 import CampaignDetails from "./components/CampaignDetails";
 import UserDetails from "./components/UserDetail";
 
+
+import HorizontalNavbar from "./containers/Navigation/HorizontalNavBar";
+import { useState } from "react";
+import Dashboard from "./containers/Dashboard";
+import Campaigns from "./containers/Campaigns";
+
 export function App() {
 	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
 
-	return (
-		// <div>
-		// 	<h1> Counter</h1>
-		// 	{/* <CampaignInfoTemp /> */}
-		// 	<Login />
-		// 	{/* <h1>Total Campaigns: {totalCampaigns?.toString()}</h1> */}
-		// </div>
-		<Router>
-    	  <Routes>
-    	    <Route path="/" element={<Login />} />
-			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
-			<Route path="/user/:donorAddress" element={<UserDetails />} />
+	const [isopen, setisopen] = useState(false);
+	const toggle = () => {
+	  setisopen(!isopen);
+	};
 
-    	  </Routes>
-    	</Router>
+	return (
+		<div className="App">
+			<HorizontalNavbar toggle={toggle} />
+			
+			<main>
+				{/* <Router> */}
+    			  <Routes>
+    			    <Route path="/" element={<Login />} />
+					<Route path="/campaign" element={<Campaigns />} />
+    			    <Route path="/contact" element={<Login />} />
+					<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
+					<Route path="/user/:donorAddress" element={<UserDetails />} />
+
+    			  </Routes>
+    			{/* </Router> */}
+			</main>
+		</div>
+
+		// <div className="App">
+		// 	<HorizontalNavbar toggle={toggle} />
+		// 	<main>
+     	// 	  <Routes>
+     	// 	    <Route path="/" element={<Dashboard />} />
+     	// 	    <Route path="/about" element={<Dashboard />} />
+     	// 	    <Route path="/services" element={<Dashboard />} />
+     	// 	    <Route path="/contact" element={<Dashboard />} />
+     	// 	  </Routes>
+     	// 	</main>
+		// </div>
 	);
 }

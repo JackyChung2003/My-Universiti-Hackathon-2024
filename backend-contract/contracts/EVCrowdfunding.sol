@@ -270,6 +270,8 @@ contract EVCrowdfunding {
     }
     CampaignState public state;
     uint256 public finalAmountCollected; // global variable to store the final amount collected
+    uint256 public currentContributions; // variable to track current contributions
+    uint256 public donorNumber; // variable to track the number of unique donors
 
     struct Backer {
         uint256 totalContribution;
@@ -363,10 +365,14 @@ contract EVCrowdfunding {
                 exists: true
             });
             donorAddresses.push(donor); // Store the donor address if new
+            donorNumber++; // Increment the donor number for a new contributor
         } else {
             // If already exists, just increase their contribution
             backers[donor].totalContribution += msg.value;
         }
+
+        // Update currentContributions with the new donation amount
+        currentContributions += msg.value;
 
         // Emit the event with campaign address, donor address, and amount
         emit DonationReceived(address(this), donor, msg.value);
@@ -596,6 +602,10 @@ contract EVCrowdfunding {
         }
         // Update the campaign state to finalized
         state = CampaignState.Finalized;
+    }
+
+    function isFinalized() public view returns (bool) {
+        return state == CampaignState.Finalized;
     }
 
     // Function to return final amount collected in the campaign

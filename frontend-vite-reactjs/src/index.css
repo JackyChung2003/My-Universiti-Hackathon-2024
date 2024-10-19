@@ -20,3 +20,41 @@
     @apply bg-zinc-950 text-neutral-200;
   }
 }
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Color variables */
+  --primary-color: #fffffe;
+  --secondary-color: #72757e;
+  --tertiary-color: #2cb67d;
+  --highlight-color: #7f5af0;
+  --accent-color: #fbbc05;
+  --text-color: #333333;
+  --stroke-color: #010101;
+  --background-color: #051f20;
+  --headline-color: #fffffe;
+  --subheadline-color: #94a1b2;
+
+  /* Card color variables */
+  --card-background-color: #16161a; /* Card background color */
+  --card-header-color: #fffffe; /* Card header color */
+  --card-paragraph-color: #94a1b2; /* Card paragraph color */
+}
+
+/* Ensures that the whole page fills the viewport height */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* border: 1px solid Blue; */
+}
+
+/* Content wrapper handles the flex layout between sidebar and main content */
+.content-wrapper {
+  display: flex;
+  flex-grow: 1; /* Takes up the remaining space after the navbar */
+  overflow: hidden; /* Ensures no unwanted overflow */
+}

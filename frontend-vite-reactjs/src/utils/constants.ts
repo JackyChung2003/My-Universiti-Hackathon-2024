@@ -11,7 +11,8 @@ export const client = createThirdwebClient({
 export const chain = defineChain(17000) // chainId 17000 is the chain ID for the HoleSky testnet
 
 // const contractAddress = import.meta.env.VITE_TEMPLATE_CONTRACT_ADDRESS;
-const contractAddress = "0x3f9F2C089b28C0da7574Bcb7ECC80697b79feb2E";
+// const contractAddress = "0x3f9F2C089b28C0da7574Bcb7ECC80697b79feb2E";
+const contractAddress = "0xd6787384AA1c7876581a1ce46D19Cce0d545664e";
 
 const contractABI = [
   {
@@ -25,6 +26,54 @@ const contractABI = [
     "outputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "campaignContributions",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "campaignRequests",
+    "outputs": [
+      {
+        "internalType": "contract RequestManager",
         "name": "",
         "type": "address"
       }
@@ -60,6 +109,31 @@ const contractABI = [
       {
         "internalType": "uint256",
         "name": "creationTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "finalized",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "donorNumber",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "goal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "currentContributions",
         "type": "uint256"
       }
     ],
@@ -98,6 +172,54 @@ const contractABI = [
     "inputs": [
       {
         "internalType": "address",
+        "name": "_campaign",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_requestTitle",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_requestDescription",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestDeadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_processingDeadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requiredApprovalPercentage",
+        "type": "uint256"
+      }
+    ],
+    "name": "createRequestForCampaign",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_campaignAddress",
         "type": "address"
       },
@@ -108,6 +230,37 @@ const contractABI = [
       }
     ],
     "name": "extendDeadline",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      }
+    ],
+    "name": "finalizeCampaign",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "finalizeRequest",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -150,11 +303,55 @@ const contractABI = [
             "internalType": "uint256",
             "name": "creationTime",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "finalized",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "donorNumber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "goal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentContributions",
+            "type": "uint256"
           }
         ],
         "internalType": "struct CrowdfundingFactory.Campaign[]",
         "name": "",
         "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getAllRequestsForCampaign",
+    "outputs": [
+      {
+        "internalType": "contract RequestManager[]",
+        "name": "",
+        "type": "address[]"
       }
     ],
     "stateMutability": "view",
@@ -192,16 +389,16 @@ const contractABI = [
       },
       {
         "internalType": "address",
-        "name": "owner",
+        "name": "campaignOwner",
         "type": "address"
       },
       {
         "internalType": "bool",
-        "name": "paused",
+        "name": "campaignPaused",
         "type": "bool"
       },
       {
-        "internalType": "enum Crowdfunding.CampaignState",
+        "internalType": "enum EVCrowdfunding.CampaignState",
         "name": "state",
         "type": "uint8"
       }
@@ -244,7 +441,7 @@ const contractABI = [
     "name": "getCampaignStatus",
     "outputs": [
       {
-        "internalType": "enum Crowdfunding.CampaignState",
+        "internalType": "enum EVCrowdfunding.CampaignState",
         "name": "",
         "type": "uint8"
       }
@@ -275,11 +472,128 @@ const contractABI = [
     "inputs": [
       {
         "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getFinalAmountCollected",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaign",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRequestDetails",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "completed",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalVotingPower",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "requiredApprovalPercentage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "requestDeadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "processingDeadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum RequestManager.RequestState",
+        "name": "state",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "requestOwner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRequestVotingProgress",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_user",
         "type": "address"
       }
     ],
-    "name": "getUserCampaigns",
+    "name": "getUserCreatedCampaigns",
     "outputs": [
       {
         "components": [
@@ -301,6 +615,31 @@ const contractABI = [
           {
             "internalType": "uint256",
             "name": "creationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "finalized",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "donorNumber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "goal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentContributions",
             "type": "uint256"
           }
         ],
@@ -342,6 +681,31 @@ const contractABI = [
           {
             "internalType": "uint256",
             "name": "creationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "finalized",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "donorNumber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "goal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentContributions",
             "type": "uint256"
           }
         ],
@@ -446,9 +810,52 @@ const contractABI = [
         "internalType": "uint256",
         "name": "creationTime",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "finalized",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "donorNumber",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "goal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "currentContributions",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_campaignAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "voteOnRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

@@ -79,6 +79,16 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
 
   // Helper function to map state codes to human-readable names
   const getStateName = (state: number): string => {
+    // switch (state) {
+    //   case 0:
+    //     return 'Active';
+    //   case 1:
+    //     return 'Successful';
+    //   case 2:
+    //     return 'Failed';
+    //   default:
+    //     return 'Unknown';
+    // }
     switch (state) {
       case 0:
         return 'Active';
@@ -86,6 +96,14 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
         return 'Successful';
       case 2:
         return 'Failed';
+      case 3:
+        return 'Paused';
+      case 4:
+        return 'Canceled';
+      case 5:
+        return 'Finalized';
+      case 6:
+        return 'Expired';
       default:
         return 'Unknown';
     }

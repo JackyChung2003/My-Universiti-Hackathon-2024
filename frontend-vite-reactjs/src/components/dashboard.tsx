@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
               Map
             </Link>
             <Link
-              to="/subscriptions"
+              to="/subscription"
               className="font-bold px-4 py-2 text-gray-700 hover:text-white hover:bg-[#051F20] rounded-lg transition duration-300"
             >
               Subscriptions
@@ -132,11 +132,11 @@ const Dashboard: React.FC = () => {
               </ul>
             </div>
             <div className="mt-auto flex justify-end"> {/* Button aligned to bottom-right */}
-              <Link to="/learn-more">
+              
                 <button className="bg-[#051F20] text-white px-4 py-2 rounded-lg hover:bg-[#4fada8] transition duration-200">
                   Learn More
                 </button>
-              </Link>
+             
             </div>
           </div>
         </div>

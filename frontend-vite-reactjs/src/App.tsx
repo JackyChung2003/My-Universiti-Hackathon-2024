@@ -234,8 +234,8 @@
 
 // export default App;
 
-import { ConnectButton } from "thirdweb/react";
-import thirdwebIcon from "./thirdweb.svg";
+// import { ConnectButton } from "thirdweb/react";
+// import thirdwebIcon from "./thirdweb.svg";
 // import { client } from "./client-not-in-use";
 import { client } from "./utils/constants";
 import Login from "./components/login";
@@ -247,6 +247,8 @@ import CampaignDetails from "./components/CampaignDetails";
 import UserDetails from "./components/UserDetail";
 import HomePage from "./components/home";
 import Dashboard from "./components/dashboard";
+import MapPage from "./components/map";
+import SubscriptionPage from "./components/subscription";
 
 export function App() {
 	return (
@@ -258,6 +260,8 @@ export function App() {
 			{/* Login Route */}
 			<Route path="/login" element={<Login />} />
 			<Route path="/dashboard" element={<Dashboard />} />
+			<Route path="/map" element={<MapPage/> } />
+			<Route path="/subscription" element={<SubscriptionPage />} />
 			
 			{/* Existing Routes */}
 			<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />

@@ -95,6 +95,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e5e5;
   width: 100%;
+  /* margin-top: 20px; */
+  /* border: 1px solid Green; */
 }
 
 .roadmap-section-title {
@@ -112,77 +114,176 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
-/* Individual request list items */
-.latest-request-item {
+.roadmap-item {
   display: flex;
   align-items: flex-start;
-  padding: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  /* margin-bottom: 10px; */
   position: relative;
-  margin-left: 20px;
-  border-left: 2px solid #e0e0e0;
-  border: 1px solid blue;
+  margin-left: 20px; /* Align content with the line */
 }
 
-.latest-request-item:first-child {
-  padding-top: 0;
+/* Create the vertical line */
+.roadmap-item::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #007bff;
 }
 
-.latest-request-item:last-child {
-  padding-bottom: 0;
-}
-
-/* Dot on the timeline */
-.latest-request-item .dot {
-  height: 12px;
-  width: 12px;
+.roadmap-item .dot {
+  width: 20px;
+  height: 15px;
   background-color: #007bff;
   border-radius: 50%;
-  position: absolute;
-  left: -7px; /* Centers dot on the border */
-  top: 12px;
+  margin-right: 10px;
+  margin-top: 6px;
+  position: relative;
+  /* z-index: 1;  */
+  margin-right: 10px;
 }
 
-/* Change content (time and description) */
-.change-content {
-  padding-left: 20px; /* Space between dot and content */
-  border: 2px solid green;
+/* Dynamic Request Line and Dot Colors */
+.roadmap-item.pending::before {
+  background-color: #ffc107; /* Yellow for pending */
 }
 
-.time {
-  font-size: 0.85em;
-  color: #777;
-  margin-bottom: 5px;
-  border: 2px solid purple;
+.roadmap-item.approved::before {
+  background-color: #28a745; /* Green for approved */
+}
+
+.roadmap-item.rejected::before {
+  background-color: #dc3545; /* Red for rejected */
+}
+
+.roadmap-item.failed::before {
+  background-color: #343a40; /* Dark for failed */
+}
+
+.roadmap-item.completed::before {
+  background-color: #007bff; /* Blue for completed */
+}
+
+.dot.pending {
+  background-color: #ffc107; /* Yellow for pending */
+}
+
+.dot.approved {
+  background-color: #28a745; /* Green for approved */
+}
+
+.dot.rejected {
+  background-color: #dc3545; /* Red for rejected */
+}
+
+.dot.failed {
+  background-color: #343a40; /* Dark for failed */
+}
+
+.dot.completed {
+  background-color: #007bff; /* Blue for completed */
+}
+
+.request-content {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.request-content p {
+  margin: 4px 0;
+  color: #333;
+}
+
+.request-title {
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .request-description {
-  font-size: 1em;
-  color: #333;
-  margin-bottom: 5px;
-  border: 2px solid orange;
-}
-
-/* Additional styling for specific campaign states */
-.roadmap-section p {
-  font-size: 1.1em;
   color: #666;
 }
 
-.roadmap-section p {
-  text-align: center;
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
+.request-recipient,
+.request-amount,
+.request-status,
+.request-votes,
+.request-votes-needed,
+.request-voting-deadline,
+.request-process-deadline,
+.request-approval {
+  font-size: 0.9em;
+  color: #555;
 }
 
-/* Styles for empty state message */
-.roadmap-section p {
-  color: #888;
-  font-style: italic;
+/* Request Status Colors */
+.request-status.pending {
+  color: #ffc107; /* Yellow for pending */
+}
+
+.request-status.approved {
+  color: #28a745; /* Green for approved */
+}
+
+.request-status.rejected {
+  color: #dc3545; /* Red for rejected */
+}
+
+.request-status.failed {
+  color: #343a40; /* Dark for failed */
+}
+
+.request-status.completed {
+  color: #007bff; /* Blue for completed */
+}
+
+.request-recipient-link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.request-recipient-section {
+  /* display: flex; */
+  align-items: center;
+  padding: 15px;
+  background-color: #daf1de;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Make the cursor a pointer to indicate it's clickable */
+  width: 60%;
+  margin: 10px 0;
+}
+
+.request-recipien-info {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 10px;
+  overflow: hidden;
+  /* border: 1px solid #4e6e58; */
+}
+
+.recipient-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Hover Effect */
+.request-recipient-section:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 
 .campaign-details-top-right {
@@ -332,10 +433,11 @@
   /* background-color: #e8eaea; */
   background-color: black;
   border: 1px solid #ddd;
-  width: 90%;
+  /* width: 90%; */
+  width: 100%;
   border-radius: 8px;
   padding: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   color: white;
 }

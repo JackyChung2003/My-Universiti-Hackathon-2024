@@ -12,6 +12,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import CampaignMap from '../../../components/Map'; // Adjust the path as necessary
 import axios, { all } from 'axios'
 import CampaignStatusBadge, { CampaignState } from '../../../components/BadgeDisplay';
+import ProgressBarMinTarget from '../../../components/ProgressBarMinTarget';
 
 interface CampaignData  {
   name: string;
@@ -23,27 +24,62 @@ interface CampaignData  {
   state: number;
 }
 
-interface RequestDetail {
-  id: string;
-  title: string;
-  description: string;
-  recipient: string;
-  amount: string;
-  deadline: string;
-  processingDeadline: string;
-  approvalPercentage: string;
+// interface RequestDetail {
+//   id: string;
+//   title: string;
+//   description: string;
+//   recipient: string;
+//   amount: string | bigint;
+//   deadline: string | boolean;
+//   processingDeadline: string | bigint;
+//   approvalPercentage: string | bigint;
+// }
+// Enum for request states
+export enum RequestState {
+  Pending,
+  Approved,
+  Rejected,
+  Failed,
+  Completed
 }
+
+const getRequestStateColor = (state: RequestState): string => {
+  switch (state) {
+      case RequestState.Pending:
+          return 'pending'; // Use CSS class 'pending'
+      case RequestState.Approved:
+          return 'approved'; // Use CSS class 'approved'
+      case RequestState.Rejected:
+          return 'rejected'; // Use CSS class 'rejected'
+      case RequestState.Failed:
+          return 'failed'; // Use CSS class 'failed'
+      case RequestState.Completed:
+          return 'completed'; // Use CSS class 'completed'
+      default:
+          return 'unknown'; // Fallback class
+  }
+};
 
 const CampaignDetails: React.FC<{ data: any[] }> = () => {
   const [form, setForm] = useState({donationAmount: ""});
+  const [isModalOpen, setModalOpen] = useState(false);
   const [showMoreDonors, setShowMoreDonors] = useState(false); // For expanding the donor list
   const [ethPrice, setEthPrice] = useState<number | null>(null); // To store ETH price
   const [usdRaised, setUsdRaised] = useState<number | null>(null); // USD raised
+  
 
+  // const [requests, setRequests] = useState<RequestDetail[]>([]);
+  // const [totalRequests, setTotalRequests] = useState(0);
 
+  
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmitDonation = () => {
+    console.log("Donating", form.donationAmount, "ETH");
+    setModalOpen(false); // Close the modal after donation
   };
   
   const { address } = useParams<{ address: string }>(); // Get the campaign address from the URL
@@ -76,11 +112,126 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
     params: address ? [address] : [''],
   });
 
+  // Get the detail of the request of the campaign
+  const { data: allRequestsDetails1, isLoading: loadingAllRequestsDetails1, refetch: refetchAllRequestsDetails1 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    // params: address ? [address] : [''],
+    params: address ? [address, BigInt(0)] : () => Promise.resolve(['', BigInt(0)] as const),
+    // params: address ? [address, BigInt(requestId)] : ['', BigInt(requestId)],
+  });
+
+  // Get the detail of the request of the campaign 2
+  const { data: allRequestsDetails2, isLoading: loadingAllRequestsDetails2, refetch: refetchAllRequestsDetails2 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(1)] : () => Promise.resolve(['', BigInt(1)] as const),
+  });
+
+  // Get the detail of the request of the campaign 3
+  const { data: allRequestsDetails3, isLoading: loadingAllRequestsDetails3, refetch: refetchAllRequestsDetails3 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(2)] : () => Promise.resolve(['', BigInt(2)] as const),
+  });
+
+  // Get the detail of the request of the campaign 4
+  const { data: allRequestsDetails4, isLoading: loadingAllRequestsDetails4, refetch: refetchAllRequestsDetails4 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(3)] : () => Promise.resolve(['', BigInt(3)] as const),
+  });
+
+  // Get the detail of the request of the campaign 5
+  const { data: allRequestsDetails5, isLoading: loadingAllRequestsDetails5, refetch: refetchAllRequestsDetails5 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(4)] : () => Promise.resolve(['', BigInt(4)] as const),
+  });
+
+  // Get the detail of the request of the campaign 6
+  const { data: allRequestsDetails6, isLoading: loadingAllRequestsDetails6, refetch: refetchAllRequestsDetails6 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(5)] : () => Promise.resolve(['', BigInt(5)] as const),
+  });
+
+  // Get the detail of the request of the campaign 7
+  const { data: allRequestsDetails7, isLoading: loadingAllRequestsDetails7, refetch: refetchAllRequestsDetails7 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(6)] : () => Promise.resolve(['', BigInt(6)] as const),
+  });
+
+  // Get the detail of the request of the campaign 8
+  const { data: allRequestsDetails8, isLoading: loadingAllRequestsDetails8, refetch: refetchAllRequestsDetails8 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(7)] : () => Promise.resolve(['', BigInt(7)] as const),
+  });
+
+  // Get the detail of the request of the campaign 9
+  const { data: allRequestsDetails9, isLoading: loadingAllRequestsDetails9, refetch: refetchAllRequestsDetails9 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(8)] : () => Promise.resolve(['', BigInt(8)] as const),
+  });
+
+  // Get the detail of the request of the campaign 10
+  const { data: allRequestsDetails10, isLoading: loadingAllRequestsDetails10, refetch: refetchAllRequestsDetails10 } = useReadContract({
+    contract: CONTRACT,
+    method: "getRequestDetails",
+    params: address ? [address, BigInt(9)] : () => Promise.resolve(['', BigInt(9)] as const),
+  });
+
   //   const { data: CampaignBalance, isLoading: loadingCampaignBalance, refetch: refetchCampaignBalance} = useReadContract({
 //     contract: CONTRACT,
 //     method: "getContractBalance",
 //     params: ["0x479d9Fb099b6C8260629BBfee826D00F8AC1ea31"],
 // });
+
+// Fetch request details for each request ID dynamically
+// const fetchRequestDetails = async (requestId: number): Promise<RequestDetail> => {
+//   const { data: requestDetails } = await useReadContract({
+//     contract: CONTRACT,
+//     method: 'getRequestDetails',
+//     params: address ? [address, BigInt(requestId)] : ['', BigInt(requestId)],
+//   });
+
+//   return {
+//     id: requestId.toString(),
+//     title: requestDetails ? requestDetails[0] : '',
+//     description: requestDetails ? requestDetails[1] : '',
+//     recipient: requestDetails ? requestDetails[2] : '',
+//     amount: requestDetails ? requestDetails[3].toString() : '',
+//     deadline: requestDetails ? requestDetails[4].toString() : '',
+//     processingDeadline: requestDetails ? requestDetails[5].toString() : '',
+//     approvalPercentage: requestDetails ? requestDetails[6].toString() : '',
+//   };
+// };
+
+// // Fetch all requests based on the total number of requests
+// useEffect(() => {
+//   const fetchRequests = async () => {
+//     if (allCampaignsRequests && allCampaignsRequests.length > 0) {
+//       setTotalRequests(allCampaignsRequests.length); // Set total number of requests
+
+//       const requestPromises = [];
+//       for (let i = 0; i < allCampaignsRequests.length; i++) {
+//         requestPromises.push(fetchRequestDetails(i));
+//       }
+
+//       const requestDetailsArray = await Promise.all(requestPromises);
+//       setRequests(requestDetailsArray); // Set all request details to the state
+//     }
+//   };
+
+//   fetchRequests();
+// }, [allCampaignsRequests]);
+
+// if (loadingAllCampaignsRequests) {
+//   return <p>Loading requests...</p>;
+// }
 
 // Fetch real-time ETH to USD conversion rate using CoinGecko API
 useEffect(() => {
@@ -189,13 +340,13 @@ useEffect(() => {
 
                 {/* Little Navbar to jump to each section */}
                 {/* <div className='campaign-details-navbar'> */}
-                  <nav className="campaign-details-navbar">
+                  {/* <nav className="campaign-details-navbar">
                     <ul>
                       <li><a href="#request-management">Request Managementr</a></li>
                       <li><a href="#roadmap">Roadmap</a></li>
                       <li><a href="#top-donator">Top Donator</a></li>
                     </ul>
-                  </nav>
+                  </nav> */}
                 {/* </div> */}
 
                 {/* Request Management */}
@@ -223,14 +374,92 @@ useEffect(() => {
                         return <p>The campaign has been canceled. All requests have been halted.</p>;
                     
                       case CampaignState.Finalized:
+                        // Combine all fetched request details into an array
+                        const allRequests = [
+                          allRequestsDetails1,
+                          allRequestsDetails2,
+                          allRequestsDetails3,
+                          allRequestsDetails4,
+                          allRequestsDetails5,
+                          allRequestsDetails6,
+                          allRequestsDetails7,
+                          allRequestsDetails8,
+                          allRequestsDetails9,
+                          allRequestsDetails10,
+                        ].filter(Boolean); // Filter out any undefined or null values
                         return allCampaignsRequests && allCampaignsRequests.length > 0 ? (
                           <ul className="roadmap-section-list">
+                            {/* <p>Requests Num {allCampaignsRequests.length}</p>
                             {allCampaignsRequests.map((request, index) => (
                               <li key={index} className="latest-request-item">
                                 <span className="dot"></span>
                                 <div className="change-content">
-                                  <p className="time">{request[0]}</p>
-                                  <p className="request-description">{request[1]}</p>
+                                  {request && <p className="time">{request[0]}</p>}
+                                  {request && <p className="request-description">{request[1]}</p>}
+                                </div>
+                              </li>
+                            ))} */}
+                            <p>Requests Num: {allRequests.length}</p>
+                            {allRequests.map((request, index) => (
+                              // <li key={index} className="roadmap-item">
+                              <li key={index} className={`roadmap-item ${getRequestStateColor(Number(request?.[9] ?? 0))}`}>
+                                {/* <span className="dot"></span> */}
+                                {request && <span className={`dot ${getRequestStateColor(Number(request[9]))}`}></span>}
+                                <div className="change-content">
+                                  {request && <p className="request-title">Title: {request[0]}</p>}
+                                  {request && <p className="request-description">Description: {request[1]}</p>}
+                                  {/* {request && <p className="request-recipient">Recipient: {request[2]}</p>} */}
+                                  {request && <Link to={`/user/${request[2]}`} className="request-recipient-link">
+                                    {/* <div className="campaign-creator-section"> */}
+                                    <div className="request-recipient-section">
+                                      {/* <h3>Campaign Creator</h3> */}
+                                      <div className="request-recipien-info">
+                                        <img src={DefaultProfilePicture} alt="Recipient profile" className="recipient-avatar" /> {/* Placeholder profile picture */}
+                                        <div>
+                                          <p><strong>Recipient</strong></p>
+                                          {request && <p>{request[2]}</p>}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Link>}
+                                  {request && <p className="request-amount">Amount: {parseFloat(request[3].toString()) / 1e18} ETH</p>}
+                                  {/* {request && <p className="request-status">Status: {Number(request[4]) === 1 ? 'Complete' : 'Pending'}</p>} */}
+                                  {request && <strong><p className={`request-status ${getRequestStateColor(Number(request[9]))}`}>
+                                        Status: {RequestState[Number(request[9])]}
+                                    </p></strong>}
+                                  {/* {request && <p className="request-votes">Current votes: {Number(request[5])}</p>} */}
+                                  {/* {request && <p className="request-votes-needed">Votes needed: {Number(request[6])}</p>} */}
+                                  {request && <p className="request-voting-deadline">Voting Deadline: {Number(request[7])} days</p>}
+                                  {/* {request && <p className="request-process-deadline">Process Deadline: {Number(request[8])} days</p>} */}
+                                  {/* {request && <p className="request-process-deadline">Process Deadline: {new Date(Number(request[8]) * 1000).toLocaleString()}</p>} */}
+                                  {/* {request && <p className="request-approval">Approval Percentage: {parseFloat(request[6].toString())}%</p>} */}
+                                  <div className='donation-left-right-section'>
+                                  
+                                  <div className='donation-top-down-section'>
+                                        <p className='donation-amount-display-light'>Usage</p>
+                                        <div className='donation-amount-display'>
+                                            <h1>{campaignBalance && request ? parseFloat(request[3].toString()) / 1e18 : 0}</h1>
+                                            <p className='donation-amount-display-light'>ETH</p>
+                                        </div>
+                                    </div>
+                                    {/* <p>{campaignBalance ? parseFloat(campaignBalance.toString()) / 1e18 : 0} ETH Collected</p> */}
+                                    {/* <p><strong>Donation Goal:</strong> {Number(campaignData.goal)/ 1e18} ETH</p> */}
+                                    <div className='donation-top-down-section'>
+                                        <p className='donation-amount-display-light'>Min Vote</p>
+                                        <div className='donation-amount-display'>
+                                            <h1>{request ? Number(request[6]) : 0}</h1>
+                                            <p className='donation-amount-display-light'>%</p>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  {request && <ProgressBarMinTarget percentage={Number(request[5])} minPercentage={Number(request[6])} />}
+                                  <div className='donation-left-right-section'>
+                                      {/* <p><strong>Approximate ${usdRaised ? usdRaised.toFixed(2) : '0'} USD raised</strong></p> */}
+                                      {request && <strong><p className={`request-status ${getRequestStateColor(Number(request[9]))}`}>
+                                        Status: {RequestState[Number(request[9])]}
+                                      </p></strong>}
+                                      {request && <p className='donation-amount-display-light'>{Number(request[7])} days</p>}
+                                  </div>
                                 </div>
                               </li>
                             ))}
@@ -291,7 +520,7 @@ useEffect(() => {
 
                         
                 {/* Donation Form */}
-                <div className="donation-section">
+                {/* <div className="donation-section">
                   <h2>Fund Campaign</h2>
                   <input
                     type="text"
@@ -317,17 +546,17 @@ useEffect(() => {
                   >
                     Fund Campaign
                   </TransactionButton>
-                </div>
+                </div> */}
                 
                 {/* Campaign Balance */}
-                <div className="balance-section">
+                {/* <div className="balance-section">
                   <h2>Campaign Balance</h2>
                   {loadingCampaignBalance ? (
                     <p>Loading campaign balance...</p>
                   ) : (
                     <p><strong>{campaignBalance ? parseFloat(campaignBalance.toString()) / 1e18 : 0} ETH</strong></p>
                   )}
-                </div>
+                </div> */}
             </div>
             
 
@@ -421,12 +650,49 @@ useEffect(() => {
                 </div>
 
                 <div className="campaign-actions">
-                    <button className="donate-button">Donate Now</button>
+                    {/* <button className="donate-button">Donate Now</button> */}
+                    <button onClick={() => setModalOpen(true)} className="donate-button">Donate Now</button>
                     <div className="share-remind-section">
                         <button className="remind-button">Remind Me</button>
                         <button className="share-button">Share</button>
                     </div>
                 </div>
+                {/* Donation Modal */}
+                {isModalOpen && (
+                  <div className="modal-overlay">
+                    <div className="modal-content">
+                      <h2>Donate to Campaign</h2>
+                      <input
+                        type="text"
+                        name="donationAmount"
+                        placeholder="Enter ETH amount"
+                        value={form.donationAmount}
+                        onChange={handleChange}
+                        required
+                      />
+                      <div className="modal-actions">
+                        <TransactionButton
+                          transaction={() =>
+                            prepareContractCall({
+                              contract: CONTRACT,
+                              method: 'fundCampaign',
+                              params: [address],
+                              value: BigInt(Number(form.donationAmount) * 1e18), // Convert ETH to Wei
+                            })
+                          }
+                          onTransactionConfirmed={(receipt) => {
+                            console.log('Donation confirmed:', receipt);
+                            handleSubmitDonation();
+                          }}
+                        >
+                          Confirm Donation
+                        </TransactionButton>
+                        
+                        <button onClick={() => setModalOpen(false)}>Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
             </div>
         </div>
 

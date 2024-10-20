@@ -17,11 +17,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  border: 1px solid red;
 }
 
 .campaign-card-link {
   text-decoration: none;
   color: inherit;
+  border: 1px solid green;
 }
 
 .campaign-card {
@@ -36,6 +38,8 @@
   min-width: 300px;
   max-width: 600px;
   cursor: pointer;
+  border: 1px solid blue;
+  height: 100%;
 }
 
 .campaign-card:hover {

@@ -1,0 +1,45 @@
+/* ProgressBar.css */
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0df;
+  border-radius: 5px;
+  margin: 10px 0;
+  height: 20px;
+  position: relative;
+  border: 1px solid #333333;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-text {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.min-target-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: red; /* Red line for the target */
+  display: flex;
+  align-items: center;
+}
+
+.min-text {
+  position: absolute;
+  top: -25px; /* Position the percentage text above the line */
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+}

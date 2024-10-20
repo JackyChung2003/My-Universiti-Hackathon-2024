@@ -6,6 +6,7 @@
   margin: 10px 0;
   height: 20px;
   position: relative;
+  border: 1px solid #333333;
 }
 
 .progress-bar {

@@ -1,0 +1,85 @@
+/* index.css */
+
+.campaign-status-badge {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  gap: 10px;
+}
+
+.status-badge,
+.ispaused-badge,
+.investor-badge {
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* State-specific colors */
+.status-badge.active {
+  background-color: #56f000;
+  color: black;
+}
+
+.status-badge.successful {
+  background-color: #2dccff; /* Blue for successful */
+  color: black;
+}
+
+.status-badge.failed {
+  background-color: #dc3545; /* Red for failed */
+  color: black;
+}
+
+.status-badge.paused {
+  background-color: #fce83a; /* Yellow for paused */
+  color: black;
+}
+
+.status-badge.canceled {
+  background-color: #aaaaaa; /* Gray for canceled */
+  color: black;
+}
+
+.status-badge.finalized {
+  background-color: #b9e2f5; /* Teal for finalized */
+  color: black;
+}
+
+.status-badge.expired {
+  background-color: #8a8583; /* Dark gray for expired */
+  color: #fbc3b0;
+}
+
+/* Paused/Active badge colors */
+.ispaused-badge.paused {
+  background-color: #fce83a; /* Yellow for paused */
+  color: black;
+}
+
+.ispaused-badge.active {
+  background-color: #56f000; /* Green for not paused */
+  color: black;
+}
+
+/* Investor badge style */
+.investor-badge {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #e3e6ea;
+  padding: 6px 12px;
+  font-size: 16px;
+}
+
+.investor-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}

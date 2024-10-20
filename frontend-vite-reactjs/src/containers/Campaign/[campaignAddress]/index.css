@@ -1,0 +1,567 @@
+.campaign-details-container {
+  /* width: 80%; */
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+  background: #daf1de;
+  color: black;
+  height: 100%;
+}
+
+.campaign-header {
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.campaign-header h1 {
+  font-size: 2.5rem;
+  /* border: 1px solid black; */
+  color: #333;
+  font-weight: bold;
+}
+
+.campaign-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+.campaign-details-top {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.campaign-details-top-left {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  border: 1px solid #ddd;
+  /* height: 400px; */
+  height: 100%;
+}
+
+.campaign-detail-image {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  /* border-radius: 20px; */
+}
+
+.campaign-details-navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.campaign-details-navbar ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.campaign-details-navbar ul li {
+  margin-bottom: 10px;
+}
+
+.campaign-details-navbar ul li a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.campaign-details-navbar ul li a:hover {
+  color: #0056b3;
+}
+
+/* Roadmap Section Styles */
+.roadmap-section {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+  width: 100%;
+}
+
+.roadmap-section-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: left;
+  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 10px;
+}
+
+/* Roadmap List Styles */
+.roadmap-section-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid red;
+}
+
+/* Individual request list items */
+.latest-request-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0;
+  position: relative;
+  margin-left: 20px;
+  border-left: 2px solid #e0e0e0;
+  border: 1px solid blue;
+}
+
+.latest-request-item:first-child {
+  padding-top: 0;
+}
+
+.latest-request-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Dot on the timeline */
+.latest-request-item .dot {
+  height: 12px;
+  width: 12px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  left: -7px; /* Centers dot on the border */
+  top: 12px;
+}
+
+/* Change content (time and description) */
+.change-content {
+  padding-left: 20px; /* Space between dot and content */
+  border: 2px solid green;
+}
+
+.time {
+  font-size: 0.85em;
+  color: #777;
+  margin-bottom: 5px;
+  border: 2px solid purple;
+}
+
+.request-description {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 5px;
+  border: 2px solid orange;
+}
+
+/* Additional styling for specific campaign states */
+.roadmap-section p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+.roadmap-section p {
+  text-align: center;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+/* Styles for empty state message */
+.roadmap-section p {
+  color: #888;
+  font-style: italic;
+}
+
+.campaign-details-top-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  border: 1px solid #4e6e58;
+  /* height: 400px; */
+  gap: 10px;
+  /* background-color: #f9f9f9; */
+  background-color: #a8beac;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  margin-left: 20px;
+}
+
+.campaign-creator-link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.campaign-creator-section {
+  /* display: flex; */
+  align-items: center;
+  padding: 15px;
+  background-color: #daf1de;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Make the cursor a pointer to indicate it's clickable */
+  width: 100%;
+}
+
+.creator-info {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+.creator-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Hover Effect */
+.campaign-creator-section:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+.map-section {
+  /* width: 100%;
+  height: 300px;
+  border: 1px solid #ddd;
+  border-radius: 10px; */
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #4e6e58;
+  border-radius: 20px;
+}
+
+.direction-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  background-color: #daf1de;
+  /* border: 8px solid #c0dfff; */
+  color: #4e6e58;
+  gap: 8px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 20px;
+}
+
+.direction-button-text {
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.direction-button-svg {
+  padding-top: 5px;
+  height: 100%;
+  width: fit-content;
+  color: #4e6e58;
+}
+
+.direction-button-svg svg {
+  width: 25px;
+  height: 15px;
+  color: #4e6e58;
+  drop-shadow: 0 0 5px rgba(0, 0, 0, 1);
+}
+
+.direction-button:hover {
+  /* border: 8px solid #b1d8ff; */
+  background-color: #a8beac;
+}
+.direction-button:active {
+  border: 5px solid #c0dfff;
+}
+.direction-button:hover .direction-button-svg svg {
+  animation: jello-vertical 0.9s both;
+  transform-origin: left;
+}
+
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* CSS for the donor section */
+.top-donors-section {
+  /* background-color: #e8eaea; */
+  background-color: black;
+  border: 1px solid #ddd;
+  width: 90%;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.top-donors-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.top-donors-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.top-donors-section li {
+  margin-bottom: 15px;
+  padding: 10px;
+  /* background-color: #fff; */
+  background-color: black;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.donor-info {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  justify-content: space-evenly;
+}
+
+.donor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.view-button {
+  background-color: white;
+  /* background-color: #0f1113; */
+  color: black;
+  border: none;
+  /* padding: 5px 10px; */
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-weight: 700;
+}
+
+.view-button:hover {
+  /* background-color: #333; */
+  background-color: #2c3136;
+}
+
+.no-donors-message {
+  margin-top: 20px;
+  color: #888;
+}
+
+/* .top-donors-section p {
+  margin: 5px 0;
+}
+
+.top-donors-section button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.top-donors-section button:hover {
+  background-color: #0056b3;
+} */
+
+/* CSS for the no donors message */
+.no-donors-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.no-donors-message p {
+  margin: 0;
+}
+
+.donation-left-right-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.donation-top-down-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
+  /* width: 100%; */
+  /* border: 1px solid #000; */
+}
+
+.donation-amount-display {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4e6e58;
+  /* display: flex;
+  display-direction: row; */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* border: 1px solid #000; */
+  height: 40px;
+}
+
+.donation-amount-display-light {
+  font-size: 1rem;
+  font-weight: semi-bold;
+  color: #7b9c85;
+  /* display: flex;
+  display-direction: row; */
+  margin-bottom: 7px;
+}
+.donation-progress-section {
+  /* margin-bottom: 20px; */
+  background-color: #daf1de;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.campaign-actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0px;
+  /* border: 1px solid #000; */
+}
+
+.campaign-actions button {
+  padding: 10px 20px;
+  /* margin-bottom: 10px; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin: 5px 0;
+}
+
+.share-remind-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.campaign-actions .donate-button {
+  background-color: #f2c14e;
+  color: white;
+  width: 100%;
+}
+
+.campaign-actions .remind-button {
+  background-color: #7b9c85;
+  color: white;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.campaign-actions .share-button {
+  background-color: #daf1de;
+  color: #4e6e58;
+  width: 100%;
+}
+.campaign-actions .donate-button:hover {
+  background-color: #876400;
+}
+
+.campaign-actions .remind-button:hover,
+.campaign-actions .share-button:hover {
+  background-color: #333;
+  color: white;
+}
+
+.campaign-actions .button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.campaign-actions .button-group button {
+  width: 48%;
+}
+
+.donation-section {
+  margin-bottom: 30px;
+}
+
+.donation-section input {
+  padding: 10px;
+  width: 300px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.donation-section h2 {
+  margin-bottom: 15px;
+}
+
+.balance-section {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.balance-section p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

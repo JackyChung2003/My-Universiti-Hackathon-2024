@@ -244,14 +244,16 @@ import CampaignInfoTemp from "./components/CampaignInfoTemp";
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Routes, Route } from "react-router-dom";
 // import CampaignDetails from './components/CampaignDetails';
-import CampaignDetails from "./components/CampaignDetails";
+// import CampaignDetails from "./components/CampaignDetails";
 import UserDetails from "./components/UserDetail";
 
 
 import HorizontalNavbar from "./containers/Navigation/HorizontalNavBar";
 import { useState } from "react";
 import Dashboard from "./containers/Dashboard";
-import Campaigns from "./containers/Campaigns";
+import Campaigns from "./containers/Campaign";
+import CampaignDetails from "./containers/Campaign/[campaignAddress]";
+import StickyLayout from "./containers/test";
 
 export function App() {
 	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
@@ -273,6 +275,7 @@ export function App() {
     			    <Route path="/contact" element={<Login />} />
 					<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
 					<Route path="/user/:donorAddress" element={<UserDetails />} />
+					<Route path="/about" element={<StickyLayout />} />
 
     			  </Routes>
     			{/* </Router> */}

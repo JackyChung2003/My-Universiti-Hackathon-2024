@@ -10,7 +10,7 @@ import adv1 from "../../assets/images/adv1.png";
 import background from "../../assets/images/adv2.png";
 import evCar from "../../assets/images/adv3.png"; 
 import { CONTRACT } from "../../utils/constants";
-import { useReadContract } from "thirdweb/react";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
 import ProgressBar from "../../components/ProgressBar";
 
 import TempCampaignPicture from '../../assets/images/temp-campaign-picture.jpg';
@@ -26,6 +26,9 @@ const Dashboard: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [profiles, setProfiles] = useState<{ [address: string]: any }>({});
   const [randomCampaigns, setRandomCampaigns] = useState<any[]>([]);
+  
+  const activeAccount = useActiveAccount();
+  console.log("address", activeAccount?.address);
 
   const { data: allCampaigns, isLoading: loadingEventDetail, refetch: refetchAllCampaigns } = useReadContract({
       contract: CONTRACT,
@@ -84,6 +87,7 @@ const Dashboard: React.FC = () => {
       setRandomCampaigns(selectedCampaigns); // Re-shuffle and update the state
     }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FFFFFF" }}>
@@ -92,7 +96,7 @@ const Dashboard: React.FC = () => {
         <div className="flex flex-col md:flex-row items-start justify-start pt-24">
           {/* Welcome Back Heading */}
           <h1 className="text-3xl font-bold mb-6 md:mb-0" style={{ color: "#051F20", width: "100%" }}>
-            Welcome back,
+            Welcome back,  {activeAccount?.address}
           </h1>
         </div>
 
@@ -126,7 +130,9 @@ const Dashboard: React.FC = () => {
 
                     <div className="campaign-top-right">
                       <h2 className="three-random-campaign-name">{campaign.name}</h2>
-                      <p className="campaign-creator">Created by: {campaign.owner}</p>
+                        <p className="campaign-creator">
+                        Created by: {campaign.owner} {campaign.owner === activeAccount?.address && <strong>(you)</strong>}
+                        </p>
                     </div>
                   </div>
 

@@ -44,7 +44,7 @@
 import React, { useEffect, useState } from 'react';
 import { CONTRACT } from '../../utils/constants';
 import { Link } from 'react-router-dom';
-import { TransactionButton, useReadContract } from 'thirdweb/react';
+import { TransactionButton, useActiveAccount, useReadContract } from 'thirdweb/react';
 import { prepareContractCall } from 'thirdweb';
 import './index.css';  // Import a CSS file for custom styles
 import GoogleMapReact from 'google-map-react';  // Import GoogleMapReact component
@@ -57,6 +57,9 @@ import AdminOverlayCampaign from '../../components/AdminOverlay/admin_campaign';
 const AnyReactComponent: React.FC<{ lat: number; lng: number; text: string }> = ({ lat, lng, text }) => <div>{text}</div>;
 
 const Campaigns: React.FC = () => {
+  
+    const activeAccount = useActiveAccount();
+    
     const { data: allCampaigns, isLoading: loadingEventDetail, refetch: refetchAllCampaigns } = useReadContract({
         contract: CONTRACT,
         method: "getAllCampaigns",
@@ -154,7 +157,10 @@ const Campaigns: React.FC = () => {
 
                         <div className='campaign-top-right'>
                           <h2 className="campaign-name">{campaign.name}</h2>
-                          <p className="campaign-creator">Created by: {campaign.owner}</p>
+                          {/* <p className="campaign-creator">Created by: {campaign.owner}</p> */}
+                          <p className="campaign-creator">
+                            Created by: {campaign.owner} {campaign.owner === activeAccount?.address && <strong>(you)</strong>}
+                          </p>
                         </div>
                       </div>
 

@@ -52,11 +52,13 @@
 
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useReadContract } from 'thirdweb/react';
+import { useActiveAccount, useReadContract } from 'thirdweb/react';
 import { CONTRACT } from '../../../utils/constants';
 
 const UserDetails: React.FC = () => {
   const { userAddress } = useParams<{ userAddress: string }>(); // Extract the user (donor) address from the URL
+  
+  const activeAccount = useActiveAccount();
 
   // Fetch all campaigns where this user donated
   const { data: userFundedCampaigns, isLoading: loadingUserCampaigns, error } = useReadContract({
@@ -72,7 +74,8 @@ const UserDetails: React.FC = () => {
       <div className="user-details-header">
         <h1 className="text-3xl font-bold mb-4">User Details</h1>
         <p className="mb-6">
-          <strong>Address:</strong> {userAddress}
+          {/* <strong>Address:</strong> {userAddress} */}
+          {userAddress} {userAddress === activeAccount?.address && <strong>(you)</strong>}
         </p>
       </div>
 

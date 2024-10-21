@@ -131,7 +131,7 @@
 .roadmap-item::before {
   content: "";
   position: absolute;
-  left: 15px;
+  left: 19px;
   top: 0;
   bottom: 0;
   width: 2px;
@@ -140,7 +140,7 @@
 
 .roadmap-item .dot {
   width: 20px;
-  height: 15px;
+  height: 20px;
   background-color: #007bff;
   border-radius: 50%;
   margin-right: 10px;
@@ -534,6 +534,106 @@
   margin: 0;
 }
 
+.donation-middle-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ddd;
+  /* margin-top: 20px; */
+  /* border: 1px solid #4e6e58; */
+}
+
+/* Modal Container */
+.voting-modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content Box */
+.voting-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  max-width: 90%; /* Responsive design */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Modal shadow */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Headings and Text */
+.voting-modal-content h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.voting-modal-content p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* Button Styling */
+.vote-button,
+.confirm-vote-button,
+.cancel-vote-button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+/* Vote Button */
+.vote-button {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Confirm Vote Button */
+.confirm-vote-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.confirm-vote-button:hover {
+  background-color: #218838;
+}
+
+/* Cancel Button */
+.cancel-vote-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-vote-button:hover {
+  background-color: #c82333;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .donation-left-right-section {
   display: flex;
   justify-content: space-between;
@@ -578,6 +678,35 @@
   width: 100%;
   padding: 20px;
   border-radius: 20px;
+}
+
+.funding-success-message {
+  background-color: #daf1de;
+  color: #4e6e58;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #4e6e58;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.current-request-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+  margin-left: 20px;
+  text-decoration: underline;
+}
+
+.only-roadmap-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
 }
 
 .campaign-actions {
@@ -667,4 +796,12 @@
 .balance-section p {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.other-campaigns-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #333;
+  margin-left: 20px;
 }

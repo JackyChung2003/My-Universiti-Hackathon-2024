@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { TransactionButton, useReadContract } from 'thirdweb/react';
+import { TransactionButton, useActiveAccount, useReadContract } from 'thirdweb/react';
 import { CONTRACT } from '../../../utils/constants';
 import { prepareContractCall } from 'thirdweb';
 import { useEffect, useState } from 'react';
@@ -14,6 +14,7 @@ import axios, { all } from 'axios'
 import CampaignStatusBadge, { CampaignState } from '../../../components/BadgeDisplay';
 import ProgressBarMinTarget from '../../../components/ProgressBarMinTarget';
 import AdminOverlayCampaignDetails from '../../../components/AdminOverlay/admin_campaign_details';
+import { getSocialProfiles } from 'thirdweb/social';
 
 interface CampaignData  {
   name: string;
@@ -68,9 +69,17 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
   const [ethPrice, setEthPrice] = useState<number | null>(null); // To store ETH price
   const [usdRaised, setUsdRaised] = useState<number | null>(null); // USD raised
   
-
+  const [isVotingModalOpen, setIsVotingModalOpen] = useState(false);
+  const [votePercentage, setVotePercentage] = useState(0);
+  // const [selectedRequestId, setSelectedRequestId] = useState<number | null>(null);
+  const [selectedRequestId, setSelectedRequestId] = useState<number | null>(null);
   // const [requests, setRequests] = useState<RequestDetail[]>([]);
   // const [totalRequests, setTotalRequests] = useState(0);
+  
+  const [randomCampaigns, setRandomCampaigns] = useState<any[]>([]);
+  const [profiles, setProfiles] = useState<{ [address: string]: any }>({});
+
+  const activeAccount = useActiveAccount();
 
   
   // Handle form input changes
@@ -82,6 +91,8 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
     console.log("Donating", form.donationAmount, "ETH");
     setModalOpen(false); // Close the modal after donation
   };
+
+  
   
   const { address } = useParams<{ address: string }>(); // Get the campaign address from the URL
 
@@ -112,6 +123,29 @@ const CampaignDetails: React.FC<{ data: any[] }> = () => {
     method: "getAllRequestsForCampaign",
     params: address ? [address] : [''],
   });
+
+  const { data: allCampaigns, isLoading: loadingEventDetail, refetch: refetchAllCampaigns } = useReadContract({
+    contract: CONTRACT,
+    method: "getAllCampaigns",
+  });
+
+  // Function to shuffle the array and get 3 random campaigns
+  const getRandomCampaigns = (campaigns: any[]) => {
+    const shuffled = [...campaigns].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 3); // Return only the first 3 items
+  };
+
+  useEffect(() => {
+    if (allCampaigns) {
+      const selectedCampaigns = getRandomCampaigns([...allCampaigns]);
+      setRandomCampaigns(selectedCampaigns);
+
+      selectedCampaigns.forEach(async (campaign) => {
+        const profile = await getSocialProfiles({ address: campaign.owner, client: CONTRACT.client });
+        setProfiles((prev) => ({ ...prev, [campaign.owner]: profile }));
+      });
+    }
+  }, [allCampaigns]);
 
   // Get the detail of the request of the campaign
   const { data: allRequestsDetails1, isLoading: loadingAllRequestsDetails1, refetch: refetchAllRequestsDetails1 } = useReadContract({
@@ -326,6 +360,58 @@ useEffect(() => {
       window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
     };
 
+    const scrollToRequest = (index: number) => {
+      const element = document.getElementById(`request-${index}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to the element
+      }
+    };
+
+    // Check if the current user is a campaign funder
+  const isFunder = activeAccount ? (allCampaignsDonors as unknown as [string[], bigint[]])[0].includes(activeAccount.address) : false;
+
+  // Function to handle vote button click
+  const handleVoteClick = (requestId: number) => {
+    if (!isFunder) {
+      alert("Only campaign funders can vote!");
+      return;
+    }
+    // Calculate the user's vote percentage based on their contribution
+    const totalContributions = allCampaignsDonors ? (allCampaignsDonors[1] as bigint[]).reduce((acc, contribution) => acc + Number(contribution), 0) : 0;
+    const userContribution = activeAccount ? (allCampaignsDonors as unknown as [string[], bigint[]])[1][(allCampaignsDonors as unknown as [string[], bigint[]])[0].indexOf(activeAccount.address)] : 0;
+    const userVotePercentage = (Number(userContribution) / totalContributions) * 100;
+    setSelectedRequestId(requestId);  // Store the selected request ID
+    setVotePercentage(userVotePercentage);
+    setIsVotingModalOpen(true);  // Open the modal for voting confirmation
+  };
+
+  // Assuming "RequestState.Pending" refers to the pending state
+  // Combine all fetched request details into an array
+  const allRequests = [
+    allRequestsDetails1,
+    allRequestsDetails2,
+    allRequestsDetails3,
+    allRequestsDetails4,
+    allRequestsDetails5,
+    allRequestsDetails6,
+    allRequestsDetails7,
+    allRequestsDetails8,
+    allRequestsDetails9,
+    allRequestsDetails10,
+  ].filter(Boolean); // Filter out any undefined or null values
+
+  const pendingRequests = allRequests.filter(
+    (request) => request && Number(request[9]) === RequestState.Pending // Replace "RequestState.Pending" with the actual value or enum
+  );
+
+  // Get the latest pending request
+  const latestPendingRequest = pendingRequests.length > 0 ? pendingRequests[pendingRequests.length - 1] : null;
+  
+  // Get the oldest pending request (the first item in the filtered array)
+  const oldestPendingRequest = pendingRequests.length > 0 ? pendingRequests[0] : null;
+
+  
+
   return (
     <div className="campaign-details-container">
       <AdminOverlayCampaignDetails 
@@ -419,10 +505,11 @@ useEffect(() => {
                             <p>Requests Num: {allRequests.length}</p>
                             {allRequests.map((request, index) => (
                               // <li key={index} className="roadmap-item">
-                              <li key={index} className={`roadmap-item ${getRequestStateColor(Number(request?.[9] ?? 0))}`}>
+                              // <li key={index} className={`roadmap-item ${getRequestStateColor(Number(request?.[9] ?? 0))}`}>
+                              <li id={`request-${index}`} key={index} className={`roadmap-item ${getRequestStateColor(Number(request?.[9] ?? 0))}`}>
                                 {/* <span className="dot"></span> */}
                                 {request && <span className={`dot ${getRequestStateColor(Number(request[9]))}`}></span>}
-                                <div className="change-content">
+                                <div className="request-content">
                                   {request && <p className="request-title">Title: {request[0]}</p>}
                                   {request && <p className="request-description">Description: {request[1]}</p>}
                                   {request && <p className="request-id">Request ID: {index}</p>}
@@ -440,14 +527,46 @@ useEffect(() => {
                                       </div>
                                     </div>
                                   </Link>}
-                                  {request && <p className="request-amount">Amount: {parseFloat(request[3].toString()) / 1e18} ETH</p>}
-                                  {/* {request && <p className="request-status">Status: {Number(request[4]) === 1 ? 'Complete' : 'Pending'}</p>} */}
-                                  {request && <strong><p className={`request-status ${getRequestStateColor(Number(request[9]))}`}>
-                                        Status: {RequestState[Number(request[9])]}
-                                    </p></strong>}
-                                  {/* {request && <p className="request-votes">Current votes: {Number(request[5])}</p>} */}
-                                  {/* {request && <p className="request-votes-needed">Votes needed: {Number(request[6])}</p>} */}
-                                  {request && <p className="request-voting-deadline">Voting Deadline: {Number(request[7])} days</p>}
+                                  <div className='donation-middle-section'>
+                                    <div>
+                                      {request && <p className="request-amount">Amount: {parseFloat(request[3].toString()) / 1e18} ETH</p>}
+                                      {request && <p className="request-voting-deadline">Voting Deadline: {Number(request[7])} days</p>}
+                                    </div>
+                                    <button onClick={() => handleVoteClick(index)} className="vote-button">Vote Request</button>
+                                    {/* Modal for voting details */}
+                                    {isVotingModalOpen && (
+                                      <div className="voting-modal">
+                                        <div className="voting-modal-content">
+                                          <h2>Confirm Your Vote for Request {selectedRequestId}</h2>
+                                          <p>Your vote will count as <strong>{votePercentage.toFixed(2)}%</strong> of the total votes for this request.</p>
+                                          <p>Are you sure you want to vote for this request?</p>
+                                          {/* <button onClick={handleConfirmVote} className="confirm-vote-button">Confirm Vote</button> */}
+                                            <TransactionButton
+                                            transaction={() =>
+                                              prepareContractCall({
+                                              contract: CONTRACT,
+                                              method: 'voteOnRequest',
+                                              params: [address, selectedRequestId !== null ? BigInt(selectedRequestId) : BigInt(0)],
+                                              })
+                                            }
+                                            onTransactionSent={() => {
+                                              setIsVotingModalOpen(false)
+                                              alert('Your vote has been sent. Please wait for confirmation.');
+                                            }}
+                                            onTransactionConfirmed={(receipt) => {
+                                              console.log('Vote confirmed', receipt.transactionHash);
+                                              refetchAllCampaignsDonors();
+                                              refetchAllCampaignsRequests();
+                                              alert('Your vote has been successfully sent!');
+                                            }}
+                                            >
+                                            Confirm Vote
+                                            </TransactionButton>
+                                          <button onClick={() => setIsVotingModalOpen(false)} className="cancel-vote-button">Cancel</button>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
                                   {/* {request && <p className="request-process-deadline">Process Deadline: {Number(request[8])} days</p>} */}
                                   {/* {request && <p className="request-process-deadline">Process Deadline: {new Date(Number(request[8]) * 1000).toLocaleString()}</p>} */}
                                   {/* {request && <p className="request-approval">Approval Percentage: {parseFloat(request[6].toString())}%</p>} */}
@@ -456,7 +575,7 @@ useEffect(() => {
                                   <div className='donation-top-down-section'>
                                         <p className='donation-amount-display-light'>Usage</p>
                                         <div className='donation-amount-display'>
-                                            <h1>{campaignBalance && request ? parseFloat(request[3].toString()) / 1e18 : 0}</h1>
+                                            <h1 style={{ marginRight: '10px'}}>{campaignBalance && request ? parseFloat(request[3].toString()) / 1e18 : 0}</h1>
                                             <p className='donation-amount-display-light'>ETH</p>
                                         </div>
                                     </div>
@@ -512,7 +631,9 @@ useEffect(() => {
                             <div className="donor-info">
                               <img src={DefaultProfilePicture} alt="Donor profile" className="donor-avatar" /> {/* Placeholder profile picture */}
                               <div>
-                                <p><strong>{donor.address}</strong></p>
+                                {/* <p><strong>{donor.address}</strong></p> */}
+                                <p>{donor.address} {donor.address === activeAccount?.address && <strong>(you)</strong>}</p>
+
                                 <p>Donated: {donor.amount} ETH</p>
                               </div>
                                 <Link to={`/user/${donor.address}`}>
@@ -590,8 +711,9 @@ useEffect(() => {
                         <div className="creator-info">
                             <img src={DefaultProfilePicture} alt="Creator profile" className="creator-avatar" /> {/* Placeholder profile picture */}
                             <div>
-                            <p><strong>Campaign Owner</strong></p>
-                            <p>{campaignData.owner}</p>
+                              <p><strong>Campaign Owner</strong></p>
+                              <p>{campaignData.owner}</p>
+                              <p>{campaignData.owner === activeAccount?.address && <strong>(you)</strong>}</p>
                             </div>
                                 {/* <Link to={`/user/${campaignData.owner}`}>
                                     <button className="view-button">View User</button>
@@ -638,19 +760,79 @@ useEffect(() => {
                     {/* // https://maps.app.goo.gl/4UBrXAcGtysCXjn9A */}
                 </div>
 
-
                 <div className="donation-progress-section">
+                {/* Check if the campaign is finalized */}
+                {campaignData.state === CampaignState.Finalized ? (
+                  <div className='voting-section'>
+                    <p className="funding-success-message">Funding process successfully completed.</p>
+
+                    {oldestPendingRequest && <p className="current-request-label">Current Request Id: {oldestPendingRequest ? allRequests.indexOf(oldestPendingRequest) : 'N/A'}</p>}
+                    {oldestPendingRequest ? (
+                      <li id={`request-latest`} className={`only-roadmap-item ${getRequestStateColor(Number(oldestPendingRequest?.[9] ?? 0))}`}>
+                        {/* <span className={`dot ${getRequestStateColor(Number(latestPendingRequest[9]))}`}></span> */}
+                        <div className="request-content">
+                          <p className="request-title">{oldestPendingRequest[0]}</p>
+                          <p className="request-description">{oldestPendingRequest[1]}</p>
+                          <p className="request-amount">Amount: {parseFloat(oldestPendingRequest[3].toString()) / 1e18} ETH</p>
+                          <strong><p className={`request-status ${getRequestStateColor(Number(oldestPendingRequest[9]))}`}>
+                            Status: {RequestState[Number(oldestPendingRequest[9])]}
+                          </p></strong>
+                          {/* <p className="request-voting-deadline">Voting Deadline: {Number(oldestPendingRequest[7])} days</p> */}
+                          <ProgressBarMinTarget percentage={Number(oldestPendingRequest[5])} minPercentage={Number(oldestPendingRequest[6])} />
+                        </div>
+                      </li>
+                    ) : (
+                      <p>No pending requests found.</p>
+                    )}
+
+                    
+                  </div>
+                ) : (
+                  <>
+                    {/* Render the normal donation progress section */}
+                    <div className='donation-left-right-section'>
+                      <div className='donation-top-down-section'>
+                        <p className='donation-amount-display-light'>Collected</p>
+                        <div className='donation-amount-display'>
+                          <h1>{campaignBalance ? parseFloat(campaignBalance.toString()) / 1e18 : 0}</h1>
+                          <p className='donation-amount-display-light'>ETH</p>
+                        </div>
+                      </div>
+                
+                      <div className='donation-top-down-section'>
+                        <p className='donation-amount-display-light'>Target</p>
+                        <div className='donation-amount-display'>
+                          <h1>{Number(campaignData.goal) / 1e18}</h1>
+                          <p className='donation-amount-display-light'>ETH</p>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <ProgressBar
+                      percentage={parseFloat(((Number(campaignBalance) / Number(campaignData.goal)) * 100).toFixed(2))}
+                    />
+              
+                    <div className='donation-left-right-section'>
+                      <p>
+                        <strong>Approximate ${usdRaised ? usdRaised.toFixed(2) : '0'} USD raised</strong>
+                      </p>
+                      <p className='donation-amount-display-light'>
+                        {Math.max(0, Math.floor((Number(campaignData.deadline) * 1000 - Date.now()) / (1000 * 60 * 60 * 24)))} days left
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+
+                {/* <div className="donation-progress-section">
                     <div className='donation-left-right-section'>
                         <div className='donation-top-down-section'>
-                            {/* <h3>Collected</h3> */}
                             <p className='donation-amount-display-light'>Collected</p>
                             <div className='donation-amount-display'>
                                 <h1>{campaignBalance ? parseFloat(campaignBalance.toString()) / 1e18 : 0}</h1>
                                 <p className='donation-amount-display-light'>ETH</p>
                             </div>
                         </div>
-                        {/* <p>{campaignBalance ? parseFloat(campaignBalance.toString()) / 1e18 : 0} ETH Collected</p> */}
-                        {/* <p><strong>Donation Goal:</strong> {Number(campaignData.goal)/ 1e18} ETH</p> */}
                         <div className='donation-top-down-section'>
                             <p className='donation-amount-display-light'>Target</p>
                             <div className='donation-amount-display'>
@@ -661,18 +843,45 @@ useEffect(() => {
                     </div>
                     <ProgressBar percentage={parseFloat(((Number(campaignBalance) / Number(campaignData.goal)) * 100).toFixed(2))} />
                     <div className='donation-left-right-section'>
-                        {/* <p><strong>Approximate $41,377 USD raised</strong></p> */}
                         <p><strong>Approximate ${usdRaised ? usdRaised.toFixed(2) : '0'} USD raised</strong></p>
                         <p className='donation-amount-display-light'>{Math.max(0, Math.floor((Number(campaignData.deadline) * 1000 - Date.now()) / (1000 * 60 * 60 * 24)))} days left</p>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="campaign-actions">
                     {/* <button className="donate-button">Donate Now</button> */}
-                    <button onClick={() => setModalOpen(true)} className="donate-button">Donate Now</button>
+                    {/* <button onClick={() => setModalOpen(true)} className="donate-button">Donate Now</button> */}
+                    {campaignData.state !== CampaignState.Finalized ? (
+                      <button onClick={() => setModalOpen(true)} className="donate-button">Donate Now</button>
+                    ) : (
+                      <button 
+                        // onClick={() => {
+                        //   const requestElement = document.getElementById('request-0');
+                        //   if (requestElement) {
+                        //     requestElement.scrollIntoView({ behavior: 'smooth' });
+                        //   }
+                        // }} 
+                        // onClick={() => scrollToRequest(1)}
+                        onClick={() => {
+                          if (oldestPendingRequest) {
+                            scrollToRequest(allRequests.indexOf(oldestPendingRequest));
+                          }
+                        }}
+                        
+                    // {oldestPendingRequest && <p className="current-request-label">Current Request Id: {oldestPendingRequest ? allRequests.indexOf(oldestPendingRequest) : 'N/A'}</p>}
+                        className="donate-button"
+                      >
+                        Jump to Request
+                      </button>
+                    )}
                     <div className="share-remind-section">
                         <button className="remind-button">Remind Me</button>
                         <button className="share-button">Share</button>
+                    </div>
+
+                    <div className='voting-options'>
+
+                      <button onClick={() => scrollToRequest(1)}>Jump to Request 2</button>
                     </div>
                 </div>
                 {/* Donation Modal */}
@@ -716,7 +925,7 @@ useEffect(() => {
 
         <div className="campaign-details-bottom">
             <div className="other-campaigns-suggestions-section">
-                <h2>Other Campaigns You May Like</h2>
+                <p className="other-campaigns-title">Other Campaigns You May Like</p>
                 <div className='other-campaigns-suggestions'>
                     {/* <div className='other-campaign-suggestion'>
                         <img src={TempCampaignPicture} alt="Campaign" className="campaign-suggestion-image" />
@@ -730,6 +939,57 @@ useEffect(() => {
                         <img src={TempCampaignPicture} alt="Campaign" className="campaign-suggestion-image" />
                         <p>Campaign Name</p>
                     </div> */}
+                </div>
+                <div className="three-random-campaigns-grid">
+                  {randomCampaigns.map((campaign, index) => (
+                    <Link to={`/campaign/${campaign.campaignAddress}`} key={index} className="campaign-card-link">
+                      <div className="three-random-campaign-card">
+                        <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
+                  
+                        <div className="image-container">
+                          <img src={TempCampaignPicture} alt="Campaign" className="campaign-image" />
+                          <div className="overlay">
+                            <Link to={`/campaign/${campaign.campaignAddress}`} className="view-more-link">
+                              <p>View More</p>
+                            </Link>
+                          </div>
+                        </div>
+                  
+                        <div className="campaign-top-section">
+                          <div>
+                            {profiles[campaign.owner]?.avatar ? (
+                              <img src={profiles[campaign.owner].avatar} alt={`${campaign.owner} profile`} className="three-random-owner-avatar" />
+                            ) : (
+                              <img src={DefaultProfilePicture} alt="Default profile picture" className="three-random-owner-profile" />
+                            )}
+                          </div>
+                          
+                          <div className="campaign-top-right">
+                            <h2 className="three-random-campaign-name">{campaign.name}</h2>
+                              <p className="campaign-creator">
+                              Created by: {campaign.owner} {campaign.owner === activeAccount?.address && <strong>(you)</strong>}
+                              </p>
+                          </div>
+                        </div>
+                          
+                        <ProgressBar percentage={parseFloat(((Number(campaign.currentContributions) / Number(campaign.goal)) * 100).toFixed(2))} />
+                          
+                        <p className="campaign-create-time">
+                          <strong>Created on </strong> {new Date(Number(campaign.creationTime) * 1000).toLocaleString()}
+                        </p>
+                          
+                        <div className="campaign-bottom-section">
+                          <div className="campaign-bottom-left">
+                            <p className="target-amount">{(Number(campaign.goal) / 1e18).toFixed(2)} ETH</p>
+                            <p className="collected-amount">{(Number(campaign.currentContributions) / 1e18).toFixed(2)} ETH Raised</p>
+                          </div>
+                          <div className="campaign-bottom-right">
+                            <p>{Math.max(0, Math.floor((Number(campaign.deadline) * 1000 - Date.now()) / (1000 * 60 * 60 * 24)))} days left</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

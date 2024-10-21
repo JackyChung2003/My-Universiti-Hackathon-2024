@@ -245,7 +245,7 @@ import CampaignInfoTemp from "./components/CampaignInfoTemp";
 import { Routes, Route } from "react-router-dom";
 // import CampaignDetails from './components/CampaignDetails';
 // import CampaignDetails from "./components/CampaignDetails";
-import UserDetails from "./components/UserDetail";
+// import UserDetails from "./components/UserDetail";
 
 
 import HorizontalNavbar from "./containers/Navigation/HorizontalNavBar";
@@ -255,6 +255,7 @@ import Campaigns from "./containers/Campaign";
 import CampaignDetails from "./containers/Campaign/[campaignAddress]";
 import MapPage from "./containers/Map";
 import SubscriptionPage from "./containers/Subscription";
+import UserDetails from "./containers/User/[userAddress]";
 // import StickyLayout from "./containers/test";
 // import StickyLayout from "./containers/test";
 
@@ -278,7 +279,8 @@ export function App() {
 					<Route path="/campaign" element={<Campaigns />} />
     			    <Route path="/contact" element={<Login />} />
 					<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
-					<Route path="/user/:donorAddress" element={<UserDetails />} />
+					{/* <Route path="/user/:donorAddress" element={<UserDetails />} /> */}
+					<Route path="/user/:userAddress" element={<UserDetails />} />
 					{/* <Route path="/about" element={<StickyLayout />} /> */}
 					<Route path="/map" element={<MapPage/> } />
 					<Route path="/subscription" element={<SubscriptionPage />} />

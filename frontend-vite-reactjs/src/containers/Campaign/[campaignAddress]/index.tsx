@@ -328,7 +328,7 @@ useEffect(() => {
 
   return (
     <div className="campaign-details-container">
-      <AdminOverlayCampaignDetails />
+      {/* <AdminOverlayCampaignDetails /> */}
         <div className="campaign-header">
             <h1>{campaignData.name}</h1>
             <p className="campaign-description">{campaignData.description}</p>

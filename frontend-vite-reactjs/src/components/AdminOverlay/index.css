@@ -1,0 +1,120 @@
+/* Floating Button */
+.try-admin-button {
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+  padding: 15px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: background-color 0.2s;
+  z-index: 1000;
+}
+
+.try-admin-button:hover {
+  background-color: #218838;
+}
+
+/* Admin Overlay */
+.admin-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-overlay-content {
+  background-color: white;
+  padding: 30px;
+  /* border-radius: 10px; */
+  /* width: 400px; */
+  width: 70%;
+  height: 80%;
+  text-align: center;
+  /* overlay-y: auto; */
+  max-height: 80vh;
+  border: 1px solid #007bff;
+  overflow-y: auto;
+}
+
+.admin-overlay-title {
+  font-size: 24px;
+  font-weight: bold;
+  /* margin-bottom: 20px; */
+  color: black;
+  border: 1px solid #007bff;
+}
+
+.admin-overlay-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.admin-action-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* gap: 20px; */
+  border: 1px solid red;
+  color: black;
+  padding: 20px;
+  width: 100%;
+}
+
+.admin-action-title {
+  font-size: 20px;
+  font-weight: bold;
+  /* margin-bottom: 20px; */
+  color: black;
+}
+
+.admin-action-description {
+  font-size: 16px;
+  /* margin-bottom: 20px; */
+  color: black;
+}
+
+.close-overlay {
+  margin-top: 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-overlay:hover {
+  background-color: darkred;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* border: 1px solid red; */
+  /* padding: 20px; */
+  width: 100%;
+}
+
+/* admin_campaign */
+.create-form input {
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ced4da;
+}

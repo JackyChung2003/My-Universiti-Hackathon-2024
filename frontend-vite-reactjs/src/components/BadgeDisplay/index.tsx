@@ -16,9 +16,10 @@ interface CampaignStatusBadgeProps {
     campaignState: CampaignState;
     isPaused: boolean;
     investorCount: number;
+    campaignAddress: string;
 }
 
-const CampaignStatusBadge: React.FC<CampaignStatusBadgeProps> = ({ campaignState, isPaused, investorCount }) => {
+const CampaignStatusBadge: React.FC<CampaignStatusBadgeProps> = ({ campaignState, isPaused, investorCount, campaignAddress }) => {
   // Helper function to get human-readable state
   const getStateName = (state: CampaignState): string => {
     switch (state) {
@@ -52,6 +53,9 @@ const CampaignStatusBadge: React.FC<CampaignStatusBadgeProps> = ({ campaignState
       </div>
       <div className="investor-badge">
         <p className="investor-text"><strong>{investorCount}</strong> people funded</p>
+      </div>
+      <div className="investor-badge">
+        <p className="investor-text">Campaign Address: <strong>{campaignAddress}</strong></p>
       </div>
     </div>
   );

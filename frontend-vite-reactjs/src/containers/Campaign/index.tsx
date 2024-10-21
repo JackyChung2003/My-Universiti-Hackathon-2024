@@ -52,6 +52,7 @@ import TempCampaignPicture from '../../assets/images/temp-campaign-picture.jpg';
 import { getSocialProfiles } from 'thirdweb/social';
 import DefaultProfilePicture from '../../assets/images/default-profile-picture.jpg';
 import ProgressBar from '../../components/ProgressBar';
+import AdminOverlayCampaign from '../../components/AdminOverlay/admin_campaign';
 
 const AnyReactComponent: React.FC<{ lat: number; lng: number; text: string }> = ({ lat, lng, text }) => <div>{text}</div>;
 
@@ -118,6 +119,7 @@ const Campaigns: React.FC = () => {
 
     return (
         <div className="campaigns-container">
+            <AdminOverlayCampaign refetchAllCampaigns={refetchAllCampaigns} />
             <h1 className='campaigns-title'>All Campaigns Details</h1>
             <div className="campaigns-grid">
                 {allCampaigns?.map((campaign, index) => (

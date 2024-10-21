@@ -13,6 +13,7 @@ import CampaignMap from '../../../components/Map'; // Adjust the path as necessa
 import axios, { all } from 'axios'
 import CampaignStatusBadge, { CampaignState } from '../../../components/BadgeDisplay';
 import ProgressBarMinTarget from '../../../components/ProgressBarMinTarget';
+import AdminOverlayCampaignDetails from '../../../components/AdminOverlay/admin_campaign_details';
 
 interface CampaignData  {
   name: string;
@@ -327,6 +328,7 @@ useEffect(() => {
 
   return (
     <div className="campaign-details-container">
+      <AdminOverlayCampaignDetails />
         <div className="campaign-header">
             <h1>{campaignData.name}</h1>
             <p className="campaign-description">{campaignData.description}</p>
@@ -336,7 +338,7 @@ useEffect(() => {
                 <img src={TempCampaignPicture} alt="Campaign" className="campaign-detail-image" />
 
                 {/* Badge section */}
-                <CampaignStatusBadge isPaused={campaignData.paused} campaignState={campaignData.state} investorCount={allCampaignsDonors ? allCampaignsDonors[0].length : 0} />
+                <CampaignStatusBadge isPaused={campaignData.paused} campaignState={campaignData.state} investorCount={allCampaignsDonors ? allCampaignsDonors[0].length : 0} campaignAddress={address} />
 
                 {/* Little Navbar to jump to each section */}
                 {/* <div className='campaign-details-navbar'> */}
@@ -408,6 +410,7 @@ useEffect(() => {
                                 <div className="change-content">
                                   {request && <p className="request-title">Title: {request[0]}</p>}
                                   {request && <p className="request-description">Description: {request[1]}</p>}
+                                  {request && <p className="request-id">Request ID: {index}</p>}
                                   {/* {request && <p className="request-recipient">Recipient: {request[2]}</p>} */}
                                   {request && <Link to={`/user/${request[2]}`} className="request-recipient-link">
                                     {/* <div className="campaign-creator-section"> */}

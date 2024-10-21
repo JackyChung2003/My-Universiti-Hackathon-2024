@@ -28,11 +28,6 @@ interface AdminOverlayCampaignDetailsProps {
   refetchAllRequestsDetails9: () => void;
   refetchAllRequestsDetails10: () => void;
 }
-
-// const AdminOverlayCampaign: React.FC = () => {
-
-// const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({ refetchAllCampaigns }) => {
-  // const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({ campaignAddress  }) => {
     const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({
       campaignAddress,
       refetchAllCampaignsDonors,
@@ -59,7 +54,6 @@ interface AdminOverlayCampaignDetailsProps {
     processingDeadline: "",
     requiredApprovalsPercentage: "51",
     deadline: "",
-    // campaignAddress: "",
     newDeadline: "",
     requestIndex: "",
   });
@@ -73,7 +67,7 @@ interface AdminOverlayCampaignDetailsProps {
   // Handle clicks outside of the content to close the overlay
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      setIsOverlayOpen(false);  // Close the overlay if clicked outside the content
+      setIsOverlayOpen(false);  
     }
   };
 
@@ -120,7 +114,6 @@ interface AdminOverlayCampaignDetailsProps {
               <p className='admin-action-description'>The funders can still withdraw their funds if the campaign is not finalized</p>
               <p className='admin-action-description'>The campaign can only create requests after being finalized</p>
               <p className='admin-action-description'>The campaign status will become success if the target is reached</p>
-              {/* <p className='admin-action-description'>The campaign status will become failed if the deadline is reached without reaching the target</p> */}
               <div className="create-form">
                 
                 <div className="admin-button-container">
@@ -266,13 +259,6 @@ interface AdminOverlayCampaignDetailsProps {
                   value={form.processingDeadline}
                   onChange={handleChange}
                 />
-                {/* <input
-                  type="number"
-                  name="requiredApprovalsPercentage"
-                  placeholder="Required Approvals Percentage"
-                  value={form.requiredApprovalsPercentage}
-                  onChange={handleChange}
-                /> */}
                 {/* Slider for Required Approvals Percentage */}
                 <label className="slider-label" htmlFor="requiredApprovalsPercentage">
                   Required Approvals Percentage: {form.requiredApprovalsPercentage}%

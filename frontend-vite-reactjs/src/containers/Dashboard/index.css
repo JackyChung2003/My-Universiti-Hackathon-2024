@@ -111,3 +111,49 @@
 .view-all-button:hover {
   background-color: #8fbc8f;
 }
+
+@media screen and (max-width: 768px) {
+  .three-random-campaigns-grid {
+    grid-template-columns: 1fr; /* One column for smaller screens */
+    gap: 15px;
+  }
+
+  .three-random-campaign-card {
+    min-width: auto; /* Adjust the width for smaller screens */
+  }
+
+  .three-random-campaigns-button {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    gap: 10px;
+  }
+
+  .refresh-button,
+  .view-all-button {
+    width: 100%; /* Full width buttons on smaller screens */
+    font-size: 14px; /* Adjust font size for buttons */
+  }
+}
+
+/* Media query for very small screens like mobile phones */
+@media screen and (max-width: 480px) {
+  .three-random-campaign-card {
+    padding: 8px;
+    font-size: 0.9rem; /* Slightly smaller font */
+    display: none;
+  }
+
+  .three-random-owner-profile,
+  .three-random-owner-avatar {
+    height: 40px;
+    width: 40px; /* Smaller profile image */
+  }
+
+  .three-random-campaign-name {
+    font-size: 1rem; /* Smaller font for mobile */
+  }
+
+  .refresh-button,
+  .view-all-button {
+    padding: 8px 16px; /* Smaller padding for mobile */
+  }
+}

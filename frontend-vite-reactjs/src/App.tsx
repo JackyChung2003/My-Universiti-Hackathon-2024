@@ -256,6 +256,7 @@ import CampaignDetails from "./containers/Campaign/[campaignAddress]";
 import MapPage from "./containers/Map";
 import SubscriptionPage from "./containers/Subscription";
 import UserDetails from "./containers/User/[userAddress]";
+import Sidebar from "./containers/Navigation/SideNavBar";
 // import StickyLayout from "./containers/test";
 // import StickyLayout from "./containers/test";
 
@@ -270,7 +271,6 @@ export function App() {
 	return (
 		<div className="App">
 			<HorizontalNavbar toggle={toggle} />
-			
 			<main>
 				{/* <Router> */}
     			  <Routes>

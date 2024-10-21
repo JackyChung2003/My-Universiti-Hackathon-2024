@@ -299,8 +299,9 @@
   background-color: #a8beac;
   padding: 20px;
   border-radius: 20px;
-  position: relative;
+  position: sticky;
   margin-left: 20px;
+  top: 20px;
 }
 
 .campaign-creator-link {

@@ -253,7 +253,10 @@ import { useState } from "react";
 import Dashboard from "./containers/Dashboard";
 import Campaigns from "./containers/Campaign";
 import CampaignDetails from "./containers/Campaign/[campaignAddress]";
-import StickyLayout from "./containers/test";
+import MapPage from "./containers/Map";
+import SubscriptionPage from "./containers/Subscription";
+// import StickyLayout from "./containers/test";
+// import StickyLayout from "./containers/test";
 
 export function App() {
 	// const { totalCampaigns, isLoading, error } = useTotalCampaigns(contractAddress);
@@ -270,12 +273,15 @@ export function App() {
 			<main>
 				{/* <Router> */}
     			  <Routes>
-    			    <Route path="/" element={<Login />} />
+    			    {/* <Route path="/" element={<Login />} /> */}
+					<Route path="/" element={<Dashboard />} />
 					<Route path="/campaign" element={<Campaigns />} />
     			    <Route path="/contact" element={<Login />} />
 					<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
 					<Route path="/user/:donorAddress" element={<UserDetails />} />
-					<Route path="/about" element={<StickyLayout />} />
+					{/* <Route path="/about" element={<StickyLayout />} /> */}
+					<Route path="/map" element={<MapPage/> } />
+					<Route path="/subscription" element={<SubscriptionPage />} />
 
     			  </Routes>
     			{/* </Router> */}

@@ -118,7 +118,7 @@ const Campaigns: React.FC = () => {
 
     return (
         <div className="campaigns-container">
-            <h1>All Campaigns Details</h1>
+            <h1 className='campaigns-title'>All Campaigns Details</h1>
             <div className="campaigns-grid">
                 {allCampaigns?.map((campaign, index) => (
                   <Link to={`/campaign/${campaign.campaignAddress}`} key={index} className="campaign-card-link">

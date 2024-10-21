@@ -86,27 +86,30 @@ const AdminOverlayCampaign: React.FC<AdminOverlayCampaignProps> = ({ refetchAllC
                 />
                 
                 {/* Create Campaign Transaction Button */}
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "createCampaign",
-                      params: [
-                        form.title,
-                        form.description,
-                        BigInt(Number(form.target) * 1000000000000000000), // Target amount in wei
-                        BigInt(new Date(form.deadline).getTime() / 1000), // Deadline as Unix timestamp
-                      ],
-                    })
-                  }
-                  onTransactionSent={() => console.log("Transaction sent...")}
-                  onTransactionConfirmed={(receipt) => {
-                    console.log("Transaction confirmed", receipt.transactionHash);
-                    refetchAllCampaigns();  // Refetch all campaigns after creating a new campaign
-                  }}
-                >
-                  Create Campaign
-                </TransactionButton>
+                <div className="admin-button-container">
+                  <TransactionButton
+                    className='admin-button'
+                    transaction={() =>
+                      prepareContractCall({
+                        contract: CONTRACT,
+                        method: "createCampaign",
+                        params: [
+                          form.title,
+                          form.description,
+                          BigInt(Number(form.target) * 1000000000000000000), // Target amount in wei
+                          BigInt(new Date(form.deadline).getTime() / 1000), // Deadline as Unix timestamp
+                        ],
+                      })
+                    }
+                    onTransactionSent={() => console.log("Transaction sent...")}
+                    onTransactionConfirmed={(receipt) => {
+                      console.log("Transaction confirmed", receipt.transactionHash);
+                      refetchAllCampaigns();  // Refetch all campaigns after creating a new campaign
+                    }}
+                  >
+                    Create Campaign
+                  </TransactionButton>
+                </div>
               </div>
 
             </div>

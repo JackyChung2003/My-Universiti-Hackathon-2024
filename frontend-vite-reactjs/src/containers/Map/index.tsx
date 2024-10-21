@@ -529,9 +529,9 @@ const MapPage: React.FC = () => {
 
       <div className="my-10"></div>
       {/* Footer */}
-      <footer className="bg-[#051F20] text-white text-center py-2 w-full mt-auto">
+      {/* <footer className="bg-[#051F20] text-white text-center py-2 w-full mt-auto">
         <p>© 2024 Power Stake - All Rights Reserved</p>
-      </footer>
+      </footer> */}
     </div>
   );
 };

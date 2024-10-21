@@ -120,20 +120,23 @@ interface AdminOverlayCampaignDetailsProps {
               <p className='admin-action-description'>The funders can still withdraw their funds if the campaign is not finalized</p>
               <p className='admin-action-description'>The campaign can only create requests after being finalized</p>
               <p className='admin-action-description'>The campaign status will become success if the target is reached</p>
-              <p className='admin-action-description'>The campaign status will become failed if the deadline is reached without reaching the target</p>
+              {/* <p className='admin-action-description'>The campaign status will become failed if the deadline is reached without reaching the target</p> */}
               <div className="create-form">
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "finalizeCampaign",
-                      params: [campaignAddress],
-                    })
-                  }
-                  onTransactionConfirmed={() => refetchAllData()}
-                >
-                  Finalize Campaign
-                </TransactionButton>
+                
+                <div className="admin-button-container">
+                  <TransactionButton
+                    transaction={() =>
+                      prepareContractCall({
+                        contract: CONTRACT,
+                        method: "finalizeCampaign",
+                        params: [campaignAddress],
+                      })
+                    }
+                    onTransactionConfirmed={() => refetchAllData()}
+                  >
+                    Finalize Campaign
+                  </TransactionButton>
+                </div>
               </div>
             </div>
 
@@ -142,18 +145,21 @@ interface AdminOverlayCampaignDetailsProps {
               <h3 className="admin-action-title">Toggle Pause for this Campaign</h3>
               <p className="admin-action-description">Pause or resume the campaign</p>
               <div className="create-form">
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "togglePause",
-                      params: [campaignAddress],
-                    })
-                  }
-                  onTransactionConfirmed={() => refetchAllData()}
-                >
-                  Toggle Pause
-                </TransactionButton>
+                
+                <div className="admin-button-container">
+                  <TransactionButton
+                    transaction={() =>
+                      prepareContractCall({
+                        contract: CONTRACT,
+                        method: "togglePause",
+                        params: [campaignAddress],
+                      })
+                    }
+                    onTransactionConfirmed={() => refetchAllData()}
+                  >
+                    Toggle Pause
+                  </TransactionButton>
+                </div>
               </div>
             </div>
 
@@ -169,18 +175,21 @@ interface AdminOverlayCampaignDetailsProps {
                   value={form.newDeadline}
                   onChange={handleChange}
                 />
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "extendDeadline",
-                      params: [campaignAddress, BigInt(Number(form.newDeadline))],
-                    })
-                  }
-                  onTransactionConfirmed={() => refetchAllData()}
-                  >
-                  Extend Deadline
-                </TransactionButton>
+                
+                <div className="admin-button-container">
+                  <TransactionButton
+                    transaction={() =>
+                      prepareContractCall({
+                        contract: CONTRACT,
+                        method: "extendDeadline",
+                        params: [campaignAddress, BigInt(Number(form.newDeadline))],
+                      })
+                    }
+                    onTransactionConfirmed={() => refetchAllData()}
+                    >
+                    Extend Deadline
+                  </TransactionButton>
+                  </div>
               </div>
             </div>
 
@@ -189,18 +198,21 @@ interface AdminOverlayCampaignDetailsProps {
               <h3 className="admin-action-title">Refund Campaign</h3>
               <p className="admin-action-description">Refund all funders if the campaign is failed</p>
               <div className="create-form">
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "refund",
-                      params: [campaignAddress],
-                    })
-                  }
-                  onTransactionConfirmed={() => refetchAllData()}
-                >
-                  Refund
-                </TransactionButton>
+                
+                <div className="admin-button-container">
+                  <TransactionButton
+                    transaction={() =>
+                      prepareContractCall({
+                        contract: CONTRACT,
+                        method: "refund",
+                        params: [campaignAddress],
+                      })
+                    }
+                    onTransactionConfirmed={() => refetchAllData()}
+                  >
+                    Refund
+                  </TransactionButton>
+                </div>
               </div>
             </div>
 
@@ -273,6 +285,8 @@ interface AdminOverlayCampaignDetailsProps {
                   value={form.requiredApprovalsPercentage}
                   onChange={handleChange}
                 />
+                
+                <div className="admin-button-container">
                 <TransactionButton
                   transaction={() =>
                     prepareContractCall({
@@ -309,18 +323,21 @@ interface AdminOverlayCampaignDetailsProps {
                   value={form.requestIndex}
                   onChange={handleChange}
                 />
-                <TransactionButton
-                  transaction={() =>
-                    prepareContractCall({
-                      contract: CONTRACT,
-                      method: "finalizeRequest",
-                      params: [campaignAddress, BigInt(Number(form.requestIndex))],
-                    })
-                  }
-                  onTransactionConfirmed={() => refetchAllData()}
-                >
-                  Finalize Request
-                </TransactionButton>
+                  <div className="admin-button-container">
+                    <TransactionButton
+                      transaction={() =>
+                        prepareContractCall({
+                          contract: CONTRACT,
+                          method: "finalizeRequest",
+                          params: [campaignAddress, BigInt(Number(form.requestIndex))],
+                        })
+                      }
+                      onTransactionConfirmed={() => refetchAllData()}
+                    >
+                      Finalize Request
+                    </TransactionButton>
+                  </div>
+                </div>
               </div>
             </div>
 

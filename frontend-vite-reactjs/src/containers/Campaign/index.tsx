@@ -228,7 +228,12 @@ const Campaigns: React.FC = () => {
                   </Link>
                 ))}
             </div>
+            {/* Footer */}
+      {/* <footer className="bg-[#051F20] text-white text-center py-2 w-full mt-auto">
+        <p>© 2024 Power Stake - All Rights Reserved</p>
+      </footer> */}
         </div>
+        
     );
 };
 

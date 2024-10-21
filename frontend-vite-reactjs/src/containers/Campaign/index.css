@@ -1,7 +1,7 @@
 .campaigns-container {
   /* max-width: 1200px; */
   margin: 0 auto;
-  padding: 20px;
+  /* padding: 20px; */
   /* border: 1px solid #f9f9f9; */
   /* take up all the space */
   /* flex-grow: 1; */
@@ -16,6 +16,7 @@
   font-weight: bold;
   /* margin-bottom: 20px; */
   color: black;
+  padding: 0 20px;
 }
 
 .campaigns-grid {
@@ -29,13 +30,14 @@
   /* display: flex;
   flex-wrap: wrap; */
   gap: 20px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  padding: 20px;
 }
 
 .campaign-card-link {
   text-decoration: none;
   color: inherit;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 
 .campaign-card {
@@ -52,7 +54,7 @@
 
   box-sizing: border-box; /* Includes padding in width calculation */
   cursor: pointer;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   height: 100%;
 }
 

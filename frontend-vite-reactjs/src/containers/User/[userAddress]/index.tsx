@@ -70,7 +70,7 @@ const UserDetails: React.FC = () => {
   if (!userAddress) return <p className="error-message">No user address found in URL.</p>;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 h-dvh">
       <div className="user-details-header">
         <h1 className="text-3xl font-bold mb-4">User Details</h1>
         <p className="mb-6">

@@ -14,13 +14,41 @@ import { CONTRACT } from '../../utils/constants';
 
 interface AdminOverlayCampaignDetailsProps {
   campaignAddress: string;
-  // refetchAllCampaigns: () => void;  
+  refetchAllCampaignsDonors: () => void;
+  refetchCampaignBalance: () => void;
+  refetchAllCampaignsRequests: () => void;
+  refetchAllRequestsDetails1: () => void;
+  refetchAllRequestsDetails2: () => void;
+  refetchAllRequestsDetails3: () => void;
+  refetchAllRequestsDetails4: () => void;
+  refetchAllRequestsDetails5: () => void;
+  refetchAllRequestsDetails6: () => void;
+  refetchAllRequestsDetails7: () => void;
+  refetchAllRequestsDetails8: () => void;
+  refetchAllRequestsDetails9: () => void;
+  refetchAllRequestsDetails10: () => void;
 }
 
 // const AdminOverlayCampaign: React.FC = () => {
 
 // const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({ refetchAllCampaigns }) => {
-  const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({ campaignAddress  }) => {
+  // const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({ campaignAddress  }) => {
+    const AdminOverlayCampaignDetails: React.FC<AdminOverlayCampaignDetailsProps> = ({
+      campaignAddress,
+      refetchAllCampaignsDonors,
+      refetchCampaignBalance,
+      refetchAllCampaignsRequests,
+      refetchAllRequestsDetails1,
+      refetchAllRequestsDetails2,
+      refetchAllRequestsDetails3,
+      refetchAllRequestsDetails4,
+      refetchAllRequestsDetails5,
+      refetchAllRequestsDetails6,
+      refetchAllRequestsDetails7,
+      refetchAllRequestsDetails8,
+      refetchAllRequestsDetails9,
+      refetchAllRequestsDetails10,
+    }) => {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [form, setForm] = useState({
     requestTitle: "",
@@ -54,6 +82,23 @@ interface AdminOverlayCampaignDetailsProps {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Refetch all necessary data after a successful transaction
+  const refetchAllData = () => {
+    refetchAllCampaignsDonors();
+    refetchCampaignBalance();
+    refetchAllCampaignsRequests();
+    refetchAllRequestsDetails1();
+    refetchAllRequestsDetails2();
+    refetchAllRequestsDetails3();
+    refetchAllRequestsDetails4();
+    refetchAllRequestsDetails5();
+    refetchAllRequestsDetails6();
+    refetchAllRequestsDetails7();
+    refetchAllRequestsDetails8();
+    refetchAllRequestsDetails9();
+    refetchAllRequestsDetails10();
+  };
+
   return (
     <div>
       {/* Floating Button */}
@@ -85,6 +130,7 @@ interface AdminOverlayCampaignDetailsProps {
                       params: [campaignAddress],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                 >
                   Finalize Campaign
                 </TransactionButton>
@@ -104,6 +150,7 @@ interface AdminOverlayCampaignDetailsProps {
                       params: [campaignAddress],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                 >
                   Toggle Pause
                 </TransactionButton>
@@ -130,6 +177,7 @@ interface AdminOverlayCampaignDetailsProps {
                       params: [campaignAddress, BigInt(Number(form.newDeadline))],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                   >
                   Extend Deadline
                 </TransactionButton>
@@ -149,6 +197,7 @@ interface AdminOverlayCampaignDetailsProps {
                       params: [campaignAddress],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                 >
                   Refund
                 </TransactionButton>
@@ -241,6 +290,7 @@ interface AdminOverlayCampaignDetailsProps {
                       ],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                 >
                   Create Request
                 </TransactionButton>
@@ -267,6 +317,7 @@ interface AdminOverlayCampaignDetailsProps {
                       params: [campaignAddress, BigInt(Number(form.requestIndex))],
                     })
                   }
+                  onTransactionConfirmed={() => refetchAllData()}
                 >
                   Finalize Request
                 </TransactionButton>

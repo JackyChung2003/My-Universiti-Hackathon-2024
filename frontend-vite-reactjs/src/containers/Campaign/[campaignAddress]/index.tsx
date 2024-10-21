@@ -328,7 +328,22 @@ useEffect(() => {
 
   return (
     <div className="campaign-details-container">
-      {/* <AdminOverlayCampaignDetails /> */}
+      <AdminOverlayCampaignDetails 
+        campaignAddress={address}
+        refetchAllCampaignsDonors={refetchAllCampaignsDonors}
+        refetchCampaignBalance={refetchCampaignBalance}
+        refetchAllCampaignsRequests={refetchAllCampaignsRequests}
+        refetchAllRequestsDetails1={refetchAllRequestsDetails1}
+        refetchAllRequestsDetails2={refetchAllRequestsDetails2}
+        refetchAllRequestsDetails3={refetchAllRequestsDetails3}
+        refetchAllRequestsDetails4={refetchAllRequestsDetails4}
+        refetchAllRequestsDetails5={refetchAllRequestsDetails5}
+        refetchAllRequestsDetails6={refetchAllRequestsDetails6}
+        refetchAllRequestsDetails7={refetchAllRequestsDetails7}
+        refetchAllRequestsDetails8={refetchAllRequestsDetails8}
+        refetchAllRequestsDetails9={refetchAllRequestsDetails9}
+        refetchAllRequestsDetails10={refetchAllRequestsDetails10}
+      />
         <div className="campaign-header">
             <h1>{campaignData.name}</h1>
             <p className="campaign-description">{campaignData.description}</p>

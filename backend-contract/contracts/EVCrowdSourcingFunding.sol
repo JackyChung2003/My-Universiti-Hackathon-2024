@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// import {Crowdfunding} from "./Crowdfunding.sol";
 import {EVCrowdfunding} from "./EVCrowdfunding.sol";
 import {RequestManager} from "./RequestManager.sol";
 
@@ -9,15 +8,6 @@ contract CrowdfundingFactory {
     address public admin;
     address public owner;
     bool public paused;
-    // RequestManager public requestManager; // Reference to the RequestManager contract
-
-    // struct Campaign {
-    //     address campaignAddress;
-    //     address owner;
-    //     string name;
-    //     uint256 creationTime;
-    //     bool finalized; // Add this line
-    // }
 
     struct Campaign {
         address campaignAddress;
@@ -25,22 +15,11 @@ contract CrowdfundingFactory {
         string name;
         uint256 creationTime;
         bool finalized;
-        // uint256 finalAmountCollected;
         uint256 donorNumber;
         uint256 goal;
         uint256 deadline;
         uint256 currentContributions;
     }
-
-    // struct Campaign {
-    //     address campaignAddress;
-    //     address owner;
-    //     string name;
-    //     uint256 creationTime;
-    //     bool finalized;
-    //     uint256 finalAmountCollected;
-    //     mapping(address => uint256) backupContributions;
-    // }
 
     Campaign[] public campaigns;
     mapping(address => Campaign[]) public userCampaigns;
@@ -66,26 +45,14 @@ contract CrowdfundingFactory {
     constructor() {
         owner = msg.sender;
         admin = msg.sender;
-        // requestManager = RequestManager(_requestManager);
     }
-
-    // constructor(address _requestManager) {
-    //     admin = msg.sender;
-    //     requestManager = RequestManager(_requestManager); // Set the RequestManager instance
-    // }
-
-    // constructor(address _requestManager) {
-    //     owner = msg.sender;
-    //     admin = msg.sender;
-    //     requestManager = RequestManager(_requestManager); // Set the RequestManager instance
-    // }
 
     // Create a new crowdfunding campaign
     function createCampaign(
         string memory _name,
         string memory _description,
         uint256 _goal,
-        uint256 _durationInDays // ) public onlyOwner {
+        uint256 _durationInDays
     ) public {
         EVCrowdfunding newCampaign = new EVCrowdfunding(
             msg.sender,
@@ -97,17 +64,11 @@ contract CrowdfundingFactory {
         address campaignAddress = address(newCampaign);
 
         Campaign memory campaign = Campaign({
-            // campaignAddress: campaignAddress,
-            // owner: msg.sender,
-            // name: _name,
-            // creationTime: block.timestamp,
-            // finalized: false
             campaignAddress: campaignAddress,
             owner: msg.sender,
             name: _name,
             creationTime: block.timestamp,
             finalized: false,
-            // finalAmountCollected: 0 // Initialize to zero
             donorNumber: 0,
             goal: _goal,
             deadline: block.timestamp + (_durationInDays * 1 days),
@@ -116,9 +77,6 @@ contract CrowdfundingFactory {
 
         // Push the campaign to the list of all campaigns
         campaigns.push(campaign);
-
-        // Associate the campaign with the user who created it
-        // userCampaigns[msg.sender].push(campaign);
         userCampaigns[msg.sender].push(campaigns[campaigns.length - 1]);
     }
 
@@ -145,7 +103,7 @@ contract CrowdfundingFactory {
             campaign.goal(),
             campaign.deadline(),
             campaign.owner(),
-            campaign.paused(), // This remains the same as it refers to the paused state of the campaign
+            campaign.paused(),
             campaign.state()
         );
     }
@@ -158,9 +116,6 @@ contract CrowdfundingFactory {
         view
         returns (address[] memory donors, uint256[] memory contributions)
     {
-        // Crowdfunding campaign = Crowdfunding(_campaignAddress);
-        // return campaign.getDonators(); // Calling the getDonators() from Crowdfunding.sol
-
         EVCrowdfunding campaign = EVCrowdfunding(_campaignAddress);
         (donors, contributions) = campaign.getDonators();
 
@@ -179,22 +134,6 @@ contract CrowdfundingFactory {
         return campaign.getContractBalance();
     }
 
-    // function getTiers(
-    //     address _campaignAddress
-    // ) external view returns (Crowdfunding.Tier[] memory) {
-    //     Crowdfunding campaign = Crowdfunding(_campaignAddress);
-    //     return campaign.getTiers();
-    // }
-
-    // function hasFundedTier(
-    //     address _campaignAddress,
-    //     address _backer,
-    //     uint256 _tierIndex
-    // ) external view returns (bool) {
-    //     Crowdfunding campaign = Crowdfunding(_campaignAddress);
-    //     return campaign.hasFundedTier(_backer, _tierIndex);
-    // }
-
     function getCampaignStatus(
         address _campaignAddress
     ) external view returns (EVCrowdfunding.CampaignState) {
@@ -202,18 +141,9 @@ contract CrowdfundingFactory {
         return campaign.getCampaignStatus();
     }
 
-    // // Write functions to trigger campaign actions
-    // function fundCampaign(
-    //     address _campaignAddress,
-    //     uint256 _tierIndex
-    // ) external payable {
-    //     Crowdfunding campaign = Crowdfunding(_campaignAddress);
-    //     campaign.fund{value: msg.value}(_tierIndex);
-    // }
-
     // Write functions to trigger campaign actions
     function fundCampaign(address _campaignAddress) external payable {
-        // Update the `currentContributions`and `donorNumber`field in the `Campaign` struct
+        // Update the `currentContributions`and`donorNumber`field in the `Campaign` struct
         for (uint256 i = 0; i < campaigns.length; i++) {
             if (campaigns[i].campaignAddress == _campaignAddress) {
                 campaigns[i].currentContributions += msg.value; // Update the `currentContributions` field
@@ -222,32 +152,9 @@ contract CrowdfundingFactory {
             }
         }
 
-        // // Update the `donorNumber` field in the `Campaign` struct
-        // for (uint256 i = 0; i < campaigns.length; i++) {
-        //     if (campaigns[i].campaignAddress == _campaignAddress) {
-        //         campaigns[i].donorNumber++; // Update the `donorNumber` field
-        //         break; // Break the loop once we find and update the campaign
-        //     }
-        // }
-
         EVCrowdfunding campaign = EVCrowdfunding(_campaignAddress);
-        // campaign.fund{value: msg.value}();
         campaign.fund{value: msg.value}(msg.sender); // Pass user address explicitly
     }
-
-    // function addTier(
-    //     address _campaignAddress,
-    //     string memory _name,
-    //     uint256 _amount
-    // ) external {
-    //     Crowdfunding campaign = Crowdfunding(_campaignAddress);
-    //     campaign.addTier(_name, _amount);
-    // }
-
-    // function removeTier(address _campaignAddress, uint256 _index) external {
-    //     Crowdfunding campaign = Crowdfunding(_campaignAddress);
-    //     campaign.removeTier(_index);
-    // }
 
     function extendDeadline(
         address _campaignAddress,
@@ -273,7 +180,6 @@ contract CrowdfundingFactory {
     }
 
     // Factory functions, get created campaigns
-    // function getUserCampaigns(
     function getUserCreatedCampaigns(
         address _user
     ) external view returns (Campaign[] memory) {
@@ -324,10 +230,6 @@ contract CrowdfundingFactory {
         return campaigns;
     }
 
-    // function toggleFactoryPause() external onlyOwner {
-    //     paused = !paused;
-    // }
-
     function toggleFactoryPause() external {
         paused = !paused;
     }
@@ -336,20 +238,6 @@ contract CrowdfundingFactory {
     function finalizeCampaign(address _campaignAddress) external {
         EVCrowdfunding campaign = EVCrowdfunding(_campaignAddress);
         campaign.finalizeCampaign();
-
-        // (address[] memory donors, uint256[] memory contributions) = campaign
-        //     .getDonators();
-
-        // // Backup contributions
-        // uint256 totalCollected = 0;
-
-        // for (uint256 i = 0; i < donors.length; i++) {
-        //     campaign.backupContributions[donors[i]] = contributions[i];
-        //     totalCollected += contributions[i];
-        // }
-        // campaign.finalized = true;
-        // campaign.finalAmountCollected = totalCollected;
-        // Backup contributions
 
         // Update the `finalized` field in the `Campaign` struct
         for (uint256 i = 0; i < campaigns.length; i++) {
@@ -375,63 +263,6 @@ contract CrowdfundingFactory {
         return campaign.getFinalAmountCollected();
     }
 
-    // Get all campaigns the user has contributed to
-    // function myRecords() external view returns (Campaign[] memory) {
-    //     uint256 fundedCount = 0;
-
-    //     // First, count how many campaigns the user has donated to
-    //     for (uint256 i = 0; i < campaigns.length; i++) {
-    //         Crowdfunding campaign = Crowdfunding(campaigns[i].campaignAddress);
-    //         if (campaign.backers(msg.sender) > 0) {
-    //             fundedCount++;
-    //         }
-    //     }
-
-    //     // Create an array to store the campaigns the user funded
-    //     Campaign[] memory userFundedCampaigns = new Campaign[](fundedCount);
-    //     uint256 index = 0;
-
-    //     // Populate the array with the user's funded campaigns
-    //     for (uint256 i = 0; i < campaigns.length; i++) {
-    //         Crowdfunding campaign = Crowdfunding(campaigns[i].campaignAddress);
-    //         if (campaign.backers(msg.sender) > 0) {
-    //             userFundedCampaigns[index] = campaigns[i];
-    //             index++;
-    //         }
-    //     }
-
-    //     return userFundedCampaigns;
-    // }
-
-    // Create a request through the RequestManager
-    // function createRequestForCampaign(
-    //     address _campaign,
-    //     string memory _title,
-    //     string memory _description,
-    //     address _recipient,
-    //     uint256 _amount
-    // ) public {
-    //     requestManager.createRequest(
-    //         _campaign,
-    //         _title,
-    //         _description,
-    //         _recipient,
-    //         _amount
-    //     );
-    // }
-
-    // Helper function to get Campaign struct by address
-    // function getCampaignByAddress(
-    //     address _campaignAddress
-    // ) internal view returns (Campaign storage) {
-    //     for (uint256 i = 0; i < campaigns.length; i++) {
-    //         if (campaigns[i].campaignAddress == _campaignAddress) {
-    //             return campaigns[i]; // Return the campaign struct if the address matches
-    //         }
-    //     }
-    //     revert("Campaign not found.");
-    // }
-
     function createRequestForCampaign(
         address _campaign,
         string memory _requestTitle,
@@ -442,18 +273,6 @@ contract CrowdfundingFactory {
         uint256 _processingDeadline,
         uint256 _requiredApprovalPercentage
     ) public {
-        RequestManager newRequestManager = new RequestManager(
-            msg.sender,
-            _requestTitle,
-            _requestDescription,
-            _recipient,
-            _amount,
-            _requestDeadline,
-            _processingDeadline,
-            _requiredApprovalPercentage
-        );
-        address requestManagerAddress = address(newRequestManager);
-
         RequestManager requestManager = new RequestManager(
             msg.sender,
             _requestTitle,
@@ -516,31 +335,13 @@ contract CrowdfundingFactory {
         return campaignRequests[_campaignAddress];
     }
 
-    // // Vote on a request for a campaign
-    // function voteRequest(address _campaign, uint256 _requestId) public {
-    //     requestManager.voteRequest(_campaign, _requestId);
-    // }
-
     // Function to vote on a request for a campaign
     function voteOnRequest(
         address _campaignAddress,
         uint256 _requestIndex
     ) external {
-        // Campaign storage campaign = getCampaignByAddress(_campaignAddress);
         EVCrowdfunding evCampaign = EVCrowdfunding(_campaignAddress);
         require(evCampaign.isFinalized(), "Campaign not finalized.");
-
-        // // Get the request from the campaign's requests
-        // RequestManager request = campaignRequests[_campaignAddress][
-        //     _requestIndex
-        // ];
-
-        // // Call voteRequest on the request
-        // request.voteRequest(msg.sender);
-
-        // // Ensure the caller has contributed to the campaign
-        // uint256 contribution = campaign.backupContributions[msg.sender];
-        // require(contribution > 0, "Not a contributor.");
 
         // Ensure the caller has contributed to the campaign
         uint256 contribution = campaignContributions[_campaignAddress][
@@ -548,9 +349,6 @@ contract CrowdfundingFactory {
         ];
         require(contribution > 0, "Not a contributor.");
 
-        // Calculate voting power as a percentage of total contributions
-        // uint256 totalContributions = campaign.finalAmountCollected;
-        // EVCrowdfunding evCampaign = EVCrowdfunding(campaign.campaignAddress);
         uint256 totalContributions = evCampaign.getFinalAmountCollected();
         uint256 votingPower = (contribution * 100) / totalContributions;
 
@@ -568,9 +366,6 @@ contract CrowdfundingFactory {
         address _campaignAddress,
         uint256 _requestIndex
     ) external view returns (uint256) {
-        // Campaign storage campaign = getCampaignByAddress(_campaignAddress);
-        // require(campaign.finalized, "Campaign not finalized.");
-
         EVCrowdfunding evCampaign = EVCrowdfunding(_campaignAddress);
         require(evCampaign.isFinalized(), "Campaign not finalized.");
 
@@ -582,19 +377,11 @@ contract CrowdfundingFactory {
         return request.getCurrentVotingPowerProgress();
     }
 
-    // // Finalize a request for a campaign
-    // function finalizeRequest(address _campaign, uint256 _requestId) public {
-    //     requestManager.finalizeRequest(_campaign, _requestId);
-    // }
-
     // Function to finalize a request for a campaign
     function finalizeRequest(
         address _campaignAddress,
         uint256 _requestIndex
     ) external {
-        // Campaign storage campaign = getCampaignByAddress(_campaignAddress);
-        // require(campaign.finalized, "Campaign not finalized.");
-
         EVCrowdfunding evCampaign = EVCrowdfunding(_campaignAddress);
         require(evCampaign.isFinalized(), "Campaign not finalized.");
 
@@ -606,11 +393,4 @@ contract CrowdfundingFactory {
         // Call finalizeRequest on the request
         request.finalizeRequest();
     }
-
-    // // Retrieve all requests for a campaign
-    // function getCampaignRequests(
-    //     address _campaign
-    // ) public view returns (RequestManager.Request[] memory) {
-    //     return requestManager.getRequests(_campaign);
-    // }
 }

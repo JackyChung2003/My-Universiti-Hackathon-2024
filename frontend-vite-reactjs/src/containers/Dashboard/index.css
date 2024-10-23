@@ -1,14 +1,6 @@
 .three-random-campaigns-container {
-  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 10px;
-
-  /* border: 1px solid #f9f9f9; */
-  /* take up all the space */
-  /* flex-grow: 1; */
-  /* height: 100%; */
-  /* min-height: 100dvh; */
-  /* background-color: --var(--background-color); */
   background-color: white;
   padding-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
@@ -19,18 +11,14 @@
 .three-random-campaigns-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* display: flex;
-  justify-content: space-evenly; */
   flex-wrap: wrap;
   gap: 20px;
-  /* border: 1px solid red; */
   padding: 0 20px;
 }
 
 .campaign-card-link {
   text-decoration: none;
   color: inherit;
-  /* border: 1px solid green; */
 }
 
 .three-random-campaign-card {
@@ -39,14 +27,11 @@
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
-  /* background-color: rgba(30, 31, 38, 0.575); */
   background-color: #454545;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
   min-width: 300px;
   max-width: 100%;
-  /* width: 450px; */
   cursor: pointer;
-  /* border: 1px solid blue; */
   height: 100%;
 }
 
@@ -54,20 +39,16 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  /* border: 1px solid red; */
 }
 
 .three-random-owner-avatar {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  /* border: 1px solid red; */
 }
 
 .three-random-campaign-name {
   font-size: 1.1rem;
-  /* margin-bottom: 10px; */
-
   font-weight: bold;
 }
 
@@ -75,7 +56,6 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  /* border: 1px solid black; */
   padding: 0 20px;
 }
 

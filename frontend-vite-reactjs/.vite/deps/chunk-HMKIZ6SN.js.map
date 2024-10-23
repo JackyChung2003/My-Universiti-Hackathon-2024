@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../node_modules/thirdweb/src/utils/encoding/helpers/concat-hex.ts"],
+  "sourcesContent": ["import type { Hex } from \"./is-hex.js\";\n\n/**\n * Concatenates an array of hexadecimal values into a single hexadecimal value.\n *\n * @param values - An array of hexadecimal values to concatenate.\n * @returns The concatenated hexadecimal value.\n * @utils\n */\nexport function concatHex(values: readonly Hex[]): Hex {\n  return `0x${(values as Hex[]).reduce(\n    (acc, x) => acc + x.replace(\"0x\", \"\"),\n    \"\",\n  )}`;\n}\n"],
+  "mappings": ";AASM,SAAU,UAAU,QAAsB;AAC9C,SAAO,KAAM,OAAiB,OAC5B,CAAC,KAAK,MAAM,MAAM,EAAE,QAAQ,MAAM,EAAE,GACpC,EAAE,CACH;AACH;",
+  "names": []
+}

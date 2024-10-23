@@ -1,0 +1,113 @@
+.svg-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* height: 100vh; */
+  height: 100%;
+  background-color: #f9f9f9;
+  /* border: 1px solid black; */
+}
+
+.svg-animation-container svg {
+  width: 600px;
+  height: 400px;
+}
+
+.path-animation-container path {
+  stroke-dasharray: 400;
+  /* stroke-dashoffset: 400; */
+  animation: draw 4s ease-in-out forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0; /* Reveal the path */
+  }
+}
+
+.svg-animation-container svg {
+  /* animation: fill 2.5s ease forwards 10s; */
+  animation: fill 2.5s ease forwards 5s;
+}
+
+.svg-animation-container svg path:nth-child(1) {
+  stroke-dasharray: 145;
+  stroke-dashoffset: 145;
+  animation: animate 2s ease forwards 4.5s;
+}
+
+.svg-animation-container svg path:nth-child(2) {
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  animation: animate 2s ease forwards 4s;
+}
+
+.svg-animation-container svg path:nth-child(3) {
+  stroke-dasharray: 127;
+  stroke-dashoffset: 127;
+  animation: animate 2s ease forwards 3.5s;
+}
+
+.svg-animation-container svg path:nth-child(4) {
+  stroke-dasharray: 97;
+  stroke-dashoffset: 97;
+  animation: animate 2s ease forwards 3s;
+}
+
+.svg-animation-container svg path:nth-child(5) {
+  stroke-dasharray: 144;
+  stroke-dashoffset: 144;
+  animation: animate 2s ease forwards 2.5s;
+}
+
+.svg-animation-container svg path:nth-child(6) {
+  stroke-dasharray: 146;
+  stroke-dashoffset: 146;
+  animation: animate 2s ease forwards 2s;
+}
+
+.svg-animation-container svg path:nth-child(7) {
+  stroke-dasharray: 144;
+  stroke-dashoffset: 144;
+  animation: animate 2s ease forwards 1.5s;
+}
+
+.svg-animation-container svg path:nth-child(8) {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: animate 2s ease forwards 1s;
+}
+
+.svg-animation-container svg path:nth-child(9) {
+  stroke-dasharray: 145;
+  stroke-dashoffset: 145;
+  animation: animate 2s ease forwards 0.5s;
+}
+
+.svg-animation-container svg path:nth-child(10) {
+  stroke-dasharray: 123;
+  stroke-dashoffset: 123;
+  animation: animate 2s ease forwards 0s;
+}
+
+@keyframes animate {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill {
+  to {
+    /* stroke-dashoffset: 0; */
+    fill: #000;
+  }
+}
+
+.wallet-message {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}

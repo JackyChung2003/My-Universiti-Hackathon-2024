@@ -27,10 +27,6 @@ const navBarItems = [
       title: "Subscription",
       link: "/subscription",
     },
-    {
-        title: "About",
-        link: "/about",
-    },
   ];
   
 export default navBarItems;

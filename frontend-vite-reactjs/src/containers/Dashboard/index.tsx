@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import logoImage from "../image/logo-name.png"; // Ensure the correct path for the logo
-
-import logoImage from "../../assets/images/logo-name.png"; // Import the logo"
-
-// Import the images directly if they are in the src folder
-
 import adv1 from "../../assets/images/adv1.png";
 import background from "../../assets/images/adv2.png";
 import evCar from "../../assets/images/adv3.png"; 
 import { CONTRACT } from "../../utils/constants";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import ProgressBar from "../../components/ProgressBar";
-
 import TempCampaignPicture from '../../assets/images/temp-campaign-picture.jpg';
 import { getSocialProfiles } from "thirdweb/social";
 import DefaultProfilePicture from '../../assets/images/default-profile-picture.jpg';
 
 import "./index.css";
+import SvgAnimation from "../../components/SvgAnimationDisplay";
 
 // Sample images for slideshow (advertisement)
 const sampleImages = [adv1, background, evCar]; // Correct image imports
@@ -77,7 +71,8 @@ const Dashboard: React.FC = () => {
   }, [allCampaigns]);
 
   if (loadingEventDetail) {
-    return <p>Loading campaigns...</p>;
+    // return <p>Loading campaigns...</p>;
+    return <SvgAnimation />
 }
 
   const handleRefreshCampaigns = async () => {
@@ -88,12 +83,11 @@ const Dashboard: React.FC = () => {
     }
   };
   
-
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FFFFFF" }}>
+    <div className="min-h-screen flex flex-col p-10" style={{ backgroundColor: "#FFFFFF" }}>
       {/* Main Content Section */}
       <div className="container mx-auto" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="flex flex-col md:flex-row items-start justify-start pt-24">
+        <div className="flex flex-col md:flex-row items-start justify-start ">
           {/* Welcome Back Heading */}
           <h1 className="text-3xl font-bold mb-6 md:mb-0" style={{ color: "#051F20", width: "100%" }}>
             Welcome back,  {activeAccount?.address}
@@ -208,21 +202,17 @@ const Dashboard: React.FC = () => {
               </ul>
             </div>
             <div className="mt-auto flex justify-end"> {/* Button aligned to bottom-right */}
-              
+              <Link to="/subscription">
                 <button className="bg-[#051F20] text-white px-4 py-2 rounded-lg hover:bg-[#4fada8] transition duration-200">
                   Learn More
                 </button>
-             
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
       <div className="my-10"></div>
-      {/* Footer */}
-      {/* <footer className="bg-[#051F20] text-white text-center py-2 w-full mt-auto">
-        <p>© 2024 Power Stake - All Rights Reserved</p>
-      </footer> */}
     </div>
   );
 };

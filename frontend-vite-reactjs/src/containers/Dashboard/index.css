@@ -137,3 +137,134 @@
     padding: 8px 16px; /* Smaller padding for mobile */
   }
 }
+
+.dashboard-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #FFFFFF;
+}
+
+.dashboard-content {
+  width: 95%;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+}
+
+.welcome-heading {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+.welcome-text {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #051F20;
+}
+
+.campaigns-title {
+  padding-left: 36px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #051F20;
+  margin-bottom: 16px;
+}
+
+.spacing-between-sections {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.advertisement-section {
+  display: flex;
+  background-color: #051F20;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.slideshow-container {
+  width: 70%;
+  position: relative;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: 580px;
+  object-fit: cover;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.slide-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 12px;
+  background-color: #FFFFFF;
+  color: #051F20;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.slide-button:hover {
+  background-color: #4fada8;
+}
+
+.slide-button-left {
+  left: 0;
+}
+
+.slide-button-right {
+  right: 0;
+}
+
+.benefits-card {
+  width: 30%;
+  background-color: #FFFFFF;
+  padding: 24px;
+  height: 580px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.benefits-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #051F20;
+  margin-bottom: 16px;
+}
+
+.benefits-list {
+  color: #051F20;
+  margin-bottom: 16px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.learn-more-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.learn-more-button {
+  background-color: #051F20;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.learn-more-button:hover {
+  background-color: #4fada8;
+}

@@ -28,7 +28,7 @@ const MapPage: React.FC = () => {
     description: "",
     owner: "",
     visitFrequency: "",
-    visitTime: [] as string[], // Set visitTime to an array of strings
+    visitTime: [] as string[], 
     batteryLevel: "",
     crowdfunding: "",
   });
@@ -158,7 +158,7 @@ const MapPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FFFFFF" }}>
       {/* Main Content Section */}
-      <div className="container mx-auto px-6" style={{ marginTop: "100px", backgroundColor: "#FFFFFF" }}>
+      <div className="container mx-auto px-6" style={{ marginTop: "40px", backgroundColor: "#FFFFFF" }}>
         {/* Page Title and Toggle */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-[#051F20]">Explore Charging Stations and Community Requests</h1>

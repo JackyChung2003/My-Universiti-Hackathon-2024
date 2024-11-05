@@ -28,7 +28,7 @@ const MapPage: React.FC = () => {
     description: "",
     owner: "",
     visitFrequency: "",
-    visitTime: [] as string[], // Set visitTime to an array of strings
+    visitTime: [] as string[], 
     batteryLevel: "",
     crowdfunding: "",
   });

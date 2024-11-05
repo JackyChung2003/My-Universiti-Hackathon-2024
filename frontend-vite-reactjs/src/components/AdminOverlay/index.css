@@ -176,3 +176,10 @@
   border: 1px solid black;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .try-admin-button {
+    bottom: 70px;
+    right: 15px;
+  }
+}

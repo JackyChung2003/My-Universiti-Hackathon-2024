@@ -53,7 +53,9 @@ const Campaigns: React.FC = () => {
                 {allCampaigns?.map((campaign, index) => (
                   <Link to={`/campaign/${campaign.campaignAddress}`} key={index} className="campaign-card-link">
                     <div className="campaign-card">
-                      <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
+                      <div className='campaign-address'>
+                        <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
+                      </div>
                       <div className="image-container">
                         <img src={TempCampaignPicture} alt="Campaign" className="campaign-image" />
                         <div className="overlay">
@@ -63,9 +65,8 @@ const Campaigns: React.FC = () => {
                         </div>
                       </div>
 
-
                       <div className="campaign-top-section">
-                        <div >
+                        <div className='profile-avatar-section'>
                           {profiles[campaign.owner]?.avatar ? (
                             <img
                               src={profiles[campaign.owner].avatar}

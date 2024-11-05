@@ -23,7 +23,7 @@
 
 .stickyBottm {
   position: relative;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 :root {
@@ -49,6 +49,16 @@
   --card-paragraph-color: #94a1b2; /* Card paragraph color */
 }
 
+.App {
+  /* border: 5px solid red; */
+  /* width: 100%; */
+  /* overflow-x: hidden; */
+  /* width: 100vw; */
+  /* width: 100vw; */
+  /* height: 100vw; */
+  /* max-width: 100%; */
+}
+
 /* Ensures that the whole page fills the viewport height */
 .app-container {
   display: flex;
@@ -63,3 +73,16 @@
   flex-grow: 1; /* Takes up the remaining space after the navbar */
   overflow: hidden; /* Ensures no unwanted overflow */
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* html,
+body {
+  overflow-x: hidden; 
+  overflow-y: auto; 
+  min-height: 100vh; 
+} */

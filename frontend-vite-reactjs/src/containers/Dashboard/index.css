@@ -1,9 +1,9 @@
 .three-random-campaigns-container {
   margin: 0 auto;
-  padding: 10px;
-  background-color: white;
+  /* padding: 10px; */
+  background-color: #FFFFFF;
   padding-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); */
   border-radius: 10px;
   margin-top: 20px;
 }
@@ -22,18 +22,19 @@
 }
 
 .three-random-campaign-card {
-  background-color: #f9f9f9;
+  background-color: #e9f4e7; /* Set background to white */
+  color: #051F20; /* Set font color to black */
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0; /* Add a light border to the card */
   transition: transform 0.2s ease-in-out;
-  background-color: #454545;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for elevation */
   min-width: 300px;
   max-width: 100%;
   cursor: pointer;
   height: 100%;
 }
+
 
 .three-random-owner-profile {
   height: 50px;
@@ -50,6 +51,7 @@
 .three-random-campaign-name {
   font-size: 1.1rem;
   font-weight: bold;
+  color: #051F20;
 }
 
 .three-random-campaigns-button {
@@ -71,16 +73,16 @@
 }
 
 .refresh-button {
-  background-color: #4caf50;
+  background-color: #051F20;
   color: white;
 }
 
 .refresh-button:hover {
-  background-color: #45a049;
+  background-color: #4fada8;
 }
 
 .view-all-button {
-  background-color: #345e37;
+  background-color: #051F20;
   color: white;
   text-decoration: none;
   display: flex;
@@ -89,7 +91,7 @@
 }
 
 .view-all-button:hover {
-  background-color: #8fbc8f;
+  background-color: #4fada8;
 }
 
 @media screen and (max-width: 768px) {
@@ -147,27 +149,29 @@
 }
 
 .dashboard-content {
-  width: 95%;
-  max-width: 1280px;
-  margin: 0 auto;
-  background-color: #FFFFFF;
+  width: 100%;
+  /* max-width: 1280px; */
+  margin: 0;
+  margin-top: 10px;
+  background-color: #ffffff;
 }
 
 .welcome-heading {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 6px;
+  margin: 8px 0; /* Adjust vertical margin */
+  padding-left: 10px; /* Add a small left padding for subtle shift */
+  text-align: left;
 }
 
 .welcome-text {
-  font-size: 1.875rem;
+  font-size: 1.8rem; /* Match font size */
   font-weight: bold;
-  color: #051F20;
+  color: #051F20; /* Use similar color as the map page */
+  text-transform: capitalize; /* Make the text look uniform */
 }
 
 .campaigns-title {
   padding-left: 36px;
-  font-size: 1.25rem;
+  font-size: 0.8 rem;
   font-weight: bold;
   color: #051F20;
   margin-bottom: 16px;
@@ -180,12 +184,12 @@
 
 .advertisement-section {
   display: flex;
-  background-color: #051F20;
+  background-color: #FFFFFF;
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); */
   width: 100%;
-  max-width: 95%;
+  max-width: 100%;
   margin: 0 auto;
 }
 

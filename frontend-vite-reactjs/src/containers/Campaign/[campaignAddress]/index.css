@@ -3,7 +3,7 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   border: 1px solid #ddd;
-  background: #daf1de;
+  background: #ffffff;
   color: black;
   height: 100%;
 }
@@ -346,7 +346,7 @@
   background-color: #daf1de;
   color: #4e6e58;
   gap: 8px;
-  border-radius: 50px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s;
   margin-top: 20px;
@@ -409,7 +409,7 @@
 
 /* CSS for the donor section */
 .top-donors-section {
-  background-color: black;
+  background-color: #051F20;
   border: 1px solid #ddd;
   width: 100%;
   border-radius: 8px;
@@ -431,7 +431,7 @@
 .top-donors-section li {
   margin-bottom: 15px;
   padding: 10px;
-  background-color: black;
+  background-color: #051F20;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);

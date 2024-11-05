@@ -10,6 +10,7 @@ import SubscriptionPage from "./containers/Subscription";
 import UserDetails from "./containers/User/[userAddress]";
 import WelcomeUser from "./containers/Authentication";
 import { useActiveAccount } from "thirdweb/react";
+import BottomNavBar from "./containers/Navigation/BottomNavBar";
 
 export function App() {
 	
@@ -35,6 +36,9 @@ export function App() {
 	return (
 		<div className="App">
 			<HorizontalNavbar toggle={toggle} />
+			<div className="stickyBottm">
+				<BottomNavBar toggle={toggle} />
+			</div>
 			<main>
 			{!isConnected ? (
         		<WelcomeUser />

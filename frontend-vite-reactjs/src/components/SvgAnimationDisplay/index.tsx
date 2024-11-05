@@ -40,7 +40,7 @@ const SvgAnimation: React.FC = () => {
       {showSentence ? (
       <p className="wallet-message">Connect to your wallet to view details and more!</p>
       ) : (
-      <p className="wallet-message"></p>
+      <p className="wallet-message">Fueling the future of EV infrastructure through community-powered funding and impact-driven technology.</p>
       )}
     </div>
   );

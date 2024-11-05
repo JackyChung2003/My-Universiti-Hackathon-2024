@@ -1,17 +1,23 @@
 .svg-animation-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   /* height: 100vh; */
   height: 100%;
   background-color: #f9f9f9;
   /* border: 1px solid black; */
+  /* gap: 20px; */
 }
 
 .svg-animation-container svg {
-  width: 600px;
-  height: 400px;
+  /* width: 600px; */
+  height: 55%;
+  width: 100%;
+  padding: 10%;
+  animation: fill 2.5s ease forwards 5s;
+  /* border: 1px solid black; */
+  margin: 20px 0;
 }
 
 .path-animation-container path {
@@ -28,7 +34,7 @@
 
 .svg-animation-container svg {
   /* animation: fill 2.5s ease forwards 10s; */
-  animation: fill 2.5s ease forwards 5s;
+  /* animation: fill 2.5s ease forwards 5s; */
 }
 
 .svg-animation-container svg path:nth-child(1) {
@@ -110,4 +116,28 @@
   font-weight: bold;
   color: #333;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .svg-animation-container {
+    /* height: auto;  */
+    /* height: 100dvh; */
+    /* height: calc(100dvh - 60px); */
+    /* padding: 40px 20px;  */
+    /* width: 10px; */
+    /* overflow: none; */
+  }
+
+  .svg-animation-container svg {
+    /* height: none; */
+    /* width: none; */
+  }
+
+  .wallet-message {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
 }

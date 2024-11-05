@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import LoginButton from "../../../components/Button/LoginButton";
 import logoNameImage from "../../../assets/images/logo-name.png";
+import logoPNGImage from "../../../assets/images/logo-png.png";
+import logoPNGImage1 from "../../../assets/images/logo-png-1.png";
+import logoPNGImage2 from "../../../assets/images/logo-png-2.png";
 
 interface NavbarProps {
   toggle: () => void;
@@ -16,6 +19,10 @@ const HorizontalNavbar: React.FC<NavbarProps> = ({ toggle }) => {
   return (
     <nav>
       <Link to="/" className="link">
+        {/* Icon */}
+        <img src={logoPNGImage} alt="Power Stake Name" className="logo-icon" />
+        {/* <img src={logoPNGImage1} alt="Power Stake Name" className="logo-name" /> */}
+        {/* <img src={logoPNGImage2} alt="Power Stake Name" className="logo-icon" /> */}
         {/* Name */}
         <img src={logoNameImage} alt="Power Stake Name" className="logo-name" />
       </Link>

@@ -83,3 +83,74 @@
   font-weight: bold;
   color: #333;
 }
+
+@media (max-width: 1024px) {
+  .campaign-status-badge {
+    padding: 10px;
+  }
+
+  .status-badge,
+  .ispaused-badge,
+  .investor-badge {
+    padding: 6px 9px;
+    font-size: 0.8rem;
+  }
+
+  .investor-badge {
+    /* padding: 6px 12px; */
+    /* border: 1px solid; */
+  }
+
+  .investor-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .campaign-status-badge {
+    padding: 5px;
+    /* border: 1px solid red; */
+  }
+
+  .status-badge,
+  .ispaused-badge,
+  .investor-badge {
+    font-size: 0.65rem;
+  }
+
+  .investor-badge {
+    overflow-x: hidden;
+  }
+
+  .investor-text {
+    font-size: 0.65rem;
+    overflow-x: hidden;
+  }
+}
+@media (max-width: 480px) {
+  .campaign-status-badge {
+    padding: 0px;
+    /* gap: 5px; */
+  }
+
+  .status-badge,
+  .ispaused-badge,
+  .investor-badge {
+    font-size: 0.5rem;
+  }
+
+  .investor-badge {
+    /* padding: 6px 12px; */
+    /* border: 1px solid; */
+    overflow-x: hidden;
+    /* width: 50%; */
+    min-width: 60px;
+    /* height: 100%; */
+  }
+
+  .investor-text {
+    font-size: 0.5rem;
+    overflow-x: hidden;
+    /* border: 1px solid green; */
+  }
+}

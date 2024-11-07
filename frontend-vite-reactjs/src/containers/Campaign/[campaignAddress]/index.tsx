@@ -16,6 +16,7 @@ import ProgressBarMinTarget from '../../../components/ProgressBarMinTarget';
 import AdminOverlayCampaignDetails from '../../../components/AdminOverlay/admin_campaign_details';
 import { getSocialProfiles } from 'thirdweb/social';
 import SvgAnimation from '../../../components/SvgAnimationDisplay';
+import WelcomeUser from '../../Authentication';
 
 interface CampaignData  {
   name: string;
@@ -228,7 +229,8 @@ useEffect(() => {
   }, [ethPrice, campaignBalance]);
   
   if (!address) return <p>No campaign address found.</p>;
-  if (loadingCampaignDetail) return <SvgAnimation />;
+  // if (loadingCampaignDetail) return <SvgAnimation />;
+  if (loadingCampaignDetail) return <WelcomeUser />;
   if (errorCampaignDetail || !dataCampaignDetails) return <p>Error loading campaign details.</p>;
 
   const campaignData: CampaignData = {

@@ -31,7 +31,7 @@ const navBarItems = [
   },
   {
     title: "Profile",
-    link: "/profile",
+    link: "/user",
     icon: <FaUser />,
   },
   // {

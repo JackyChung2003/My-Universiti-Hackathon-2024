@@ -3,7 +3,8 @@ import "./index.css";
 import navBarItems from "../navBarItems";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { FaCamera } from "react-icons/fa"; // Import a camera icon
+// import { FaCamera } from "react-icons/fa"; 
+import { LuScan } from "react-icons/lu";
 
 interface BottomNavBarProps {
   toggle: () => void;
@@ -44,7 +45,7 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ toggle }) => {
         {/* Centered Scan Icon */}
         <div className="scan-icon-container">
             <Link to="/scan" className="scan-icon-link">
-              <FaCamera className="scan-icon" />
+              <LuScan className="scan-icon" />
             </Link>
           </div>
 

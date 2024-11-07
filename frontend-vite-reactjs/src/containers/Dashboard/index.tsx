@@ -12,6 +12,7 @@ import DefaultProfilePicture from '../../assets/images/default-profile-picture.j
 
 import "./index.css";
 import SvgAnimation from "../../components/SvgAnimationDisplay";
+import WelcomeUser from "../Authentication";
 
 // Sample images for slideshow (advertisement)
 const sampleImages = [adv1, background, evCar]; // Correct image imports
@@ -72,7 +73,8 @@ const Dashboard: React.FC = () => {
 
   if (loadingEventDetail) {
     // return <p>Loading campaigns...</p>;
-    return <SvgAnimation />
+    // return <SvgAnimation />
+    return <WelcomeUser />
 }
 
   const handleRefreshCampaigns = async () => {

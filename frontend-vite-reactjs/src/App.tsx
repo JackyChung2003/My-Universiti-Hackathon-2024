@@ -11,6 +11,7 @@ import UserDetails from "./containers/User/[userAddress]";
 import WelcomeUser from "./containers/Authentication";
 import { useActiveAccount } from "thirdweb/react";
 import BottomNavBar from "./containers/Navigation/BottomNavBar";
+import ProfilePage from "./containers/User";
 
 export function App() {
 	
@@ -47,6 +48,7 @@ export function App() {
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/campaign" element={<Campaigns />} />
 						<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
+						<Route path="/user" element={<ProfilePage />} />
 						<Route path="/user/:userAddress" element={<UserDetails />} />
 						<Route path="/map" element={<MapPage/> } />
 						<Route path="/subscription" element={<SubscriptionPage />} />

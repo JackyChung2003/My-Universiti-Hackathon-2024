@@ -86,3 +86,15 @@ body {
   overflow-y: auto; 
   min-height: 100vh; 
 } */
+
+@media (min-width: 768px) {
+  .login-button-desktop-hidden {
+    display: none; /* Hide the button on screens 768px and wider */
+  }
+}
+
+@media (max-width: 768px) {
+  .login-button-mobile-hidden {
+    display: none; /* Hide the button on screens smaller than 768px */
+  }
+}

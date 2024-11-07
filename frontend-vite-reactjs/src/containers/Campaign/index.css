@@ -328,6 +328,10 @@
 }
 
 @media (max-width: 480px) {
+  .campaigns-title {
+    font-size: 1.3rem;
+    /* border: 1px solid red; */
+  }
   .campaigns-grid {
     display: flex;
     flex-direction: column;

@@ -8,12 +8,14 @@ interface ProgressBarProps {
 const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
     const cappedPercentage = Math.min(percentage, 100); // Cap the percentage at 100
   return (
-    <div className="progress-bar-container">
-      <div
-        className="progress-bar"
-        style={{ width: `${cappedPercentage}%` }}
-      >
-        <span className="progress-text">{percentage}%</span>
+    <div className='progress-bar-center'>
+      <div className="progress-bar-container">
+        <div
+          className="progress-bar"
+          style={{ width: `${cappedPercentage}%` }}
+        >
+          <span className="progress-text">{percentage}%</span>
+        </div>
       </div>
     </div>
   );

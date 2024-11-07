@@ -99,7 +99,8 @@ const Dashboard: React.FC = () => {
             {randomCampaigns.map((campaign, index) => (
               <Link to={`/campaign/${campaign.campaignAddress}`} key={index} className="campaign-card-link">
                 <div className="three-random-campaign-card">
-                  <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
+                {/* <p className="campaign-address"><strong>Campaign Address:</strong> {campaign.campaignAddress}</p> */}
+                <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
 
                   <div className="image-container">
                     <img src={TempCampaignPicture} alt="Campaign" className="campaign-image" />

@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Dashboard from "./containers/Dashboard";
 import Campaigns from "./containers/Campaign";
 import CampaignDetails from "./containers/Campaign/[campaignAddress]";
-import MapPage from "./containers/Map";
+// import MapPage from "./containers/Map/indextsx";
+
 import SubscriptionPage from "./containers/Subscription";
 import UserDetails from "./containers/User/[userAddress]";
 import WelcomeUser from "./containers/Authentication";
@@ -13,6 +14,11 @@ import { useActiveAccount } from "thirdweb/react";
 import BottomNavBar from "./containers/Navigation/BottomNavBar";
 import ProfilePage from "./containers/User";
 import QRScanner from "./containers/Scan";
+import MapPage from "./containers/Map";
+import StartChargingPage from "./containers/Charging-Station/[placeId]/ChargingStationDetail";
+import ActiveChargingSessionPage from "./containers/Charging-Station/[placeId]/ActiveChargingSessionPage";
+import PaymentSummaryPage from "./containers/Charging-Station/[placeId]/PaymentSummaryPage";
+// import MapPage from "./containers/Map/indextsx";
 
 export function App() {
 	
@@ -54,6 +60,9 @@ export function App() {
 						<Route path="/scan" element={<QRScanner />} />
 						<Route path="/map" element={<MapPage/> } />
 						<Route path="/subscription" element={<SubscriptionPage />} />
+						<Route path="/charging-station/:placeId" element={<StartChargingPage  />} />
+						<Route path="/charging-station/:placeId/active-charging-session" element={<ActiveChargingSessionPage />} />
+						<Route path="/charging-station/:placeId/payment-summary" element={<PaymentSummaryPage />} />
 						<Route path="*" element={<WelcomeUser />} />
     				  </Routes>
 				)}

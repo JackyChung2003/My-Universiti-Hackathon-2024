@@ -1,0 +1,70 @@
+/* PaymentSummaryPage.css */
+
+.payment-summary-container {
+  text-align: center;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-summary-container h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.summary-details {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.summary-details p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 8px 0;
+}
+
+.summary-details p strong {
+  color: #051f20;
+}
+
+.return-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.return-button:hover {
+  background-color: #218838;
+}
+
+@media (max-width: 600px) {
+  .payment-summary-container {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .payment-summary-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .summary-details p {
+    font-size: 0.9rem;
+  }
+
+  .return-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+}

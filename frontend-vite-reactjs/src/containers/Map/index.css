@@ -1,3 +1,4 @@
+/* Base Styles */
 .page-container {
   min-height: 100vh;
   display: flex;
@@ -5,10 +6,138 @@
   background-color: #ffffff;
 }
 
-/* Other styles here */
+.info-window-content {
+  color: black; /* Change this to any color you prefer */
+  font-size: 16px; /* Optional: Adjust font size if needed */
+}
+
+.main-container {
+  margin-top: 100px;
+  background-color: #ffffff;
+  padding: 0 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.875rem; /* Tailwind 'text-3xl' */
+  font-weight: bold;
+  color: #051f20;
+}
+
+.toggle-container {
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+}
+
+.toggle-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.toggle-active {
+  background-color: #051f20;
+  color: white;
+}
+
+.toggle-inactive {
+  color: #4b5563;
+}
+
+.request-cards {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #051f20;
+  /* margin-bottom: 1.5rem; */
+}
+
+.request-card {
+  background-color: #daf1de;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.125rem; /* Tailwind 'text-lg' */
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.card-description {
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.card-details .detail-item {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.detail-label {
+  width: 8rem;
+  font-weight: bold;
+  color: black;
+}
+
+.detail-value {
+  color: black;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.view-more-button,
+.support-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.view-more-button {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.support-button {
+  background-color: #051f20;
+  color: white;
+}
+
+.suggestion-section {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.suggestion-image {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded-image {
+  border-radius: 0.5rem;
+}
 
 .suggest-form {
-  flex: 1;
   background-color: #daf1de;
   padding: 1.5rem;
   border-radius: 0.5rem;
@@ -17,8 +146,8 @@
 .suggest-title {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
   color: #000;
+  margin-bottom: 1rem;
 }
 
 .form-group {
@@ -38,7 +167,6 @@
   padding: 0.5rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
-  margin-bottom: 1rem;
   color: #000;
 }
 
@@ -59,4 +187,73 @@
   color: #ffffff;
   font-weight: bold;
   border-radius: 0.375rem;
+}
+
+/* Responsive Adjustments */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .toggle-button {
+    padding: 0.5rem 1rem;
+  }
+
+  .request-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .suggestion-section {
+    flex-direction: column;
+  }
+
+  .suggestion-image,
+  .suggest-form {
+    width: 100%;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+  .main-container {
+    margin-top: 0px;
+    padding: 0 1rem;
+  }
+
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .toggle-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .request-card {
+    padding: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .suggest-title {
+    font-size: 1.25rem;
+  }
+
+  .input-field,
+  .textarea-field {
+    padding: 0.375rem;
+  }
+
+  .submit-button {
+    padding: 0.5rem 0.75rem;
+  }
 }

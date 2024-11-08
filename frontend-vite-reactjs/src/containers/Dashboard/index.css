@@ -6,6 +6,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   margin-top: 20px;
+  /* border: 1px solid red; */
 }
 
 .three-random-campaigns-grid {
@@ -33,6 +34,16 @@
   max-width: 100%;
   cursor: pointer;
   height: 100%;
+}
+
+.three-random-campaign-card p {
+  white-space: nowrap;
+  overflow: hidden; /* Hides any overflowed text */
+  text-overflow: ellipsis; /* Adds ellipsis (...) to the end of overflowed text */
+  /* max-width: 100%;  */
+  width: 100%;
+  display: inline-block; /* Ensures ellipsis applies correctly */
+  font-size: 1rem; /* Adjust font size as needed */
 }
 
 .three-random-owner-profile {
@@ -92,52 +103,6 @@
   background-color: #8fbc8f;
 }
 
-@media screen and (max-width: 768px) {
-  .three-random-campaigns-grid {
-    grid-template-columns: 1fr; /* One column for smaller screens */
-    gap: 15px;
-  }
-
-  .three-random-campaign-card {
-    min-width: auto; /* Adjust the width for smaller screens */
-  }
-
-  .three-random-campaigns-button {
-    flex-direction: column; /* Stack buttons vertically on smaller screens */
-    gap: 10px;
-  }
-
-  .refresh-button,
-  .view-all-button {
-    width: 100%; /* Full width buttons on smaller screens */
-    font-size: 14px; /* Adjust font size for buttons */
-  }
-}
-
-/* Media query for very small screens like mobile phones */
-@media screen and (max-width: 480px) {
-  .three-random-campaign-card {
-    padding: 8px;
-    font-size: 0.9rem; /* Slightly smaller font */
-    display: none;
-  }
-
-  .three-random-owner-profile,
-  .three-random-owner-avatar {
-    height: 40px;
-    width: 40px; /* Smaller profile image */
-  }
-
-  .three-random-campaign-name {
-    font-size: 1rem; /* Smaller font for mobile */
-  }
-
-  .refresh-button,
-  .view-all-button {
-    padding: 8px 16px; /* Smaller padding for mobile */
-  }
-}
-
 .dashboard-container {
   min-height: 100vh;
   display: flex;
@@ -157,9 +122,14 @@
   margin-bottom: 6px;
 }
 .welcome-text {
-  font-size: 1.875rem;
+  /* font-size: 1.875rem; */
+  font-size: 30px;
   font-weight: bold;
   color: #051f20;
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  overflow: hidden; /* Hides the overflowed text */
+  text-overflow: ellipsis; /* Displays ellipsis (…) at the end of the text */
+  max-width: 100%; /* Ensures the text fits within the container */
 }
 .campaigns-title {
   padding-left: 36px;
@@ -179,7 +149,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
   width: 100%;
-  max-width: 95%;
+  /* max-width: 95%; */
   margin: 0 auto;
 }
 .slideshow-container {
@@ -249,4 +219,145 @@
 }
 .learn-more-button:hover {
   background-color: #4fada8;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-text {
+    font-size: 24px;
+  }
+
+  .campaigns-title {
+    padding-left: 36px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #051f20;
+    margin-bottom: 16px;
+  }
+
+  .three-random-campaigns-container {
+    overflow-x: auto;
+  }
+  .three-random-campaigns-grid {
+    display: flex;
+    overflow-x: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0;
+    gap: 15px;
+  }
+
+  .three-random-campaign-card {
+    min-width: 80%;
+    max-width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .advertisement-section {
+    flex-direction: column;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .slideshow-container {
+    width: 100%;
+  }
+
+  .slideshow-image {
+    height: 250px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .benefits-card {
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    margin-top: 20px;
+    height: 100%;
+  }
+
+  .benefits-title {
+    font-size: 1.2rem;
+  }
+
+  .benefits-list {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .three-random-campaigns-container {
+    margin: 0 auto;
+    padding: 5px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .three-random-campaign-card {
+    height: 100%;
+    /* width: 80%; */
+    min-width: 300px;
+    max-width: 320px;
+    margin-right: 15px;
+  }
+
+  .three-random-owner-profile,
+  .three-random-owner-avatar {
+    height: 40px;
+    width: 40px;
+  }
+
+  .three-random-campaign-name {
+    font-size: 1rem;
+  }
+
+  .refresh-button,
+  .view-all-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .advertisement-section {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .slideshow-container {
+    width: 100%;
+  }
+
+  .slideshow-image {
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .benefits-card {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    margin-top: 15px;
+  }
+
+  .benefits-title {
+    font-size: 1.1rem;
+  }
+
+  .benefits-list {
+    font-size: 0.85rem;
+  }
+}
+
+.three-random-campaigns-grid::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.three-random-campaigns-grid::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.three-random-campaigns-grid::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
 }

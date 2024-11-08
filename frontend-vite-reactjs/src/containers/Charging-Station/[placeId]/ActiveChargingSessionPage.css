@@ -1,0 +1,71 @@
+/* ActiveChargingSessionPage.css */
+
+.charging-session-container {
+  text-align: center;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 110px);
+}
+
+.charging-session-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.session-details {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.session-details p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 8px 0;
+}
+
+.session-details p strong {
+  color: #051f20;
+}
+
+.end-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #ff5a5f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.end-button:hover {
+  background-color: #e94d55;
+}
+
+@media (max-width: 600px) {
+  .charging-session-container {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .charging-session-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .session-details p {
+    font-size: 0.9rem;
+  }
+
+  .end-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+}

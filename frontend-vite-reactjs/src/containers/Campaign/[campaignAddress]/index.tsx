@@ -16,6 +16,7 @@ import ProgressBarMinTarget from '../../../components/ProgressBarMinTarget';
 import AdminOverlayCampaignDetails from '../../../components/AdminOverlay/admin_campaign_details';
 import { getSocialProfiles } from 'thirdweb/social';
 import SvgAnimation from '../../../components/SvgAnimationDisplay';
+import WelcomeUser from '../../Authentication';
 
 interface CampaignData  {
   name: string;
@@ -228,7 +229,8 @@ useEffect(() => {
   }, [ethPrice, campaignBalance]);
   
   if (!address) return <p>No campaign address found.</p>;
-  if (loadingCampaignDetail) return <SvgAnimation />;
+  // if (loadingCampaignDetail) return <SvgAnimation />;
+  if (loadingCampaignDetail) return <WelcomeUser />;
   if (errorCampaignDetail || !dataCampaignDetails) return <p>Error loading campaign details.</p>;
 
   const campaignData: CampaignData = {
@@ -385,29 +387,31 @@ useEffect(() => {
                         ].filter(Boolean); // Filter out any undefined or null values
                         return allCampaignsRequests && allCampaignsRequests.length > 0 ? (
                           <ul className="roadmap-section-list">
-                            <p>Requests Num: {allRequests.length}</p>
+                            <p className='roadmap-request-counter'>Requests Num: {allRequests.length}</p>
                             {allRequests.map((request, index) => (
                               <li id={`request-${index}`} key={index} className={`roadmap-item ${getRequestStateColor(Number(request?.[9] ?? 0))}`}>
                                 {request && <span className={`dot ${getRequestStateColor(Number(request[9]))}`}></span>}
                                 <div className="request-content">
                                   {request && <p className="request-title">Title: {request[0]}</p>}
                                   {request && <p className="request-description">Description: {request[1]}</p>}
-                                  {request && <p className="request-id">Request ID: {index}</p>}
+                                  {/* {request && <p className="request-id">Request ID: {index}</p>} */}
                                   {request && <Link to={`/user/${request[2]}`} className="request-recipient-link">
                                     <div className="request-recipient-section">
                                       <div className="request-recipien-info">
                                         <img src={DefaultProfilePicture} alt="Recipient profile" className="recipient-avatar" /> {/* Placeholder profile picture */}
                                         <div>
                                           <p><strong>Recipient</strong></p>
-                                          {request && <p>{request[2]}</p>}
+                                          {/* {request && <p>{request[2]}</p>} */}
+                                          <p className="recipient-address">{request[2]}</p>
                                         </div>
                                       </div>
                                     </div>
                                   </Link>}
                                   <div className='donation-middle-section'>
                                     <div>
-                                      {request && <p className="request-amount">Amount: {parseFloat(request[3].toString()) / 1e18} ETH</p>}
-                                      {request && <p className="request-voting-deadline">Voting Deadline: {Number(request[7])} days</p>}
+                                      {request && <p className="request-id">Request ID: {index}</p>}
+                                      {/* {request && <p className="request-amount">Amount: {parseFloat(request[3].toString()) / 1e18} ETH</p>}
+                                      {request && <p className="request-voting-deadline">Voting Deadline: {Number(request[7])} days</p>} */}
                                     </div>
                                     <button onClick={() => handleVoteClick(index)} className="vote-button">Vote Request</button>
                                     {/* Modal for voting details */}
@@ -418,6 +422,7 @@ useEffect(() => {
                                           <p>Your vote will count as <strong>{votePercentage.toFixed(2)}%</strong> of the total votes for this request.</p>
                                           <p>Are you sure you want to vote for this request?</p>
                                             <TransactionButton
+                                            className='confirm-vote-button'
                                             transaction={() =>
                                               prepareContractCall({
                                               contract: CONTRACT,
@@ -499,10 +504,9 @@ useEffect(() => {
                           <li key={index}>
                             <div className="donor-info">
                               <img src={DefaultProfilePicture} alt="Donor profile" className="donor-avatar" /> {/* Placeholder profile picture */}
-                              <div>
+                              <div className='donor-address-amount'>
                                 {/* <p><strong>{donor.address}</strong></p> */}
                                 <p>{donor.address} {donor.address === activeAccount?.address && <strong>(you)</strong>}</p>
-
                                 <p>Donated: {donor.amount} ETH</p>
                               </div>
                                 <Link to={`/user/${donor.address}`}>

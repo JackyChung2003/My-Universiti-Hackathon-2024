@@ -11,6 +11,7 @@ import DefaultProfilePicture from '../../assets/images/default-profile-picture.j
 import ProgressBar from '../../components/ProgressBar';
 import AdminOverlayCampaign from '../../components/AdminOverlay/admin_campaign';
 import SvgAnimation from '../../components/SvgAnimationDisplay';
+import WelcomeUser from '../Authentication';
 
 // const AnyReactComponent: React.FC<{ lat: number; lng: number; text: string }> = ({ lat, lng, text }) => <div>{text}</div>;
 
@@ -42,7 +43,8 @@ const Campaigns: React.FC = () => {
     };
 
     if (loadingEventDetail) {
-      return <SvgAnimation />;
+      // return <SvgAnimation />;
+      return <WelcomeUser/>
     }
 
     return (

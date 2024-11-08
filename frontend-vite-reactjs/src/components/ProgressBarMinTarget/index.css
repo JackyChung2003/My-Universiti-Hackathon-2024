@@ -43,3 +43,54 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+@media (max-width: 1024px) {
+  .progress-bar-container {
+    height: 18px; /* Slightly smaller height */
+  }
+
+  .progress-text {
+    font-size: 14px; /* Reduce text size */
+  }
+
+  .min-text {
+    font-size: 11px; /* Smaller font for target text */
+    top: -20px; /* Adjust positioning */
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .progress-bar-container {
+    height: 16px; /* Smaller height */
+
+    width: 95%;
+  }
+
+  .progress-text {
+    font-size: 13px;
+  }
+
+  .min-text {
+    font-size: 10px;
+    top: -18px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .progress-bar-container {
+    height: 14px; /* Further reduced height */
+
+    width: 90%;
+  }
+
+  .progress-text {
+    font-size: 12px; /* Smaller font size */
+  }
+
+  .min-text {
+    font-size: 9px;
+    top: -15px;
+  }
+}

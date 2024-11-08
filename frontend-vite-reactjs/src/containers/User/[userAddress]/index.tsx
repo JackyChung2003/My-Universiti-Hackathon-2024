@@ -54,6 +54,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useActiveAccount, useReadContract } from 'thirdweb/react';
 import { CONTRACT } from '../../../utils/constants';
+import WelcomeUser from '../../Authentication';
 
 const UserDetails: React.FC = () => {
   const { userAddress } = useParams<{ userAddress: string }>(); // Extract the user (donor) address from the URL
@@ -83,7 +84,8 @@ const UserDetails: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4">Campaigns Funded by This User</h2>
         {loadingUserCampaigns ? (
           <div className="loading-state">
-            <p>Loading campaigns...</p>
+            {/* <p>Loading campaigns...</p> */}
+            <WelcomeUser/>
           </div>
         ) : error ? (
           <div className="error-state">

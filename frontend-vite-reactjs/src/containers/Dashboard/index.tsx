@@ -12,6 +12,7 @@ import DefaultProfilePicture from '../../assets/images/default-profile-picture.j
 
 import "./index.css";
 import SvgAnimation from "../../components/SvgAnimationDisplay";
+import WelcomeUser from "../Authentication";
 
 // Sample images for slideshow (advertisement)
 const sampleImages = [adv1, background, evCar]; // Correct image imports
@@ -72,7 +73,8 @@ const Dashboard: React.FC = () => {
 
   if (loadingEventDetail) {
     // return <p>Loading campaigns...</p>;
-    return <SvgAnimation />
+    // return <SvgAnimation />
+    return <WelcomeUser />
 }
 
   const handleRefreshCampaigns = async () => {
@@ -99,7 +101,8 @@ const Dashboard: React.FC = () => {
             {randomCampaigns.map((campaign, index) => (
               <Link to={`/campaign/${campaign.campaignAddress}`} key={index} className="campaign-card-link">
                 <div className="three-random-campaign-card">
-                  <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
+                {/* <p className="campaign-address"><strong>Campaign Address:</strong> {campaign.campaignAddress}</p> */}
+                <p><strong>Campaign Address:</strong> {campaign.campaignAddress}</p>
 
                   <div className="image-container">
                     <img src={TempCampaignPicture} alt="Campaign" className="campaign-image" />
@@ -150,7 +153,7 @@ const Dashboard: React.FC = () => {
             <button onClick={handleRefreshCampaigns} className="refresh-button">
               Refresh
             </button>
-            <Link to="/campaign" className="view-all-button">View All Campaigns</Link>
+            <Link to="/campaign" className="view-all-button">View All</Link>
           </div>
         </div>
 

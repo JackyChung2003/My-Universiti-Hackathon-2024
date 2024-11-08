@@ -1,0 +1,103 @@
+/* QRScanner.scss */
+
+.qr-scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  /* border-radius: 10px; */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* max-width: 500px; */
+  height: calc(100dvh - 70px - 44px);
+  margin: 0 auto;
+  /* border: 1px solid red; */
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 50%;
+  aspect-ratio: 1; /* Ensures a 1:1 aspect ratio for the video element */
+  overflow: hidden;
+  border-radius: 10px;
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #000;
+  margin-bottom: 20px;
+}
+
+.qrVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.scannedText {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.scannedText span {
+  color: #007bff;
+}
+
+.close-modal-button {
+  margin-top: 10px;
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.close-modal-button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .qr-scanner-container {
+    /* padding: 15px; */
+    /* max-width: 90%; */
+  }
+
+  .videoWrapper {
+    max-width: 80%; /* Increases video size on smaller screens */
+  }
+
+  .scannedText {
+    font-size: 1rem;
+  }
+
+  .close-modal-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-scanner-container {
+    /* padding: 10px; */
+  }
+
+  .videoWrapper {
+    max-width: 100%; /* Full width for very small screens */
+  }
+
+  .scannedText {
+    font-size: 0.9rem;
+  }
+
+  .close-modal-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}

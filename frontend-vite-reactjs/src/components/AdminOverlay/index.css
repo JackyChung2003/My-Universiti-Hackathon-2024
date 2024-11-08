@@ -179,7 +179,61 @@
 
 @media screen and (max-width: 768px) {
   .try-admin-button {
+    /* bottom: 50px; */
+    /* right: 20px; */
     bottom: 70px;
     right: 15px;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .admin-overlay-content {
+    width: 85%;
+    padding: 20px;
+  }
+
+  .admin-overlay-title {
+    font-size: 22px;
+  }
+
+  .admin-overlay-description,
+  .admin-action-title,
+  .admin-action-description {
+    font-size: 14px;
+  }
+}
+
+/* Adjustments for mobile devices */
+@media screen and (max-width: 480px) {
+  .try-admin-button {
+    /* bottom: 40px;
+    right: 10px; */
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .admin-overlay-content {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .admin-overlay-title {
+    font-size: 20px;
+  }
+
+  .admin-overlay-description,
+  .admin-action-title,
+  .admin-action-description {
+    font-size: 12px;
+  }
+
+  .close-overlay {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .admin-button {
+    padding: 8px 12px;
+    font-size: 14px;
   }
 }

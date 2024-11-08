@@ -11,7 +11,7 @@
 .campaign-header {
   margin-bottom: 20px;
   text-align: center;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
 }
 
 .campaign-header h1 {
@@ -49,7 +49,7 @@
   object-fit: cover;
 }
 
-.campaign-details-navbar {
+/* .campaign-details-navbar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -79,7 +79,7 @@
 
 .campaign-details-navbar ul li a:hover {
   color: #0056b3;
-}
+} */
 
 /* Roadmap Section Styles */
 .roadmap-section {
@@ -109,11 +109,14 @@
   margin: 0;
 }
 
+.roadmap-request-counter {
+}
+
 .roadmap-item {
   display: flex;
   align-items: flex-start;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #c6c5c5;
   position: relative;
   margin-left: 20px;
 }
@@ -198,6 +201,19 @@
 
 .request-description {
   color: #666;
+  /* border: 1px solid; */
+}
+
+.request-id {
+  display: inline-block;
+  padding: 4px 8px; /* Adjust padding for desired size */
+  font-size: 0.8rem; /* Adjust font size */
+  font-weight: bold;
+  color: #fff; /* White text */
+  background-color: #bebebe; /* Grey background */
+  border-radius: 4px; /* Rounded corners */
+  text-transform: uppercase;
+  margin: 2px; /* Space between badges if used with others */
 }
 
 .request-recipient,
@@ -209,6 +225,7 @@
 .request-process-deadline,
 .request-approval {
   font-size: 0.9em;
+  /* border: 1px solid; */
   color: #555;
 }
 
@@ -265,6 +282,13 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.recipient-address {
+  max-width: 150px; /* Adjust the max width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Hover Effect */
@@ -465,17 +489,13 @@
   background-color: #2c3136;
 }
 
-.no-donors-message {
-  margin-top: 20px;
-  color: #888;
-}
-
 /* CSS for the no donors message */
 .no-donors-message {
   background-color: #f8d7da;
   color: #721c24;
   padding: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  margin-bottom: 10px;
   border: 1px solid #f5c6cb;
   border-radius: 8px;
   text-align: center;
@@ -576,13 +596,15 @@
 .vote-button,
 .confirm-vote-button,
 .cancel-vote-button {
-  padding: 10px 20px;
+  padding: 12px 24px; /* Slightly larger padding for better aesthetics */
   margin: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Vote Button */
@@ -591,14 +613,23 @@
   color: white;
 }
 
+.vote-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
 /* Confirm Vote Button */
 .confirm-vote-button {
-  background-color: #28a745;
+  background-color: #9d9d9d;
   color: white;
 }
 
 .confirm-vote-button:hover {
-  background-color: #218838;
+  background-color: #9d9d9d;
+
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Cancel Button */
@@ -782,4 +813,403 @@
   margin-top: 20px;
   color: #333;
   margin-left: 20px;
+}
+
+@media (max-width: 1024px) {
+  .campaign-header h1 {
+    font-size: 2.3rem;
+  }
+
+  .campaign-description {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+
+  .campaign-details-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campaign-details-top-left,
+  .campaign-details-top-right {
+    width: 100%;
+    margin: 0;
+    border: none;
+  }
+
+  .campaign-detail-image {
+    height: 400px;
+  }
+
+  .roadmap-section {
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .roadmap-section-title {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+
+  .roadmap-request-counter {
+    font-size: 0.8rem;
+  }
+
+  .roadmap-item {
+    margin-left: 0px;
+  }
+
+  /* Create the vertical line */
+  .roadmap-item::before {
+    left: 16px;
+  }
+
+  .roadmap-item .dot {
+    margin-right: 5px;
+  }
+
+  .request-content p {
+    margin: 1px 0;
+  }
+
+  .request-title {
+    font-size: 1.1em;
+  }
+
+  .request-description {
+    font-size: 0.8em;
+
+    padding-right: 15px;
+  }
+
+  .request-recipient-section {
+    padding: 10px;
+    width: 70%;
+  }
+
+  .donation-amount-display {
+  }
+
+  .donation-amount-display-light {
+    font-size: 0.8rem;
+    /* border: 1px solid; */
+  }
+
+  .top-donors-section {
+    margin-bottom: 15px;
+  }
+
+  .top-donors-section h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    /* border: 1px solid red; */
+  }
+
+  .top-donors-section li {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+
+  .creator-avatar {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Tablets and small devices */
+@media (max-width: 768px) {
+  .campaign-details-container {
+    padding: 15px;
+  }
+
+  .campaign-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .campaign-description {
+    font-size: 0.9rem;
+  }
+
+  .campaign-detail-image {
+    height: 300px;
+  }
+
+  .roadmap-section {
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .roadmap-section-title {
+    font-size: 1.1em;
+  }
+
+  .roadmap-request-counter {
+    font-size: 0.7rem;
+  }
+
+  .request-title {
+    font-size: 1em;
+  }
+
+  .request-description {
+    font-size: 0.7em;
+    border: 1px solid;
+    height: 100%;
+    width: 90%;
+  }
+
+  .request-recipient-section {
+    padding: 10px;
+    width: 80%;
+  }
+
+  .donor-avatar,
+  .creator-avatar,
+  .recipient-avatar {
+    /* width: 35px;
+    height: 35px; */
+  }
+
+  .donation-amount-display {
+    font-size: 1.7rem;
+  }
+
+  .donation-amount-display-light {
+    font-size: 0.7rem;
+  }
+
+  .top-donors-section {
+    margin-bottom: 15px;
+    /* border: 1px solid red; */
+  }
+
+  .top-donors-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    /* border: 1px solid red; */
+  }
+
+  .donation-middle-section {
+    width: 90%;
+    border: 1px solid red;
+  }
+
+  .donor-avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 0px;
+  }
+
+  .donor-address-amount {
+    /* border: 1px solid red; */
+    overflow-x: hidden;
+    margin: 0 5px;
+  }
+
+  .view-button {
+    padding: 6px 15px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .creator-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .donation-section input {
+    width: 100%;
+  }
+
+  .direction-button {
+    padding: 10px 20px;
+  }
+
+  .modal-content,
+  .voting-modal-content {
+    width: 90%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .campaign-details-container {
+    padding: 10px;
+  }
+
+  .campaign-header h1 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .campaign-description {
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+
+  .campaign-details-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campaign-details-top-left,
+  .campaign-details-top-right {
+    width: 100%;
+    margin: 0;
+    border: none;
+  }
+
+  .campaign-detail-image {
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .roadmap-section {
+    padding: 8px;
+    margin: 10px 0;
+  }
+
+  .roadmap-section-title {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+
+  .roadmap-request-counter {
+    font-size: 0.7rem;
+  }
+
+  .roadmap-item {
+    padding: 6px;
+    margin-left: 10px;
+  }
+
+  /* Adjust the vertical line */
+  .roadmap-item::before {
+    left: 10px;
+  }
+
+  .roadmap-item .dot {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  .request-content p {
+    margin: 2px 0;
+    font-size: 0.75em;
+  }
+
+  .request-title {
+    font-size: 1em;
+  }
+
+  .request-description {
+    font-size: 0.7em;
+    height: auto; /* Let it adjust based on content */
+    width: 90%;
+  }
+
+  .request-recipient-section {
+    padding: 8px;
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  .donation-middle-section {
+    padding: 0 10px;
+  }
+
+  .donor-avatar,
+  .creator-avatar,
+  .recipient-avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+
+  .donation-amount-display {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .donation-amount-display-light {
+    font-size: 0.8rem;
+  }
+
+  .top-donors-section {
+    margin-bottom: 10px;
+  }
+
+  .top-donors-section h3,
+  .other-campaigns-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .top-donors-section li {
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+
+  .view-button {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    width: 80px;
+    margin-top: 10px;
+  }
+
+  .creator-info,
+  .donor-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .campaign-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+  }
+
+  .campaign-actions button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .donation-section input {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .direction-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .modal-content,
+  .voting-modal-content {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .donation-left-right-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .balance-section p {
+    font-size: 1.3rem;
+  }
 }

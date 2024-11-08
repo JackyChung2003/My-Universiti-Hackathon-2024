@@ -9,7 +9,7 @@ const LoginButton: React.FC = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "100vh",
+            // height: "100vh",
         }}>
             {account ? (
                 <div style={{ textAlign: "center"}}>

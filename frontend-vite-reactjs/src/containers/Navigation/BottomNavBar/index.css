@@ -4,60 +4,51 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #051f20;
+  background-color: #ffffff; /* White background for the navbar */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px 0;
   transition: transform 0.3s ease;
   z-index: 1000;
-  /* padding: 20px 0 0 0; */
+  border-top: 2px solid #28a745; /* Top border */
 }
 
-/* Visible/hidden classes */
-/* .bottom-nav-container.hidden {
-  transform: translateY(100%);
-}
-
-.bottom-nav-container.visible {
-  transform: translateY(0);
-} */
-
-.icon {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  padding-right: 20px;
-}
-
-.close-icon {
-  color: white;
-  cursor: pointer;
-}
-
-/* Navigation items */
 .bottom-nav-wrapper {
   display: flex;
   justify-content: space-around;
   width: 100%;
 }
 
-.bottom-nav-menu {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  border: 1px solid red;
-  width: 100%;
-  /* padding: 0 20px; */
-}
-
 .bottom-nav-links {
-  color: white;
+  color: #333; /* Dark color for inactive icons */
   text-decoration: none;
   padding: 10px;
   font-size: 14px;
   text-align: center;
+  position: relative;
+}
+
+/* Style for the active nav item */
+.bottom-nav-links.active {
+  color: #28a745; /* Blue color for active icons */
+}
+
+.bottom-nav-links.active .nav-icon {
+  color: #28a745;
+}
+
+/* Green circle indicator for the active link */
+.bottom-nav-links.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* Adjust the position below the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #28a745; /* Green color */
+  border-radius: 50%;
 }
 
 .nav-item {
@@ -66,8 +57,8 @@
 }
 
 .nav-icon {
-  /* margin-right: 5px; */
   font-size: 1.2em;
+  color: inherit; /* Inherit color for active/inactive state */
 }
 
 /* Centered Scan Icon */
@@ -75,7 +66,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #007bff;
+  background-color: #28a745; /* Blue background for scan icon */
   border-radius: 50%;
   width: 60px;
   height: 60px;

@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import navBarItems from "../navBarItems";
 import { FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { FaCamera } from "react-icons/fa"; 
 import { LuScan } from "react-icons/lu";
 
@@ -11,7 +11,9 @@ interface BottomNavBarProps {
 }
 
 const BottomNavBar: React.FC<BottomNavBarProps> = ({ toggle }) => {
-  const visibilityClasses = ["bottom-nav-container"];
+
+  const location = useLocation();
+  // const visibilityClasses = ["bottom-nav-container"];
 //   if (isopen) {
 //     visibilityClasses.push("visible");
 //   } else {
@@ -26,7 +28,12 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ toggle }) => {
       </div> */}
       <div className="bottom-nav-wrapper">
         {navBarItems.slice(0, 2).map((item, index) => (
-            <Link to={item.link} key={index} className="bottom-nav-links" onClick={toggle}>
+            <Link 
+            to={item.link} 
+            key={index} 
+            className={`bottom-nav-links ${location.pathname === item.link ? "active" : ""}`}
+            onClick={toggle}
+            >
               <div className="nav-item">
                 <span className="nav-icon">{item.icon}</span>
                 {/* <span>{item.title}</span> */}
@@ -50,7 +57,12 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ toggle }) => {
           </div>
 
           {navBarItems.slice(2,5).map((item, index) => (
-            <Link to={item.link} key={index} className="bottom-nav-links" onClick={toggle}>
+            <Link
+              to={item.link}
+              key={index + 2}
+              className={`bottom-nav-links ${location.pathname === item.link ? "active" : ""}`}
+              onClick={toggle}
+            >
               <div className="nav-item">
                 <span className="nav-icon">{item.icon}</span>
                 {/* <span>{item.title}</span> */}

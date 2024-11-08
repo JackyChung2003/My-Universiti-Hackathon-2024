@@ -284,6 +284,13 @@
   margin-right: 10px;
 }
 
+.recipient-address {
+  max-width: 150px; /* Adjust the max width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Hover Effect */
 .request-recipient-section:hover {
   transform: translateY(-5px); /* Slight lift effect */

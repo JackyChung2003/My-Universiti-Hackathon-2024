@@ -112,6 +112,9 @@
 .campaign-top-right {
   margin-left: 10px;
   border: 1px solid Blue;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* Adds ellipsis (...) to the end of overflowed text */
 }
 
 .profile-avatar-section {

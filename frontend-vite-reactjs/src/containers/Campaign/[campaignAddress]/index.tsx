@@ -401,7 +401,8 @@ useEffect(() => {
                                         <img src={DefaultProfilePicture} alt="Recipient profile" className="recipient-avatar" /> {/* Placeholder profile picture */}
                                         <div>
                                           <p><strong>Recipient</strong></p>
-                                          {request && <p>{request[2]}</p>}
+                                          {/* {request && <p>{request[2]}</p>} */}
+                                          <p className="recipient-address">{request[2]}</p>
                                         </div>
                                       </div>
                                     </div>

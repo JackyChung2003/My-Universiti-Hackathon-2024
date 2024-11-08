@@ -6,7 +6,7 @@
   background: white;
   color: black;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a centered look */
-  height: calc(100dvh - 70px - 44px);
+  min-height: calc(100dvh - 70px - 44px);
 }
 
 .profile-header {

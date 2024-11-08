@@ -153,7 +153,7 @@ const Dashboard: React.FC = () => {
             <button onClick={handleRefreshCampaigns} className="refresh-button">
               Refresh
             </button>
-            <Link to="/campaign" className="view-all-button">View All Campaigns</Link>
+            <Link to="/campaign" className="view-all-button">View All</Link>
           </div>
         </div>
 

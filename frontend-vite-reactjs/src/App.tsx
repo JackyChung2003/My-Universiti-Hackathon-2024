@@ -12,6 +12,7 @@ import WelcomeUser from "./containers/Authentication";
 import { useActiveAccount } from "thirdweb/react";
 import BottomNavBar from "./containers/Navigation/BottomNavBar";
 import ProfilePage from "./containers/User";
+import QRScanner from "./containers/Scan";
 
 export function App() {
 	
@@ -50,6 +51,7 @@ export function App() {
 						<Route path="/campaign/:address" element={<CampaignDetails data={[]} />} />
 						<Route path="/user" element={<ProfilePage />} />
 						<Route path="/user/:userAddress" element={<UserDetails />} />
+						<Route path="/scan" element={<QRScanner />} />
 						<Route path="/map" element={<MapPage/> } />
 						<Route path="/subscription" element={<SubscriptionPage />} />
 						<Route path="*" element={<WelcomeUser />} />

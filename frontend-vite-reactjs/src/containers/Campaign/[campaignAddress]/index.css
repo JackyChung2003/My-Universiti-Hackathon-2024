@@ -955,7 +955,7 @@
 
   .request-description {
     font-size: 0.7em;
-    border: 1px solid;
+    /* border: 1px solid; */
     height: 100%;
     width: 90%;
   }
@@ -993,7 +993,7 @@
 
   .donation-middle-section {
     width: 90%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 
   .donor-avatar {
@@ -1211,5 +1211,22 @@
 
   .balance-section p {
     font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vote-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Large phones and small tablets (max-width: 480px) */
+@media (max-width: 480px) {
+  .vote-button {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    width: 100%;
+    margin-top: 10px; /* Optional for spacing on smaller screens */
   }
 }

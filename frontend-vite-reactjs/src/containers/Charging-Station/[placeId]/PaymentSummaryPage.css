@@ -3,11 +3,13 @@
 .payment-summary-container {
   text-align: center;
   padding: 20px;
-  max-width: 500px;
+  /* max-width: 500px; */
   margin: 0 auto;
   background-color: #f8f9fa;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  height: calc(100dvh - 70px - 44px);
 }
 
 .payment-summary-container h1 {
@@ -52,7 +54,7 @@
 @media (max-width: 600px) {
   .payment-summary-container {
     padding: 15px;
-    width: 90%;
+    /* width: 90%; */
   }
 
   .payment-summary-container h1 {

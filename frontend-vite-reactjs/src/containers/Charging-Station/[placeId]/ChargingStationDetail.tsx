@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "./ChargingStationDetail.css";  // Updated to match CSS file name
+import chargingStationImages from '../../../assets/images/temp-charging-station.jpg'
 
 interface LocationData {
   name: string;
@@ -16,7 +17,8 @@ const ChargingStationDetail: React.FC = () => {
   const locationData: LocationData = {
     name: 'Dummy Charging Station',
     vicinity: '123 Placeholder Ave, City Center',
-    photoUrl: 'https://via.placeholder.com/400x300',
+    // photoUrl: 'https://via.placeholder.com/400x300',
+    photoUrl: chargingStationImages
   };
 
   const handleStartCharging = () => {

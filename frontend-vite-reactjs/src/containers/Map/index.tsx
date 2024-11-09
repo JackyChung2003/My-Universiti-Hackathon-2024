@@ -543,6 +543,7 @@ import { GoogleMap, useLoadScript , LoadScript, Marker, InfoWindow, DirectionsRe
 import logoImage from "../../assets/images/logo-name.png";
 import chargingStationImage from "../../assets/images/temp-campaign-picture.jpg";
 import "./index.css"; // Import your CSS file
+import { Link } from "react-router-dom";
 
 const mapStyles = {
   height: "500px",
@@ -786,7 +787,7 @@ const MapPage: React.FC = () => {
           }}
           onCloseClick={handleInfoWindowClose}
         >
-          <div className="info-window-content">
+          <div className="info-window-content wide-info-window">
             {/* Image of the charging station */}
             {selectedStation.photos && selectedStation.photos.length > 0 ? (
               <img
@@ -826,21 +827,21 @@ const MapPage: React.FC = () => {
         
             {/* Button for direct actions */}
             <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-              <button
-                onClick={() => {
-                  window.location.href = `/charging-station/${selectedStation.place_id}`;
-                }}
-                style={{
-                  padding: "8px 12px",
-                  backgroundColor: "#051F20",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Start Charging
-              </button>
+            <Link
+              to={`/charging-station/${selectedStation.place_id}`}
+              style={{
+                padding: "8px 12px",
+                backgroundColor: "#051F20",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                textDecoration: "none",
+                cursor: "pointer",
+                display: "inline-block", // To ensure it looks like a button
+              }}
+            >
+              Start Charging
+          </Link>
               
                 <button
                   onClick={() => {

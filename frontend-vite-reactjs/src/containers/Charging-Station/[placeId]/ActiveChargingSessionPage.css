@@ -3,10 +3,10 @@
 .charging-session-container {
   text-align: center;
   padding: 20px;
-  max-width: 500px;
+  /* max-width: 500px; */
   margin: 0 auto;
   background-color: #f8f9fa;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: calc(100vh - 110px);
 }
@@ -53,7 +53,7 @@
 @media (max-width: 600px) {
   .charging-session-container {
     padding: 15px;
-    width: 90%;
+    /* width: 90%; */
   }
 
   .charging-session-container h2 {

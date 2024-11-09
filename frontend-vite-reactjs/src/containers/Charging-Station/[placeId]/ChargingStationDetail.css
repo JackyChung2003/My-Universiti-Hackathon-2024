@@ -3,21 +3,22 @@
 .container {
   padding: 20px;
   text-align: center;
-  max-width: 400px;
+  /* max-width: 400px; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f8f9fa;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100dvh - 70px - 44px);
 }
 
 .container h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: black;
 }
 
 .container p {
@@ -70,7 +71,7 @@ button.start-button:hover {
 @media (max-width: 600px) {
   .container {
     padding: 15px;
-    max-width: 90%;
+    /* max-width: 90%; */
   }
 
   .container h2 {

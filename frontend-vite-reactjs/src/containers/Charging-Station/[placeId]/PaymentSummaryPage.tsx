@@ -29,9 +29,9 @@ const PaymentSummaryPage: React.FC = () => {
   const calculatedTotalCost = totalCost || `$${(Number(calculatedEnergyConsumed) * chargingRate).toFixed(2)}`;
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px', height: 'calc(100dvh - 110px)' }}>
+    <div className="payment-summary-container">
       <h1>Payment Summary</h1>
-      <div style={{ marginTop: '20px', textAlign: 'left' }}>
+      <div className="summary-details">
         <p><strong>Start Time:</strong> {startTime}</p>
         <p><strong>End Time:</strong> {endTime}</p>
         <p><strong>Charge Time:</strong> {chargeTime}</p>
@@ -42,15 +42,7 @@ const PaymentSummaryPage: React.FC = () => {
       </div>
       <button
         onClick={() => navigate('/')}
-        style={{
-          marginTop: '20px',
-          padding: '10px 20px',
-          backgroundColor: '#28a745',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
+        className="return-button"
       >
         Return to Home
       </button>

@@ -11,6 +11,12 @@
   font-size: 16px; /* Optional: Adjust font size if needed */
 }
 
+.wide-info-window {
+  width: 300px; /* Adjust width as desired */
+  max-width: 100%; /* Responsive */
+  white-space: normal; /* Allow text wrapping */
+}
+
 .main-container {
   margin-top: 100px;
   background-color: #ffffff;

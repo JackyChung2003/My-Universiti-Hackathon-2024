@@ -7,6 +7,7 @@ nav {
   position: sticky;
   width: 100%;
   background: white;
+  /* border: 1px solid #000; */
 }
 .link {
   text-decoration: none;
@@ -56,14 +57,19 @@ nav {
   /* border: 1px solid #000; */
 }
 
-.mobile-menu-icon {
-  display: none;
-}
-
 .icons {
   display: flex;
   align-items: center;
 }
+
+.mobile-menu-icon {
+  display: none;
+}
+
+/* .icons {
+  display: flex;
+  align-items: center;
+} */
 .icon-tabler {
   margin-right: 5px;
 }

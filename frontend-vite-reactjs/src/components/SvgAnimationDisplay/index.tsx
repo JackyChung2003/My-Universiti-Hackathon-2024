@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css"; // Import the CSS
+import LoginButton from "../Button/LoginButton";
 
 const SvgAnimation: React.FC = () => {
   const [showSentence, setShowSentence] = useState(false);
@@ -42,6 +43,9 @@ const SvgAnimation: React.FC = () => {
       ) : (
       <p className="wallet-message">Fueling the future of EV infrastructure through community-powered funding and impact-driven technology.</p>
       )}
+
+      
+      <LoginButton />
     </div>
   );
 };

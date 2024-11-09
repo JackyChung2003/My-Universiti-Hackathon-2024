@@ -1,0 +1,1 @@
+import{cw as n,r}from"./index-3f8e0c26.js";const c="0x313ce567",o=[],e=[{type:"uint8"}];function s(t){return n({availableSelectors:t,method:[c,o,e]})}async function d(t){return r({contract:t.contract,method:[c,o,e],params:[]})}export{d,s as i};
